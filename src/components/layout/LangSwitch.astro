@@ -1,0 +1,63 @@
+---
+/** EN · UZ · RU switch. Keeps the visitor on the same page in the other language. */
+import {
+  locales,
+  localeLabels,
+  localizePath,
+  stripLocale,
+  useTranslations,
+  type Locale,
+} from '../../i18n/utils';
+
+type Props = { locale: Locale; class?: string };
+const { locale, class: className } = Astro.props;
+const t = useTranslations(locale);
+const path = stripLocale(Astro.url.pathname);
+---
+
+<nav aria-label={t('a11y.language')} class:list={['ak-lang text-meta', className]}>
+  {locales.map((l, i) => (
+    <>
+      {i > 0 && <span aria-hidden="true">·</span>}
+      <a
+        href={localizePath(path, l)}
+        hreflang={localeLabels[l].hreflang}
+        lang={localeLabels[l].hreflang}
+        aria-current={l === locale ? 'true' : undefined}
+        title={localeLabels[l].name}
+      >
+        <span aria-hidden="true">{localeLabels[l].short}</span>
+        <span class="sr-only">{localeLabels[l].name}</span>
+      </a>
+    </>
+  ))}
+</nav>
+
+<style>
+  @layer components {
+    .ak-lang {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-secondary);
+    }
+    .ak-lang a {
+      display: inline-grid;
+      place-items: center;
+      min-width: 24px;
+      min-height: 24px;
+      color: inherit;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .ak-lang a:hover {
+      color: var(--text-primary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .ak-lang a[aria-current='true'] {
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+  }
+</style>

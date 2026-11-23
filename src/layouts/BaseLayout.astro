@@ -1,0 +1,111 @@
+---
+/**
+ * BaseLayout: <html>, <head> (SEO basics, hreflang, fonts) and the skip link.
+ * Every page goes through this layout, usually via PageLayout.
+ */
+import '@fontsource-variable/bricolage-grotesque/wght.css';
+import '@fontsource-variable/dm-sans/wght.css';
+import '../styles/global.css';
+import bricolageLatin from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url';
+import dmSansLatin from '@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url';
+import {
+  locales,
+  localeLabels,
+  localizePath,
+  stripLocale,
+  useTranslations,
+  defaultLocale,
+  type Locale,
+} from '../i18n/utils';
+
+export type BaseProps = {
+  locale: Locale;
+  title?: string;
+  description?: string;
+  /** Theme of the page background (the hero sets its own). */
+  theme?: 'light' | 'dark' | 'tangerine';
+  noindex?: boolean;
+  /** Set false for pages that have no translated twins (e.g. 404). */
+  alternates?: boolean;
+};
+
+type Props = BaseProps;
+const { locale, title, description, theme = 'light', noindex = false, alternates = true } = Astro.props;
+const t = useTranslations(locale);
+
+const pageTitle = title ?? t('meta.defaultTitle');
+const pageDescription = description ?? t('meta.defaultDescription');
+const site = Astro.site ?? new URL('https://angrykitten.uz');
+const path = stripLocale(Astro.url.pathname);
+const canonical = new URL(localizePath(path, locale), site).href;
+const themeColor = theme === 'tangerine' ? '#ff5a1f' : theme === 'dark' ? '#2b1640' : '#faf7f2';
+---
+
+<!doctype html>
+<html lang={localeLabels[locale].hreflang} data-theme={theme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {alternates &&
+      locales.map((l) => (
+        <link
+          rel="alternate"
+          hreflang={localeLabels[l].hreflang}
+          href={new URL(localizePath(path, l), site).href}
+        />
+      ))}
+    {alternates && (
+      <link
+        rel="alternate"
+        hreflang="x-default"
+        href={new URL(localizePath(path, defaultLocale), site).href}
+      />
+    )}
+    <meta name="theme-color" content={themeColor} />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" href={bricolageLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={dmSansLatin} as="font" type="font/woff2" crossorigin />
+    <meta property="og:site_name" content={t('meta.siteName')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={locale === 'en' ? 'en_US' : locale === 'uz' ? 'uz_UZ' : 'ru_RU'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a href="#main" class="ak-skip">
+      {t('a11y.skipToContent')}
+    </a>
+    <slot />
+  </body>
+</html>
+
+<style>
+  @layer components {
+    .ak-skip {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      padding: 12px 20px;
+      border: 3px solid var(--color-ink);
+      border-radius: var(--radius-pill);
+      background: var(--color-gold);
+      color: var(--color-ink);
+      font-weight: 700;
+      text-decoration: none;
+      transform: translateY(-200%);
+    }
+    .ak-skip:focus-visible {
+      transform: none;
+    }
+  }
+</style>

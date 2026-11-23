@@ -1,0 +1,58 @@
+---
+/**
+ * Logo — Figma component 4:61. Angry tabby mark + "angrykitten." wordmark.
+ * Wordmark colours follow semantic tokens, so it adapts inside dark/tangerine sections.
+ */
+import { Image } from 'astro:assets';
+import mark from '../../assets/brand/mark.png';
+
+type Props = { size?: 'L' | 'S'; class?: string; showWordmark?: boolean };
+const { size = 'L', class: className, showWordmark = true } = Astro.props;
+const markPx = size === 'L' ? 44 : 36;
+---
+
+<span class:list={['ak-logo', `ak-logo--${size}`, className]}>
+  <Image
+    src={mark}
+    alt=""
+    width={markPx}
+    height={markPx}
+    densities={[1, 2]}
+    loading="eager"
+    class="ak-logo__mark"
+  />
+  {showWordmark && (
+    <span class="ak-logo__word" aria-hidden="true">
+      angrykitten<span class="text-accent">.</span>
+    </span>
+  )}
+</span>
+
+<style>
+  @layer components {
+    .ak-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ak-logo--S {
+      gap: 8px;
+    }
+    .ak-logo__mark {
+      flex: none;
+      object-fit: contain;
+    }
+    .ak-logo__word {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.625rem;
+      line-height: 1.15;
+      letter-spacing: -0.008em;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+    .ak-logo--S .ak-logo__word {
+      font-size: 1.333rem;
+    }
+  }
+</style>

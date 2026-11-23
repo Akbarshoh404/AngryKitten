@@ -1,0 +1,430 @@
+---
+/**
+ * 404 — Figma "404 — Desktop" (58:1002) and "404 — Mobile" (60:402).
+ * One tangerine screen. App icons fall onto the floor with a little bounce on load
+ * (CSS only; reduced motion shows the final pose).
+ */
+import { Image } from 'astro:assets';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Button from '../ui/Button.astro';
+import Sticker from '../ui/Sticker.astro';
+import MotionLines from '../../assets/illustrations/motion-lines.svg';
+import mark from '../../assets/brand/mark.png';
+import sticker from '../../assets/brand/sticker.png';
+import uybek from '../../assets/apps/uybek/icon.png';
+import catris from '../../assets/apps/catris/icon.png';
+import pulchi from '../../assets/apps/pulchi/icon.png';
+import catloop from '../../assets/apps/catloop/icon.png';
+import { mainNav } from '../../config/nav';
+import { localizePath, useTranslations, type Locale } from '../../i18n/utils';
+
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+// Positions from the Figma frame: the scene is a 560 × 640 box; values are
+// icon centres in that box, so the whole scene scales with its width.
+const fallen = [
+  { src: uybek, name: 'UyBek', x: 406, y: 116, r: 0, d: 0 },
+  { src: catris, name: 'Catris', x: 530.7, y: 243.3, r: -24, d: 1 },
+  { src: pulchi, name: 'Pulchi', x: 437.9, y: 444.6, r: 38, d: 2 },
+  { src: catloop, name: 'CatLoop', x: 312.8, y: 503.2, r: -60, d: 3 },
+];
+const lines = [
+  { x: 455, y: 160 },
+  { x: 420, y: 320 },
+  { x: 300, y: 470 },
+];
+---
+
+<PageLayout
+  locale={locale}
+  title={t('meta.notFoundTitle')}
+  description={t('meta.notFoundDescription')}
+  theme="tangerine"
+  noindex
+  alternates={false}
+  footer={false}
+>
+  <section class="nf" data-theme="tangerine" data-hero>
+    <div class="nf__wrap">
+      <div class="nf__copy-col">
+        <div class="nf__mark-wrap">
+          <p class="nf__mark" aria-hidden="true">
+            <span>4</span>
+            <span class="nf__zero">
+              <Image src={mark} alt="" width={210} height={210} densities={[1, 2]} loading="eager" />
+            </span>
+            <span>4</span>
+          </p>
+          <!-- Mobile decorations (Figma 60:420–60:422) -->
+          <span class="nf__m-icon nf__m-icon--a lg:hidden" aria-hidden="true">
+            <Image src={uybek} alt="" width={58} height={58} densities={[1, 2]} loading="eager" />
+          </span>
+          <span class="nf__m-icon nf__m-icon--b lg:hidden" aria-hidden="true">
+            <Image src={catris} alt="" width={58} height={58} densities={[1, 2]} loading="eager" />
+          </span>
+          <Sticker tone="gold" tilt={-6} size="M" class="nf__m-meow lg:hidden">
+            {t('notFound.meow')}
+          </Sticker>
+        </div>
+
+        <div class="nf__copy">
+          <p class="text-eyebrow">{t('notFound.eyebrow')}</p>
+          <h1 class="nf__title">{t('notFound.title')}</h1>
+          <p class="nf__body">
+            <span class="max-lg:hidden">{t('notFound.body')}</span>
+            <span class="lg:hidden">{t('notFound.bodyShort')}</span>
+          </p>
+          <div class="nf__actions">
+            <Button href={localizePath('/', locale)} variant="primary" size="L">
+              {t('notFound.home')}
+            </Button>
+            <Button href={localizePath('/work', locale)} variant="light" size="L" arrow={false}>
+              {t('notFound.apps')}
+            </Button>
+          </div>
+          <nav class="nf__quick text-label-m max-md:hidden" aria-label={t('notFound.orTry')}>
+            <span>{t('notFound.orTry')}</span>
+            {mainNav.map((item) => (
+              <a href={localizePath(item.href, locale)}>{t(item.key)}</a>
+            ))}
+          </nav>
+        </div>
+      </div>
+
+      <!-- Desktop scene: "Knocked off the table" (58:1047) -->
+      <div class="nf__scene max-lg:hidden" role="img" aria-label={t('notFound.artAlt')}>
+        <div class="nf__table"></div>
+        <div class="nf__leg nf__leg--l"></div>
+        <div class="nf__leg nf__leg--r"></div>
+        <div class="nf__floor"></div>
+        <Image src={sticker} alt="" width={150} height={150} densities={[1, 2]} class="nf__kitten" />
+        {lines.map((l) => (
+          <MotionLines class="nf__lines" style={`--x:${l.x};--y:${l.y}`} aria-hidden="true" />
+        ))}
+        {fallen.map((icon) => (
+          <span class="nf__icon" style={`--x:${icon.x};--y:${icon.y};--r:${icon.r}deg;--d:${icon.d}`}>
+            <Image src={icon.src} alt="" width={92} height={92} densities={[1, 2]} />
+          </span>
+        ))}
+        <Sticker tone="paper" tilt={-6} class="nf__meow">
+          {t('notFound.meow')}
+        </Sticker>
+        <Sticker tone="gold" tilt={7} class="nf__fault">
+          {t('notFound.notMyFault')}
+        </Sticker>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  @layer components {
+    .nf {
+      min-height: 100svh;
+      padding-top: var(--nav-h);
+      display: flex;
+    }
+    .nf__wrap {
+      width: 100%;
+      max-width: 1440px;
+      margin-inline: auto;
+      padding: 12px 20px 28px;
+      display: flex;
+      flex-direction: column;
+    }
+    @media (min-width: 1024px) {
+      .nf__wrap {
+        display: grid;
+        grid-template-columns: minmax(0, 640px) minmax(0, 560px);
+        justify-content: space-between;
+        align-items: center;
+        gap: 40px;
+        padding: 24px clamp(40px, 4vw, 60px) 40px clamp(40px, 8.33vw, 120px);
+      }
+    }
+
+    .nf__copy-col {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    @media (min-width: 1024px) {
+      .nf__copy-col {
+        justify-content: center;
+        gap: 24px;
+      }
+    }
+
+    /* 404 mark: Display 300px desktop / 150px mobile, kitten zero in a circle */
+    .nf__mark-wrap {
+      position: relative;
+      padding-top: 40px;
+      min-height: 250px;
+    }
+    @media (min-width: 1024px) {
+      .nf__mark-wrap {
+        padding-top: 0;
+        min-height: 0;
+      }
+    }
+    .nf__mark {
+      display: flex;
+      align-items: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(120px, 38vw, 150px);
+      line-height: 0.9;
+      letter-spacing: -0.035em;
+      color: var(--text-primary);
+    }
+    @media (min-width: 1024px) {
+      .nf__mark {
+        font-size: clamp(200px, 20.8vw, 300px);
+      }
+    }
+    .nf__mark > span {
+      margin-right: -0.033em;
+    }
+    .nf__zero {
+      flex: none;
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 0.8533em;
+      height: 0.8533em;
+      margin-inline: 0.03em;
+      border: 0.027em solid var(--color-ink);
+      border-radius: 50%;
+      background: var(--color-paper);
+      box-shadow: var(--shadow-sticker);
+      overflow: hidden;
+      transform: rotate(8deg);
+    }
+    @media (min-width: 1024px) {
+      .nf__zero {
+        width: 0.8333em;
+        height: 0.8333em;
+        border-width: 0.02em;
+      }
+    }
+    .nf__zero img {
+      width: 84%;
+      height: 84%;
+      object-fit: contain;
+      transform: translateY(2%);
+    }
+
+    .nf__m-icon {
+      position: absolute;
+      width: 58px;
+      height: 58px;
+      border: 2.5px solid var(--color-ink);
+      border-radius: 16px;
+      box-shadow: var(--shadow-sticker);
+      overflow: hidden;
+      transform: rotate(var(--r));
+    }
+    .nf__m-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .nf__m-icon--a {
+      --r: -18deg;
+      top: -4px;
+      right: 4px;
+    }
+    .nf__m-icon--b {
+      --r: 22deg;
+      top: 189px;
+      left: -4px;
+    }
+    .nf__mark-wrap :global(.nf__m-meow) {
+      position: absolute;
+      top: 196px;
+      right: 8px;
+    }
+
+    .nf__copy {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    @media (min-width: 1024px) {
+      .nf__copy {
+        gap: 20px;
+      }
+    }
+    .nf__title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2.25rem, 1.786rem + 1.905vw, 3.5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .nf__body {
+      font-size: clamp(1.0625rem, 0.9929rem + 0.2857vw, 1.25rem);
+      line-height: 1.55;
+      opacity: 0.85;
+      max-width: 36rem;
+    }
+    .nf__actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 8px;
+    }
+    @media (min-width: 640px) {
+      .nf__actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+    .nf__actions :global(.ak-btn) {
+      width: 100%;
+    }
+    @media (min-width: 640px) {
+      .nf__actions :global(.ak-btn) {
+        width: auto;
+      }
+    }
+    .nf__quick {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 8px;
+    }
+    .nf__quick a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .nf__quick a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    /* Desktop scene. 1 unit = 1px of the 560px-wide Figma frame. */
+    .nf__scene {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 560 / 640;
+      max-height: calc(100svh - var(--nav-h) - 64px);
+      container-type: inline-size;
+      justify-self: end;
+    }
+    .nf__scene > * {
+      --u: calc(100cqw / 560);
+      position: absolute;
+    }
+    .nf__table {
+      left: calc(40 * var(--u));
+      top: calc(150 * var(--u));
+      width: calc(460 * var(--u));
+      height: calc(28 * var(--u));
+      border-radius: calc(14 * var(--u));
+      background: var(--color-ink);
+    }
+    .nf__leg {
+      top: calc(170 * var(--u));
+      width: calc(28 * var(--u));
+      height: calc(330 * var(--u));
+      background: var(--color-ink);
+    }
+    .nf__leg--l {
+      left: calc(110 * var(--u));
+    }
+    .nf__leg--r {
+      left: calc(400 * var(--u));
+    }
+    .nf__floor {
+      left: 0;
+      top: calc(620 * var(--u));
+      width: 100%;
+      height: 4px;
+      background: var(--color-ink);
+      opacity: 0.25;
+    }
+    .nf__scene :global(.nf__kitten) {
+      position: absolute;
+      left: calc(90 * var(--u));
+      top: calc(4 * var(--u));
+      width: calc(150 * var(--u));
+      height: calc(150 * var(--u));
+      object-fit: contain;
+      --u: calc(100cqw / 560);
+    }
+    .nf__scene :global(.nf__lines) {
+      position: absolute;
+      --u: calc(100cqw / 560);
+      left: calc(var(--x) * var(--u));
+      top: calc(var(--y) * var(--u));
+      width: calc(40 * var(--u));
+      height: calc(40 * var(--u));
+      color: var(--color-ink);
+    }
+    .nf__icon {
+      left: calc(var(--x) * var(--u) - 46 * var(--u));
+      top: calc(var(--y) * var(--u) - 46 * var(--u));
+      width: calc(92 * var(--u));
+      height: calc(92 * var(--u));
+      border: 3px solid var(--color-ink);
+      border-radius: calc(24 * var(--u));
+      box-shadow: var(--shadow-sticker);
+      overflow: hidden;
+      transform: rotate(var(--r));
+      animation: nf-fall 900ms cubic-bezier(0.5, 0, 0.75, 0) calc(250ms + var(--d) * 140ms) both;
+    }
+    .nf__icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .nf__scene :global(.nf__meow) {
+      position: absolute;
+      --u: calc(100cqw / 560);
+      left: calc(258 * var(--u));
+      top: calc(-8 * var(--u));
+    }
+    .nf__scene :global(.nf__fault) {
+      position: absolute;
+      --u: calc(100cqw / 560);
+      left: calc(152 * var(--u));
+      top: calc(566 * var(--u));
+    }
+
+    /* Falls from above, lands with two small bounces (transform only). */
+    @keyframes nf-fall {
+      0% {
+        transform: translateY(-120cqw) rotate(calc(var(--r) - 80deg));
+        animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+      }
+      60% {
+        transform: translateY(0) rotate(var(--r));
+        animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+      }
+      75% {
+        transform: translateY(calc(-28 * var(--u))) rotate(calc(var(--r) + 6deg));
+        animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+      }
+      88% {
+        transform: translateY(0) rotate(var(--r));
+        animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+      }
+      94% {
+        transform: translateY(calc(-8 * var(--u))) rotate(var(--r));
+      }
+      100% {
+        transform: translateY(0) rotate(var(--r));
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .nf__icon {
+        animation: none;
+      }
+    }
+  }
+</style>

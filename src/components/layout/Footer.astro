@@ -1,0 +1,170 @@
+---
+/**
+ * Footer — Figma "Footer / Desktop" (6:80). Sits in Dark mode on ink (bg/sunken in Dark).
+ */
+import Logo from '../ui/Logo.astro';
+import site from '../../content/site.json';
+import { mainNav } from '../../config/nav';
+import { localizePath, useTranslations, type Locale, type I18nKey } from '../../i18n/utils';
+
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+type Link = { key: I18nKey; href: string; external?: boolean };
+const columns: { title: I18nKey; links: Link[] }[] = [
+  { title: 'footer.studio', links: mainNav },
+  {
+    title: 'footer.apps',
+    links: [
+      { key: 'footer.googlePlay', href: site.googlePlay, external: true },
+      { key: 'footer.privacy', href: '/privacy' },
+      { key: 'footer.press', href: '/press' },
+    ],
+  },
+  {
+    title: 'footer.social',
+    links: [
+      { key: 'footer.telegram', href: site.socials.telegram, external: true },
+      { key: 'footer.instagram', href: site.socials.instagram, external: true },
+      { key: 'footer.linkedin', href: site.socials.linkedin, external: true },
+    ],
+  },
+];
+const year = new Date().getFullYear();
+---
+
+<footer class="ak-footer" data-theme="dark">
+  <div class="container-page ak-footer__wrap">
+    <div class="ak-footer__top">
+      <div class="ak-footer__pitch">
+        <p class="text-display-l">{t('footer.pitch')}</p>
+        <a
+          href={`mailto:${site.email}`}
+          class="ak-footer__email"
+          set:html={site.email.replace('@', '<wbr>@')}
+        />
+      </div>
+
+      <nav aria-label={t('a11y.footerNav')} class="ak-footer__cols">
+        {columns.map((col) => (
+          <div class="ak-footer__col">
+            <p class="text-eyebrow text-fg-2">{t(col.title)}</p>
+            <ul>
+              {col.links.map((link) => (
+                <li>
+                  {link.href ? (
+                    <a
+                      class="text-label-l"
+                      href={link.external ? link.href : localizePath(link.href, locale)}
+                      {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    >
+                      {t(link.key)}
+                      {link.external && <span class="sr-only"> ({t('a11y.opensInNewTab')})</span>}
+                    </a>
+                  ) : (
+                    <span class="text-label-l ak-footer__pending" title="Link coming soon">
+                      {t(link.key)}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </nav>
+    </div>
+
+    <div class="ak-footer__bottom">
+      <Logo size="L" />
+      <p class="text-meta text-fg-2">{t('footer.copyright', { year })}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  @layer components {
+    .ak-footer {
+      background: var(--bg-sunken);
+      color: var(--text-primary);
+    }
+    .ak-footer__wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 64px;
+      padding-top: clamp(64px, 6vw + 40px, 96px);
+      padding-bottom: 40px;
+    }
+    .ak-footer__top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 48px 72px;
+    }
+    .ak-footer__pitch {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+    }
+    .ak-footer__email {
+      color: var(--text-accent);
+      text-decoration: none;
+      overflow-wrap: break-word;
+      font-family: var(--font-display);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      font-size: clamp(1.5rem, 1.25rem + 1.1vw, 2.5rem);
+    }
+    .ak-footer__email:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 6px;
+    }
+    .ak-footer__cols {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px 72px;
+    }
+    .ak-footer__col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 120px;
+    }
+    .ak-footer__col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ak-footer__col a,
+    .ak-footer__pending {
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+    .ak-footer__col a:hover {
+      color: var(--text-accent);
+    }
+    .ak-footer__pending {
+      opacity: 0.6;
+    }
+    .ak-footer__bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px 32px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border-default);
+    }
+    @media (max-width: 767px) {
+      .ak-footer__cols {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+      }
+    }
+  }
+</style>

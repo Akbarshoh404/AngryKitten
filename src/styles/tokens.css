@@ -1,0 +1,168 @@
+/*
+ * AngryKitten design tokens.
+ *
+ * Source of truth: Figma file WH6iV3GR9tqWfBb7Xn15lr, page "01 — Foundations".
+ * Collections read via the Figma MCP server:
+ *   - Color / Primitives (17 vars, 1 mode)
+ *   - Color / Semantic   (14 vars, modes: Light · Dark · Tangerine)
+ *   - Spacing (8-pt scale) · Radius
+ *   - Text styles (Display/2XL … Caps/Eyebrow) and effect styles (Shadow/*)
+ * If Figma changes, update this file; components only use these tokens.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Primitives -> Tailwind colour utilities (bg-tabby, text-ink, border-line…)
+ * ------------------------------------------------------------------------ */
+@theme {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-tabby: #ff5a1f;
+  --color-tabby-deep: #e04412;
+  --color-rust: #c2410c;
+  --color-gold: #ffd43b;
+  --color-rose: #e5484d;
+  --color-ink: #17110c;
+  --color-paper: #faf7f2;
+  --color-stone: #f5f2eb;
+  --color-white: #ffffff;
+  --color-muted: #6b5e52;
+  --color-line: #e7e0d3;
+  --color-night: #2b1640;
+  --color-night-surface: #3a2257;
+  --color-ash: #cdbfd9;
+  --color-smoke: #4d3769;
+  --color-mint: #ddf4ea;
+  --color-peach: #ffeadf;
+
+  /* Typography */
+  --font-display: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'DM Sans Variable', 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+
+  /* Radius scale (Figma "Radius") + component radii */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-2xl: 48px;
+  --radius-card: 28px;
+  --radius-pill: 999px;
+
+  /* Effects (Figma effect styles) */
+  --shadow-sticker: 6px 6px 0 0 var(--color-ink);
+  --shadow-sticker-sm: 3px 3px 0 0 var(--color-ink);
+  --shadow-sticker-lg: 10px 10px 0 0 var(--color-ink);
+  --shadow-device: 0 36px 70px -8px rgb(23 17 12 / 0.35), 0 6px 14px 0 rgb(23 17 12 / 0.25);
+
+  /* Motion */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-wobble: wobble 0.6s var(--ease-spring) 1;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(-6px);
+    }
+    50% {
+      transform: translateY(6px);
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes wobble {
+    0%,
+    100% {
+      transform: rotate(var(--tilt, 0deg));
+    }
+    30% {
+      transform: rotate(calc(var(--tilt, 0deg) - 6deg));
+    }
+    60% {
+      transform: rotate(calc(var(--tilt, 0deg) + 4deg));
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Semantic tokens (Figma "Color / Semantic"), three modes.
+ * Set data-theme on any section to re-theme everything inside it.
+ * ------------------------------------------------------------------------ */
+:root,
+[data-theme='light'] {
+  --bg-base: var(--color-paper);
+  --bg-surface: var(--color-white);
+  --bg-sunken: var(--color-stone);
+  --bg-tint: var(--color-peach);
+  --bg-inverse: var(--color-ink);
+  --bg-accent: var(--color-tabby);
+  --bg-highlight: var(--color-gold);
+  --text-primary: var(--color-ink);
+  --text-secondary: var(--color-muted);
+  --text-inverse: var(--color-paper);
+  --text-accent: var(--color-rust);
+  --text-on-accent: var(--color-ink);
+  --border-default: var(--color-line);
+  --border-strong: var(--color-ink);
+}
+
+[data-theme='dark'] {
+  --bg-base: var(--color-night);
+  --bg-surface: var(--color-night-surface);
+  --bg-sunken: var(--color-ink);
+  --bg-tint: var(--color-night-surface);
+  --bg-inverse: var(--color-paper);
+  --bg-accent: var(--color-tabby);
+  --bg-highlight: var(--color-gold);
+  --text-primary: var(--color-paper);
+  --text-secondary: var(--color-ash);
+  --text-inverse: var(--color-ink);
+  --text-accent: var(--color-gold);
+  --text-on-accent: var(--color-ink);
+  --border-default: var(--color-smoke);
+  --border-strong: var(--color-paper);
+}
+
+[data-theme='tangerine'] {
+  --bg-base: var(--color-tabby);
+  --bg-surface: var(--color-paper);
+  --bg-sunken: var(--color-tabby-deep);
+  --bg-tint: var(--color-paper);
+  --bg-inverse: var(--color-ink);
+  --bg-accent: var(--color-gold);
+  --bg-highlight: var(--color-gold);
+  --text-primary: var(--color-ink);
+  --text-secondary: var(--color-ink);
+  --text-inverse: var(--color-paper);
+  --text-accent: var(--color-ink);
+  --text-on-accent: var(--color-ink);
+  --border-default: var(--color-ink);
+  --border-strong: var(--color-ink);
+}
+
+/* Semantic -> Tailwind utilities (bg-base, text-fg, border-strong…) */
+@theme inline {
+  --color-base: var(--bg-base);
+  --color-surface: var(--bg-surface);
+  --color-sunken: var(--bg-sunken);
+  --color-tint: var(--bg-tint);
+  --color-inverse: var(--bg-inverse);
+  --color-accent: var(--bg-accent);
+  --color-highlight: var(--bg-highlight);
+  --color-fg: var(--text-primary);
+  --color-fg-2: var(--text-secondary);
+  --color-fg-inverse: var(--text-inverse);
+  --color-fg-accent: var(--text-accent);
+  --color-on-accent: var(--text-on-accent);
+  --color-subtle: var(--border-default);
+  --color-strong: var(--border-strong);
+}

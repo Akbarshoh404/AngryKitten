@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "siteName": "AngryKitten",
+    "defaultTitle": "AngryKitten · Independent app studio from Tashkent",
+    "defaultDescription": "AngryKitten designs, builds and launches Android apps and games from Tashkent, Uzbekistan. 12 apps live on Google Play.",
+    "notFoundTitle": "Page not found · AngryKitten",
+    "notFoundDescription": "The kitten knocked this page off the table."
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "mainNav": "Main",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "home": "AngryKitten home",
+    "footerNav": "Footer",
+    "opensInNewTab": "opens in a new tab"
+  },
+  "nav": {
+    "work": "Work",
+    "services": "Services",
+    "studio": "Studio",
+    "contact": "Contact",
+    "cta": "Start a project"
+  },
+  "footer": {
+    "pitch": "Got an app in mind?",
+    "studio": "Studio",
+    "apps": "Apps",
+    "social": "Social",
+    "googlePlay": "Google Play",
+    "privacy": "Privacy policies",
+    "press": "Press kit",
+    "telegram": "Telegram",
+    "instagram": "Instagram",
+    "linkedin": "LinkedIn",
+    "copyright": "© {year} AngryKitten · Independent app studio · Tashkent, Uzbekistan"
+  },
+  "notFound": {
+    "eyebrow": "Error 404 · Page not found",
+    "title": "The kitten knocked this page off the table.",
+    "body": "The link may be old, or the page moved. Nothing's broken on your side. Let's get you somewhere useful.",
+    "bodyShort": "The link may be old, or the page moved. Let's get you somewhere useful.",
+    "home": "Back to home",
+    "apps": "See our apps",
+    "orTry": "Or try:",
+    "meow": "Meow?",
+    "notMyFault": "Not my fault",
+    "artAlt": "The angry kitten sits on a table after knocking app icons onto the floor."
+  }
+}

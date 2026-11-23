@@ -1,0 +1,212 @@
+---
+/**
+ * Mobile menu — Figma "Menu open — Mobile" (15:184). Dark (plum) full-screen sheet.
+ * Built on a native modal <dialog>: focus is trapped, Escape closes it and
+ * focus returns to the menu button. Scroll is locked while it's open.
+ * Motion (Figma UX notes): sheet slides down 300ms, links stagger in, close icon rotates 90°.
+ */
+import Logo from '../ui/Logo.astro';
+import Button from '../ui/Button.astro';
+import LangSwitch from './LangSwitch.astro';
+import CloseIcon from '../../assets/icons/close.svg';
+import site from '../../content/site.json';
+import { mainNav, ctaHref, isActive } from '../../config/nav';
+import { localizePath, stripLocale, useTranslations, type Locale } from '../../i18n/utils';
+
+type Props = { locale: Locale; counts?: Partial<Record<string, number>> };
+const { locale, counts = {} } = Astro.props;
+const t = useTranslations(locale);
+const current = stripLocale(Astro.url.pathname);
+---
+
+<dialog id="mobile-menu" class="ak-menu" data-theme="dark" aria-label={t('a11y.mainNav')} data-menu>
+  <div class="ak-menu__top">
+    <a href={localizePath('/', locale)} aria-label={t('a11y.home')} class="ak-menu__home">
+      <Logo size="S" />
+    </a>
+    <button type="button" class="ak-menu__close" aria-label={t('a11y.closeMenu')} data-menu-close>
+      <CloseIcon width={20} height={20} aria-hidden="true" />
+    </button>
+  </div>
+
+  <nav aria-label={t('a11y.mainNav')}>
+    <ul class="ak-menu__links">
+      {mainNav.map((item, i) => {
+        const count = counts[item.href];
+        return (
+          <li style={`--i:${i}`}>
+            <a
+              href={localizePath(item.href, locale)}
+              aria-current={isActive(current, item.href) ? 'page' : undefined}
+            >
+              <span class="ak-menu__label">{t(item.key)}</span>
+              {count !== undefined && (
+                <span class="text-meta text-fg-2" aria-hidden="true">
+                  {count}
+                </span>
+              )}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </nav>
+
+  <div class="ak-menu__bottom">
+    <Button href={localizePath(ctaHref, locale)} variant="accent" size="L" block>
+      {t('nav.cta')}
+    </Button>
+    <a href={`mailto:${site.email}`} class="text-label-l ak-menu__email">
+      {site.email}
+    </a>
+    <LangSwitch locale={locale} />
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-menu]');
+  const openers = document.querySelectorAll<HTMLButtonElement>('[data-menu-open]');
+  if (dialog) {
+    const setExpanded = (open: boolean) =>
+      openers.forEach((b) => b.setAttribute('aria-expanded', String(open)));
+
+    openers.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        dialog.showModal();
+        setExpanded(true);
+      }),
+    );
+    dialog.querySelector('[data-menu-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('close', () => setExpanded(false));
+    // Close after following an in-page or same-page link.
+    dialog.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => dialog.close()));
+    // Close if the viewport grows into the desktop layout.
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => {
+      if (e.matches && dialog.open) dialog.close();
+    });
+  }
+</script>
+
+<style>
+  @layer components {
+    .ak-menu {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      max-width: none;
+      height: 100dvh;
+      max-height: none;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      display: none;
+      flex-direction: column;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      transform: translateY(-100%);
+      transition:
+        transform 300ms var(--ease-out),
+        overlay 300ms allow-discrete,
+        display 300ms allow-discrete;
+    }
+    .ak-menu[open] {
+      display: flex;
+      transform: translateY(0);
+    }
+    @starting-style {
+      .ak-menu[open] {
+        transform: translateY(-100%);
+      }
+    }
+    .ak-menu::backdrop {
+      background: transparent;
+    }
+    :global(html:has(.ak-menu[open])) {
+      overflow: hidden;
+    }
+
+    .ak-menu__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px 14px 20px;
+    }
+    .ak-menu__home {
+      display: inline-flex;
+      border-radius: var(--radius-pill);
+    }
+    .ak-menu__close {
+      display: inline-grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-accent);
+      color: var(--color-ink);
+      cursor: pointer;
+      transition: transform 300ms var(--ease-spring);
+    }
+    .ak-menu[open] .ak-menu__close {
+      transform: rotate(90deg);
+    }
+    @starting-style {
+      .ak-menu[open] .ak-menu__close {
+        transform: rotate(0deg);
+      }
+    }
+
+    .ak-menu__links {
+      padding: 32px 20px 0;
+    }
+    .ak-menu__links li {
+      opacity: 1;
+      transform: none;
+      transition:
+        opacity 300ms var(--ease-out) calc(80ms + var(--i) * 50ms),
+        transform 300ms var(--ease-out) calc(80ms + var(--i) * 50ms);
+    }
+    @starting-style {
+      .ak-menu[open] .ak-menu__links li {
+        opacity: 0;
+        transform: translateY(-12px);
+      }
+    }
+    .ak-menu__links a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: 18px;
+      border-bottom: 1px solid var(--border-default);
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+    .ak-menu__label {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 3rem;
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+    }
+    .ak-menu__links a[aria-current='page'] .ak-menu__label,
+    .ak-menu__links a:hover .ak-menu__label {
+      color: var(--text-accent);
+    }
+
+    .ak-menu__bottom {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 32px 20px max(32px, env(safe-area-inset-bottom));
+    }
+    .ak-menu__email {
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+    .ak-menu__email:hover {
+      text-decoration: underline;
+    }
+  }
+</style>

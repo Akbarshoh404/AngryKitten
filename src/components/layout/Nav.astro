@@ -1,0 +1,212 @@
+---
+/**
+ * Site navigation — Figma "Nav / Desktop" (4:66) and "Nav / Mobile" (4:83).
+ * A floating pill bar, fixed to the top. It shrinks once the page scrolls and
+ * gets a sticker shadow when it no longer sits over a [data-hero] section.
+ * Below 1024px the links collapse into the MobileMenu sheet.
+ */
+import Logo from '../ui/Logo.astro';
+import Button from '../ui/Button.astro';
+import LangSwitch from './LangSwitch.astro';
+import MobileMenu from './MobileMenu.astro';
+import MenuIcon from '../../assets/icons/menu.svg';
+import { mainNav, ctaHref, isActive } from '../../config/nav';
+import { localizePath, stripLocale, useTranslations, type Locale } from '../../i18n/utils';
+
+type Props = { locale: Locale; counts?: Partial<Record<string, number>> };
+const { locale, counts } = Astro.props;
+const t = useTranslations(locale);
+const current = stripLocale(Astro.url.pathname);
+---
+
+<header class="ak-nav" data-nav>
+  <div class="ak-nav__inner">
+    <div class="ak-nav__bar">
+      <a href={localizePath('/', locale)} class="ak-nav__home" aria-label={t('a11y.home')}>
+        <Logo size="L" class="max-lg:hidden" />
+        <Logo size="S" class="lg:hidden" />
+      </a>
+
+      <nav aria-label={t('a11y.mainNav')} class="max-lg:hidden">
+        <ul class="ak-nav__links text-label-l">
+          {mainNav.map((item) => (
+            <li>
+              <a
+                href={localizePath(item.href, locale)}
+                aria-current={isActive(current, item.href) ? 'page' : undefined}
+              >
+                {t(item.key)}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="ak-nav__actions max-lg:hidden">
+        <LangSwitch locale={locale} />
+        <Button href={localizePath(ctaHref, locale)} variant="primary" size="M">
+          {t('nav.cta')}
+        </Button>
+      </div>
+
+      <button
+        type="button"
+        class="ak-nav__menu-btn lg:hidden"
+        aria-label={t('a11y.openMenu')}
+        aria-haspopup="dialog"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        data-menu-open
+      >
+        <MenuIcon width={22} height={22} aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<MobileMenu locale={locale} counts={counts} />
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-nav]');
+  if (nav) {
+    const heroes = Array.from(document.querySelectorAll<HTMLElement>('[data-hero]'));
+    const bar = nav.querySelector<HTMLElement>('.ak-nav__bar');
+    let ticking = false;
+
+    const update = () => {
+      ticking = false;
+      nav.toggleAttribute('data-scrolled', window.scrollY > 24);
+      // "Solid" (sticker shadow) once the bar no longer floats over a hero section.
+      const line = bar ? bar.getBoundingClientRect().bottom : 80;
+      const overHero = heroes.some((h) => {
+        const r = h.getBoundingClientRect();
+        return r.top <= line && r.bottom > line;
+      });
+      nav.toggleAttribute('data-solid', !overHero);
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+  }
+</script>
+
+<style>
+  @layer components {
+    .ak-nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      pointer-events: none;
+    }
+    .ak-nav__inner {
+      max-width: 1440px;
+      margin-inline: auto;
+      padding: 12px 12px 4px;
+      transition: padding 250ms var(--ease-out);
+    }
+    @media (min-width: 1024px) {
+      .ak-nav__inner {
+        padding: 24px 48px 8px;
+      }
+      .ak-nav[data-scrolled] .ak-nav__inner {
+        padding-top: 12px;
+      }
+    }
+    .ak-nav__bar {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 6px 6px 6px 16px;
+      border: 2.5px solid var(--color-ink);
+      border-radius: var(--radius-pill);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      box-shadow: 0 0 0 0 var(--color-ink);
+      transition:
+        padding 250ms var(--ease-out),
+        box-shadow 250ms var(--ease-out);
+    }
+    @media (min-width: 1024px) {
+      .ak-nav__bar {
+        padding: 12px 12px 12px 24px;
+        border-width: 3px;
+      }
+      .ak-nav[data-scrolled] .ak-nav__bar {
+        padding-block: 8px;
+      }
+    }
+    .ak-nav[data-solid] .ak-nav__bar {
+      box-shadow: var(--shadow-sticker-sm);
+    }
+    /* The bar is always paper, so pin its text colours to the light theme. */
+    .ak-nav__bar {
+      --text-primary: var(--color-ink);
+      --text-secondary: var(--color-muted);
+      --bg-accent: var(--color-tabby);
+    }
+
+    .ak-nav__home {
+      display: inline-flex;
+      border-radius: var(--radius-pill);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .ak-nav__links {
+      display: flex;
+      gap: clamp(24px, 2.8vw, 40px);
+    }
+    .ak-nav__links a {
+      position: relative;
+      display: inline-block;
+      padding-block: 6px;
+      color: inherit;
+      text-decoration: none;
+    }
+    .ak-nav__links a::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0;
+      height: 3px;
+      border-radius: 3px;
+      background: var(--color-tabby);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 200ms var(--ease-out);
+    }
+    .ak-nav__links a:hover::after,
+    .ak-nav__links a[aria-current='page']::after {
+      transform: scaleX(1);
+    }
+
+    .ak-nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .ak-nav__menu-btn {
+      display: inline-grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-pill);
+      background: var(--color-ink);
+      color: var(--color-paper);
+      cursor: pointer;
+      transition: transform 150ms var(--ease-spring);
+    }
+    .ak-nav__menu-btn:active {
+      transform: scale(0.92);
+    }
+  }
+</style>

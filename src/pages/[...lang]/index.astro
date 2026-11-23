@@ -1,0 +1,44 @@
+---
+/**
+ * Home. Phase 1 shell: tangerine hero + one ivory section so the nav, footer,
+ * themes and language routing can be checked. Rebuilt in phase 4 from Figma 7:3.
+ */
+import PageLayout from '../../layouts/PageLayout.astro';
+import Button from '../../components/ui/Button.astro';
+import { localeStaticPaths, localizePath, type Locale } from '../../i18n/utils';
+
+export const getStaticPaths = localeStaticPaths;
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+---
+
+<PageLayout locale={locale} theme="tangerine">
+  <section data-theme="tangerine" data-hero class="flex min-h-svh items-center pt-(--nav-h)">
+    <div class="container-page flex flex-col gap-6">
+      <h1 class="text-display-2xl max-w-[12ch]">Apps and games with claws.</h1>
+      <div class="flex flex-wrap gap-3">
+        <Button href={localizePath('/work', locale)}>See our apps</Button>
+        <Button href={localizePath('/contact', locale)} variant="light" arrow={false}>
+          Start a project
+        </Button>
+      </div>
+    </div>
+  </section>
+  <section data-theme="light" class="section-y">
+    <div class="container-page">
+      <p class="text-eyebrow text-fg-accent">Phase 1 shell</p>
+      <h2 class="text-display-l mt-4">
+        The home page lands in <span class="text-tabby">phase 4.</span>
+      </h2>
+      <p class="text-body-l text-fg-2 mt-6 max-w-2xl">
+        This page only exists to check the nav, footer, themes and language routing.
+      </p>
+    </div>
+  </section>
+  <section data-theme="dark" class="section-y">
+    <div class="container-page">
+      <h2 class="text-display-l">Dark theme check.</h2>
+      <p class="text-body-l text-fg-2 mt-6">Secondary text on plum.</p>
+    </div>
+  </section>
+</PageLayout>

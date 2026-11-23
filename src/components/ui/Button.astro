@@ -1,0 +1,157 @@
+---
+/**
+ * Button — Figma component 4:42.
+ * Variants: primary · accent · secondary · light · ghost. Sizes: L · M.
+ * Hover (Figma "State=Hover"): primary turns tabby, accent darkens to tabby-deep,
+ * bordered variants gain the sticker shadow, and the arrow slides 6px right.
+ * Press: shadow shrinks and the button moves into it.
+ */
+import type { HTMLAttributes } from 'astro/types';
+import Arrow from '../../assets/icons/arrow.svg';
+
+type Variant = 'primary' | 'accent' | 'secondary' | 'light' | 'ghost';
+type Size = 'L' | 'M';
+
+type Props = {
+  href?: string;
+  variant?: Variant;
+  size?: Size;
+  arrow?: boolean;
+  block?: boolean;
+  class?: string;
+  type?: 'button' | 'submit' | 'reset';
+} & Omit<HTMLAttributes<'a'>, 'class'> &
+  Omit<HTMLAttributes<'button'>, 'class' | 'type'>;
+
+const {
+  href,
+  variant = 'primary',
+  size = 'L',
+  arrow = true,
+  block = false,
+  class: className,
+  type = 'button',
+  ...rest
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+const classes = ['ak-btn', `ak-btn--${variant}`, `ak-btn--${size}`, block && 'ak-btn--block', className]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<Tag href={href} type={href ? undefined : type} class={classes} {...rest}>
+  <span>
+    <slot />
+  </span>
+  {arrow && <Arrow class="ak-btn__arrow" aria-hidden="true" width={20} height={20} />}
+</Tag>
+
+<style>
+  @layer components {
+    .ak-btn {
+      --btn-bg: var(--color-ink);
+      --btn-fg: var(--color-paper);
+      --btn-border: transparent;
+      --btn-shadow: 0 0 0 0 var(--color-ink);
+      --btn-gap: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--btn-gap);
+      border: 2.5px solid var(--btn-border);
+      border-radius: var(--radius-pill);
+      background: var(--btn-bg);
+      color: var(--btn-fg);
+      box-shadow: var(--btn-shadow);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      line-height: 1.3;
+      white-space: nowrap;
+      text-decoration: none;
+      cursor: pointer;
+      transition:
+        background-color 150ms var(--ease-out),
+        color 150ms var(--ease-out),
+        box-shadow 150ms var(--ease-out),
+        transform 150ms var(--ease-out),
+        gap 150ms var(--ease-out);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ak-btn--L {
+      padding: 18px 28px;
+      font-size: 1.0625rem;
+      min-height: 3.5rem;
+    }
+    .ak-btn--M {
+      padding: 12px 20px;
+      font-size: 0.9375rem;
+      min-height: 2.75rem;
+    }
+    .ak-btn--block {
+      display: flex;
+      width: 100%;
+    }
+    .ak-btn__arrow {
+      flex: none;
+      transition: transform 150ms var(--ease-out);
+    }
+
+    /* Primary: ink fill (no border). Hover: tabby fill + sticker shadow. */
+    .ak-btn--primary {
+      border-width: 0;
+    }
+
+    .ak-btn--accent {
+      --btn-bg: var(--color-tabby);
+      --btn-fg: var(--color-ink);
+      --btn-border: var(--color-ink);
+    }
+    .ak-btn--secondary {
+      --btn-bg: transparent;
+      --btn-fg: var(--color-ink);
+      --btn-border: var(--color-ink);
+    }
+    .ak-btn--light {
+      --btn-bg: var(--color-paper);
+      --btn-fg: var(--color-ink);
+      --btn-border: var(--color-ink);
+    }
+    .ak-btn--ghost {
+      --btn-bg: transparent;
+      --btn-fg: var(--text-primary);
+      padding-inline: 0;
+      border-width: 0;
+      min-height: auto;
+    }
+
+    @media (hover: hover) {
+      .ak-btn:hover {
+        --btn-shadow: var(--shadow-sticker);
+        --btn-gap: 16px;
+      }
+      .ak-btn--primary:hover {
+        --btn-bg: var(--color-tabby);
+        --btn-fg: var(--color-ink);
+      }
+      .ak-btn--accent:hover {
+        --btn-bg: var(--color-tabby-deep);
+      }
+      .ak-btn--ghost:hover {
+        --btn-shadow: none;
+      }
+    }
+    .ak-btn:active {
+      transform: translate(3px, 3px);
+      --btn-shadow: var(--shadow-sticker-sm);
+    }
+    .ak-btn--ghost:active {
+      transform: none;
+    }
+
+    /* On tangerine sections the primary hover can't turn orange-on-orange. */
+    :global([data-theme='tangerine']) .ak-btn--primary:hover {
+      --btn-bg: var(--color-paper);
+    }
+  }
+</style>
