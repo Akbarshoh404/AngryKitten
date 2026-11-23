@@ -49,7 +49,7 @@ const filters = order
       <ul id="work-grid" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {apps.map((app) => (
           <li class="flex" data-kinds={kinds(app).join(' ')}>
-            <AppCard app={app} locale={locale} class="w-full" />
+            <AppCard app={app} locale={locale} headingLevel="h2" class="w-full" />
           </li>
         ))}
       </ul>

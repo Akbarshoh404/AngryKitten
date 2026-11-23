@@ -82,7 +82,9 @@
     width: 100%;
     min-height: 56px;
     padding: 14px 18px;
-    border: 2px solid var(--border-default);
+    /* Figma uses the pale "line" colour (≈1.2:1 on white); mixing in ink keeps the light look
+       but reaches ≈3.8:1, which WCAG 1.4.11 needs for input boundaries. */
+    border: 2px solid color-mix(in srgb, var(--border-strong) 45%, var(--border-default));
     border-radius: var(--radius-md);
     background: var(--bg-surface);
     color: var(--text-primary);
@@ -102,7 +104,7 @@
     opacity: 1;
   }
   .ak-field__control:hover {
-    border-color: color-mix(in srgb, var(--border-strong) 40%, var(--border-default));
+    border-color: color-mix(in srgb, var(--border-strong) 70%, var(--border-default));
   }
   /* Focus: 3px ink border (2px border + 1px inset ring avoids layout shift). */
   .ak-field__control:focus,
@@ -185,19 +187,19 @@
 
 @layer components {
   /* Device / Phone — Figma 4:96 (markup in Phone.astro and PhoneCarousel.astro) */
+  /* Geometry is the Figma 320 × 664 frame expressed as percentages of the body
+     (left/right % = width, top/bottom % = height; radii as "x% / y%"), so the phone scales
+     with its width without being a size container (containers here made layout very slow). */
   .ak-phone {
     width: var(--phone-w);
     max-width: 100%;
-    container-type: inline-size;
   }
-  /* 1 unit (--u) = 1px of the 320px-wide Figma frame. */
   .ak-phone__body {
-    --u: calc(100cqw / 320);
     position: relative;
     width: 100%;
     aspect-ratio: 320 / 664;
     border: 1.5px solid var(--device-frame-border);
-    border-radius: calc(52 * var(--u));
+    border-radius: 16.25% / 7.83%;
     background: var(--device-frame);
   }
   .ak-phone__body.has-shadow {
@@ -205,16 +207,16 @@
   }
   .ak-phone__bezel {
     position: absolute;
-    inset: calc(4.5 * var(--u));
+    inset: 0.68% 1.41%;
     border: 1px solid var(--device-bezel-border);
-    border-radius: calc(46 * var(--u));
+    border-radius: 14.79% / 7.02%;
     background: var(--device-bezel);
   }
   .ak-phone__screen,
   .ak-phone__glare {
     position: absolute;
-    inset: calc(13.6 * var(--u));
-    border-radius: calc(38 * var(--u));
+    inset: 2.05% 4.25%;
+    border-radius: 12.98% / 5.97%;
     overflow: hidden;
   }
   .ak-phone__screen {
@@ -234,32 +236,32 @@
   .ak-phone__camera {
     position: absolute;
     left: 50%;
-    top: calc(32.6 * var(--u));
-    width: calc(16 * var(--u));
-    height: calc(16 * var(--u));
-    border: calc(2 * var(--u)) solid var(--device-camera-ring);
+    top: 4.91%;
+    width: 5%;
+    aspect-ratio: 1;
     border-radius: 50%;
     background: radial-gradient(
-      circle at 35% 35%,
-      var(--device-glint) 0 calc(2 * var(--u)),
-      var(--device-camera) calc(2.2 * var(--u))
+      circle at 38% 38%,
+      var(--device-glint) 0 14%,
+      var(--device-camera) 16% 66%,
+      var(--device-camera-ring) 68%
     );
     transform: translate(-50%, -50%);
   }
   .ak-phone__btn {
     position: absolute;
     left: 100%;
-    width: calc(4 * var(--u));
+    width: 1.25%;
     border-radius: 0 2px 2px 0;
     background: var(--device-button);
   }
   .ak-phone__btn--power {
-    top: calc(175.3 * var(--u));
-    height: calc(62.3 * var(--u));
+    top: 26.4%;
+    height: 9.38%;
   }
   .ak-phone__btn--volume {
-    top: calc(261.7 * var(--u));
-    height: calc(112.5 * var(--u));
+    top: 39.41%;
+    height: 16.94%;
   }
 }
 

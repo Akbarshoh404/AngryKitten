@@ -4,7 +4,7 @@ type Props = { value: string | number; label: string; class?: string };
 const { value, label, class: className } = Astro.props;
 ---
 
-<div class:list={['flex flex-col gap-1.5', className]}>
-  <p class="text-display-l text-fg whitespace-nowrap">{value}</p>
+<div class:list={['flex min-w-0 flex-col gap-1.5', className]}>
+  <p class="text-display-l text-fg [overflow-wrap:anywhere]">{value}</p>
   <p class="text-body-m text-fg-2">{label}</p>
 </div>
