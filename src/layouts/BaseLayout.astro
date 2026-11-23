@@ -8,7 +8,6 @@ import '@fontsource-variable/dm-sans/wght.css';
 import '../styles/global.css';
 import siteData from '../content/site.json';
 import bricolageLatin from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url';
-import dmSansLatin from '@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url';
 import {
   locales,
   localeLabels,
@@ -67,6 +66,9 @@ const themeColor = theme === 'tangerine' ? '#ff5a1f' : theme === 'dark' ? '#2b16
 <html lang={localeLabels[locale].hreflang} data-theme="light">
   <head>
     <meta charset="utf-8" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
@@ -91,8 +93,8 @@ const themeColor = theme === 'tangerine' ? '#ff5a1f' : theme === 'dark' ? '#2b16
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <!-- Preload only the display face (hero headline); DM Sans swaps in. -->
     <link rel="preload" href={bricolageLatin} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={dmSansLatin} as="font" type="font/woff2" crossorigin />
     <meta property="og:site_name" content={t('meta.siteName')} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
@@ -114,6 +116,56 @@ const themeColor = theme === 'tangerine' ? '#ff5a1f' : theme === 'dark' ? '#2b16
       {t('a11y.skipToContent')}
     </a>
     <slot />
+    <script>
+      // Scroll reveal for section headers and cards below the hero (see components.css).
+      const SELECTOR = [
+        'main section:not([data-hero]) .ak-sh',
+        'main section:not([data-hero]) h2',
+        '.ak-pcard',
+        '.ak-soon',
+        '.ak-service',
+        '.ak-team',
+        '.ak-why__card',
+        '.ak-contact',
+        '.ak-way',
+        '.ak-cs-screen',
+        '.ak-pr-app',
+        '.ak-pr-logo',
+        '.ak-feature',
+        '.ak-games__item',
+        '.ak-sv-row',
+        '.ak-form-card',
+      ].join(',');
+      const found = Array.from(document.querySelectorAll<HTMLElement>(SELECTOR)).filter(
+        (el) => !el.closest('[data-hero]'),
+      );
+      const set = new Set(found);
+      // Skip anything inside another revealed element (e.g. the h2 inside a section header).
+      const els = found.filter((el) => {
+        for (let p = el.parentElement; p; p = p.parentElement) if (set.has(p)) return false;
+        return true;
+      });
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (!e.isIntersecting) continue;
+              e.target.classList.add('is-in');
+              io.unobserve(e.target);
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+        );
+        for (const el of els) {
+          // Stagger siblings in the same list/grid.
+          const item = el.closest('li') ?? el;
+          const i = item.parentElement ? Array.from(item.parentElement.children).indexOf(item) : 0;
+          el.style.setProperty('--reveal-i', String(Math.min(Math.max(i, 0), 6)));
+          el.setAttribute('data-reveal', '');
+          io.observe(el);
+        }
+      }
+    </script>
   </body>
 </html>
 

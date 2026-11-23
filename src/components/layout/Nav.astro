@@ -23,8 +23,7 @@ const current = stripLocale(Astro.url.pathname);
   <div class="ak-nav__inner">
     <div class="ak-nav__bar">
       <a href={localizePath('/', locale)} class="ak-nav__home" aria-label={t('a11y.home')}>
-        <Logo size="L" class="max-lg:hidden" />
-        <Logo size="S" class="lg:hidden" />
+        <Logo size="L" class="ak-nav__logo" />
       </a>
 
       <nav aria-label={t('a11y.mainNav')} class="max-lg:hidden">
@@ -154,6 +153,19 @@ const current = stripLocale(Astro.url.pathname);
       --bg-accent: var(--color-tabby);
     }
 
+    /* One logo image for both sizes: 36px mark on mobile, 44px on desktop (Figma 4:84 / 4:67). */
+    @media (max-width: 1023px) {
+      .ak-nav__home :global(.ak-logo) {
+        gap: 8px;
+      }
+      .ak-nav__home :global(.ak-logo__mark) {
+        width: 36px;
+        height: 36px;
+      }
+      .ak-nav__home :global(.ak-logo__word) {
+        font-size: 1.333rem;
+      }
+    }
     .ak-nav__home {
       display: inline-flex;
       border-radius: var(--radius-pill);

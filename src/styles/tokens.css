@@ -37,8 +37,11 @@
   --color-peach: #ffeadf;
 
   /* Typography */
-  --font-display: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'DM Sans Variable', 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  /* Onest fills in Cyrillic glyphs (Russian pages): Bricolage and DM Sans are Latin-only. */
+  --font-display:
+    'Bricolage Grotesque Variable', 'Bricolage Grotesque', 'Onest Variable', ui-sans-serif, system-ui,
+    sans-serif;
+  --font-sans: 'DM Sans Variable', 'DM Sans', 'Onest Variable', ui-sans-serif, system-ui, sans-serif;
 
   /* Radius scale (Figma "Radius") + component radii */
   --radius-sm: 8px;

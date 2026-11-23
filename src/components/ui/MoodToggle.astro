@@ -1,0 +1,28 @@
+---
+/**
+ * Mood toggle — Figma 33:29 (State=Play / State=Work). Ink pill with a gold thumb that springs
+ * between the two options. Pure HTML/CSS; the Home hero script wires it up (data-mood-option).
+ */
+type Props = {
+  labels: { group: string; play: string; work: string };
+  value?: 'play' | 'work';
+  class?: string;
+};
+const { labels, value = 'play', class: className } = Astro.props;
+---
+
+<div
+  role="group"
+  aria-label={labels.group}
+  class:list={['ak-mood', className]}
+  data-mood-toggle
+  data-value={value}
+>
+  <span class="ak-mood__thumb" aria-hidden="true"></span>
+  <button type="button" class="ak-mood__option" aria-pressed={value === 'play'} data-mood-option="play">
+    <span class="ak-mood__label">{labels.play}</span>
+  </button>
+  <button type="button" class="ak-mood__option" aria-pressed={value === 'work'} data-mood-option="work">
+    <span class="ak-mood__label">{labels.work}</span>
+  </button>
+</div>

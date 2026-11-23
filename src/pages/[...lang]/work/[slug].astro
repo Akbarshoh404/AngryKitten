@@ -12,10 +12,9 @@ import Tag from '../../../components/ui/Tag.astro';
 import Phone from '../../../components/ui/Phone.astro';
 import Stat from '../../../components/ui/Stat.astro';
 import Testimonial from '../../../components/cards/Testimonial.astro';
-import PhoneCarousel from '../../../components/islands/PhoneCarousel';
+import PhoneCarousel from '../../../components/ui/PhoneCarousel.astro';
 import { getApps, localized, playUrl, type App } from '../../../lib/content';
 import { appAssets } from '../../../lib/appAssets';
-import { responsive } from '../../../lib/images';
 import { highlight } from '../../../lib/text';
 import {
   fill,
@@ -52,11 +51,10 @@ const next = live[(live.findIndex((a) => a.id === app.id) + 1) % live.length]!;
 const nextText = localized(next.data.text, locale);
 const nextIcon = appAssets(next.id).icon;
 
-const shots = await Promise.all(
-  assets.screenshots.map((s, i) =>
-    responsive(s, t('common.screenshotOf', { app: app.data.name, n: i + 1 }), [300, 450, 600, 720]),
-  ),
-);
+const shots = assets.screenshots.map((src, i) => ({
+  src,
+  alt: t('common.screenshotOf', { app: app.data.name, n: i + 1 }),
+}));
 const typeLabel = app.data.type === 'game' ? t('common.game') : t('common.app');
 const tags = study?.tags ?? [text.meta.split(' · ')[0]!, typeLabel, t('common.android')];
 const store = app.data.packageId ? playUrl(app.data.packageId) : undefined;
@@ -174,7 +172,6 @@ const appSchema = {
         {shots.length > 0 && (
           <div class="ak-cs-hero__front">
             <PhoneCarousel
-              client:visible
               images={shots}
               width="min(300px, 64vw)"
               label={fill(cs.carouselLabel, { app: app.data.name })}

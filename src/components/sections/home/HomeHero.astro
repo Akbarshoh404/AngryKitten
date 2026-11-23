@@ -1,67 +1,242 @@
 ---
-/** Home hero wrapper: prepares optimized images and copy for the MoodHero island. */
-import MoodHero from '../../islands/MoodHero';
-import { appAssets } from '../../../lib/appAssets';
-import { responsive } from '../../../lib/images';
+/**
+ * Home hero — Figma 7:4 (desktop) / 15:2 (mobile). Play mode (games) and Work mode (client apps).
+ * Both moods are server-rendered; the inactive one is `hidden` (its images don't load until needed).
+ * A small script swaps them: copy crossfades, phones spring in (CSS), the choice is saved in
+ * localStorage ("ak-mood") and pre-selects Games/Apps on the Work page.
+ * Desktop: phones float (±6px, 4s) and follow the mouse. Reduced motion: instant swap, no float/parallax.
+ * No framework on this page's first screen, so it paints and becomes interactive immediately.
+ */
+import { Image } from 'astro:assets';
 import { getEntry } from 'astro:content';
+import Phone from '../../ui/Phone.astro';
+import Button from '../../ui/Button.astro';
+import MoodToggle from '../../ui/MoodToggle.astro';
+import { appAssets } from '../../../lib/appAssets';
 import { localized } from '../../../lib/content';
 import { ctaHref } from '../../../config/nav';
-import { getDict, fill, localizePath, useTranslations, type Locale } from '../../../i18n/utils';
+import { getDict, fill, localizePath, type Locale } from '../../../i18n/utils';
 import sticker from '../../../assets/brand/sticker.png';
-import scratchSvg from '../../../assets/illustrations/scratch-marks.svg?raw';
+import ScratchMarks from '../../../assets/illustrations/scratch-marks.svg';
 
 type Props = { locale: Locale };
 const { locale } = Astro.props;
-const t = useTranslations(locale);
-const d = getDict(locale).home.hero;
+const dict = getDict(locale);
+const d = dict.home.hero;
 
-async function phones(slugs: [string, string, string]) {
-  const out = await Promise.all(
-    slugs.map(async (slug) => {
-      const app = (await getEntry('apps', slug))!;
-      const shot = appAssets(slug).screenshots[0]!;
-      return responsive(shot, t('common.screenshotOf', { app: app.data.name, n: 1 }), [280, 420, 560]);
-    }),
-  );
-  return out as [(typeof out)[0], (typeof out)[0], (typeof out)[0]];
-}
-async function badge(slug: string, metaSuffix: string) {
-  const app = (await getEntry('apps', slug))!;
-  const meta = localized(app.data.text, locale).meta.split(' · ')[0];
-  return {
-    icon: await responsive(appAssets(slug).icon!, '', [72]),
-    name: app.data.name,
-    meta: `${meta} · ${metaSuffix}`,
-  };
-}
-
-const playSlugs: [string, string, string] = ['catris', 'cipher', 'catloop'];
-const workSlugs: [string, string, string] = ['pulchi', 'uybek', 'nerva'];
-const names = async (slugs: string[]) =>
-  (await Promise.all(slugs.map((s) => getEntry('apps', s)))).map((a) => a!.data.name).join(', ');
-
-const props = {
-  play: {
-    copy: { ...d.play, secondaryHref: localizePath('/work?type=games', locale) },
-    phones: await phones(playSlugs),
-    badge: await badge('catris', d.badgeLive),
-  },
-  work: {
-    copy: { ...d.work, secondaryHref: localizePath('/work?type=apps', locale) },
-    phones: await phones(workSlugs),
-    badge: await badge('nerva', d.badgeLive),
-  },
-  primary: { label: d.primary, href: localizePath(ctaHref, locale) },
-  toggleLabels: getDict(locale).home.mood,
-  sticker: await responsive(sticker, '', [190, 380]),
-  scratchSvg,
-  phonesLabel: {
-    play: fill(d.phonesAlt, { apps: await names(playSlugs) }),
-    work: fill(d.phonesAlt, { apps: await names(workSlugs) }),
-  },
+type MoodKey = 'play' | 'work';
+const moods: Record<MoodKey, { slugs: [string, string, string]; badge: string; filter: string }> = {
+  play: { slugs: ['catris', 'cipher', 'catloop'], badge: 'catris', filter: 'games' },
+  work: { slugs: ['pulchi', 'uybek', 'nerva'], badge: 'nerva', filter: 'apps' },
 };
+// Phone poses from the Figma "Hero art" frame (580 × 700 units): centre x/y, width, rotation, parallax depth.
+const poses = [
+  { x: 93, y: 426, w: 250, r: 9, depth: 0.6 },
+  { x: 315, y: 331, w: 280, r: 0, depth: 1 },
+  { x: 530, y: 370, w: 250, r: -8, depth: 0.8 },
+];
+
+const data = await Promise.all(
+  (Object.keys(moods) as MoodKey[]).map(async (key) => {
+    const m = moods[key];
+    const apps = await Promise.all(m.slugs.map((s) => getEntry('apps', s)));
+    const badgeApp = (await getEntry('apps', m.badge))!;
+    return {
+      key,
+      copy: d[key],
+      secondaryHref: localizePath(`/work?type=${m.filter}`, locale),
+      phones: m.slugs.map((slug) => appAssets(slug).screenshots[0]!),
+      label: fill(d.phonesAlt, { apps: apps.map((a) => a!.data.name).join(', ') }),
+      badge: {
+        icon: appAssets(m.badge).icon!,
+        name: badgeApp.data.name,
+        meta: `${localized(badgeApp.data.text, locale).meta.split(' · ')[0]} · ${d.badgeLive}`,
+      },
+    };
+  }),
+);
 ---
 
-<section data-theme="tangerine" data-hero class="flex min-h-svh items-center pt-(--nav-h)">
-  <MoodHero client:load {...props} />
+<section
+  data-theme="tangerine"
+  data-hero
+  class="flex min-h-svh items-center pt-(--nav-h)"
+  data-home-hero
+  data-mood="play"
+>
+  <div class="ak-hero">
+    <div class="ak-hero__copy">
+      <MoodToggle labels={dict.home.mood} />
+      <div class="ak-hero__texts" aria-live="polite">
+        {data.map((m) => (
+          <div class="ak-hero__text" data-for={m.key} hidden={m.key !== 'play'}>
+            {m.key === 'play' ? (
+              <h1 class="ak-hero__title">
+                <span class="ak-hero__line1">{m.copy.line1}</span> <span>{m.copy.line2}</span>
+              </h1>
+            ) : (
+              <p class="ak-hero__title" role="heading" aria-level="1">
+                <span class="ak-hero__line1">{m.copy.line1}</span> <span>{m.copy.line2}</span>
+              </p>
+            )}
+            <p class="text-body-l">{m.copy.body}</p>
+          </div>
+        ))}
+      </div>
+      <div class="ak-hero__ctas">
+        <Button href={localizePath(ctaHref, locale)}>{d.primary}</Button>
+        {data.map((m) => (
+          <Button
+            href={m.secondaryHref}
+            variant="light"
+            arrow={false}
+            data-for={m.key}
+            hidden={m.key !== 'play'}
+          >
+            {m.copy.secondary}
+          </Button>
+        ))}
+      </div>
+    </div>
+
+    <div class="ak-hero__art" data-hero-art>
+      <ScratchMarks class="ak-hero__scratch" aria-hidden="true" />
+      {data.map((m) => (
+        <div class="ak-hero__set" data-for={m.key} hidden={m.key !== 'play'} role="img" aria-label={m.label}>
+          {m.phones.map((shot, i) => {
+            const pose = poses[i]!;
+            return (
+              <div
+                class="ak-hero__slot"
+                style={`--x:${pose.x};--y:${pose.y};--w:${pose.w};--r:${pose.r}deg;--d:${pose.depth};--i:${i};z-index:${pose.depth === 1 ? 2 : 1}`}
+              >
+                <div class="ak-hero__float" style={`animation-delay:${i * -1.3}s`}>
+                  <Phone
+                    src={shot}
+                    alt=""
+                    width="100%"
+                    widths={[280, 420, 560]}
+                    sizes="(min-width: 1024px) 280px, 30vw"
+                    loading={m.key === 'play' && i === 1 ? 'eager' : 'lazy'}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ))}
+      <Image
+        src={sticker}
+        alt=""
+        widths={[190, 380]}
+        sizes="(min-width: 1024px) 190px, 32vw"
+        loading="eager"
+        fetchpriority="high"
+        class="ak-hero__sticker"
+      />
+      {data.map((m) => (
+        <div class="ak-hero__badge" data-for={m.key} hidden={m.key !== 'play'} aria-hidden="true">
+          <Image src={m.badge.icon} alt="" width={36} height={36} densities={[1, 2]} />
+          <span>
+            <span class="ak-hero__badge-name">{m.badge.name}</span>
+            <span class="ak-hero__badge-meta">{m.badge.meta}</span>
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
 </section>
+
+<!-- Apply the saved mood before first paint (no animation, no flash). -->
+<script is:inline>
+  (function () {
+    try {
+      const mood = localStorage.getItem('ak-mood');
+      if (mood !== 'work') return;
+      const hero = document.querySelector('[data-home-hero]');
+      if (!hero) return;
+      hero.setAttribute('data-mood', 'work');
+      hero.querySelectorAll('[data-for]').forEach(function (el) {
+        el.hidden = el.getAttribute('data-for') !== 'work';
+      });
+      const toggle = hero.querySelector('[data-mood-toggle]');
+      toggle.setAttribute('data-value', 'work');
+      toggle.querySelectorAll('[data-mood-option]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-mood-option') === 'work'));
+      });
+    } catch {
+      /* storage unavailable: keep Play mode */
+    }
+  })();
+</script>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('[data-home-hero]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  if (hero) {
+    const toggle = hero.querySelector<HTMLElement>('[data-mood-toggle]')!;
+    const art = hero.querySelector<HTMLElement>('[data-hero-art]')!;
+
+    const setMood = (next: 'play' | 'work') => {
+      const current = hero.dataset.mood;
+      if (current === next) return;
+      hero.dataset.mood = next;
+      toggle.dataset.value = next;
+      toggle.querySelectorAll<HTMLButtonElement>('[data-mood-option]').forEach((b) => {
+        b.setAttribute('aria-pressed', String(b.dataset.moodOption === next));
+      });
+      try {
+        localStorage.setItem('ak-mood', next);
+      } catch {
+        /* private mode */
+      }
+
+      const incoming = hero.querySelectorAll<HTMLElement>(`[data-for="${next}"]`);
+      const outgoing = hero.querySelectorAll<HTMLElement>(`[data-for="${current}"]`);
+      if (reduce.matches) {
+        outgoing.forEach((el) => (el.hidden = true));
+        incoming.forEach((el) => (el.hidden = false));
+        return;
+      }
+      // Outgoing: fade/slide away, then hide. Incoming: start offset, then spring into place.
+      outgoing.forEach((el) => {
+        el.classList.add('is-leaving');
+        window.setTimeout(() => {
+          el.hidden = true;
+          el.classList.remove('is-leaving');
+        }, 260);
+      });
+      incoming.forEach((el) => {
+        el.classList.add('is-entering');
+        window.setTimeout(() => {
+          el.hidden = false;
+          requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('is-entering')));
+        }, 240);
+      });
+    };
+
+    toggle.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-mood-option]');
+      if (btn) setMood(btn.dataset.moodOption as 'play' | 'work');
+    });
+
+    // Gentle mouse parallax on desktop pointers.
+    if (!reduce.matches) {
+      let frame = 0;
+      hero.addEventListener('pointermove', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => {
+          const r = art.getBoundingClientRect();
+          art.style.setProperty('--px', ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
+          art.style.setProperty('--py', ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
+        });
+      });
+      hero.addEventListener('pointerleave', () => {
+        art.style.setProperty('--px', '0');
+        art.style.setProperty('--py', '0');
+      });
+    }
+  }
+</script>

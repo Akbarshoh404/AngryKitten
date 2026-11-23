@@ -21,7 +21,7 @@ import ProcessStep from '../components/cards/ProcessStep.astro';
 import Testimonial from '../components/cards/Testimonial.astro';
 import TeamCard from '../components/cards/TeamCard.astro';
 import ContactMethod from '../components/cards/ContactMethod.astro';
-import MoodToggleDemo from '../components/islands/MoodToggleDemo';
+import MoodToggle from '../components/ui/MoodToggle.astro';
 import site from '../content/site.json';
 import { getEntry } from 'astro:content';
 import { appAssets } from '../lib/appAssets';
@@ -206,10 +206,10 @@ const typeScale = [
       </div>
     </section>
     <section id="mood" class="container-page sg__block">
-      <h2 class="sg__title">Mood toggle · 33:29 (React island)</h2>
+      <h2 class="sg__title">Mood toggle · 33:29</h2>
       <div class="flex flex-wrap gap-6">
-        <MoodToggleDemo client:visible initial="play" />
-        <MoodToggleDemo client:visible initial="work" />
+        <MoodToggle labels={{ group: 'Site mood', play: 'Play mode', work: 'Work mode' }} value="play" />
+        <MoodToggle labels={{ group: 'Site mood', play: 'Play mode', work: 'Work mode' }} value="work" />
       </div>
     </section>
 
@@ -401,6 +401,20 @@ const typeScale = [
     </section>
   </div>
 </PageLayout>
+
+<script>
+  // Styleguide only: make the sample toggles clickable.
+  document.querySelectorAll<HTMLElement>('[data-mood-toggle]').forEach((t) =>
+    t.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-mood-option]');
+      if (!b) return;
+      t.dataset.value = b.dataset.moodOption;
+      t.querySelectorAll('[data-mood-option]').forEach((o) =>
+        o.setAttribute('aria-pressed', String(o === b)),
+      );
+    }),
+  );
+</script>
 
 <style>
   @layer components {
