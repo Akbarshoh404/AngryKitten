@@ -27,6 +27,10 @@ const appText = {
   meta: z.string(),
   /** Longer summary for the case study page and SEO description. */
   description: z.string(),
+  /** Short category tag ("Real estate"), used on the featured card. */
+  category: z.string().optional(),
+  /** What we built, e.g. "Search · Chat · Listings · Auth". */
+  built: z.string().optional(),
 };
 
 const apps = defineCollection({
@@ -38,8 +42,15 @@ const apps = defineCollection({
       status: z.enum(['live', 'coming']).default('live'),
       /** Display order on Work (lower first). */
       order: z.number(),
-      /** Show in "Selected work" on Home. */
+      /** Show in "Selected work" on Home (the first one by order gets the big card). */
       featured: z.boolean().default(false),
+      /** Show as a phone in the Home "Games lab". */
+      showcase: z.boolean().default(false),
+      /** Background colour behind the app's screens (featured card, case study hero). */
+      themeColor: z
+        .string()
+        .regex(/^#[0-9a-f]{6}$/i)
+        .optional(),
       /** Which hero mood shows it on Home. */
       mood: z.enum(['play', 'work']).optional(),
       /** Has a full case study (Figma: apps link to "Read case study", games to Google Play). */

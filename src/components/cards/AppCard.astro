@@ -1,0 +1,44 @@
+---
+/** ProjectCard (or ComingSoonCard) built from an apps-collection entry. */
+import ProjectCard from './ProjectCard.astro';
+import ComingSoonCard from './ComingSoonCard.astro';
+import { appAssets } from '../../lib/appAssets';
+import { localized, type App } from '../../lib/content';
+import { localizePath, useTranslations, type Locale } from '../../i18n/utils';
+
+type Props = { app: App; locale: Locale; cta?: 'auto' | 'view'; headingLevel?: 'h2' | 'h3'; class?: string };
+const { app, locale, cta = 'auto', headingLevel = 'h3', class: className } = Astro.props;
+const t = useTranslations(locale);
+const text = localized(app.data.text, locale);
+const assets = appAssets(app.id);
+const ctaLabel =
+  cta === 'view'
+    ? t('common.viewProject')
+    : app.data.hasCaseStudy
+      ? t('common.readCaseStudy')
+      : t('common.viewProject');
+---
+
+{app.data.status === 'coming' || !assets.icon || !assets.banner ? (
+  <ComingSoonCard
+    name={app.data.name}
+    tag={t('common.comingSoon')}
+    body={text.oneLiner}
+    headingLevel={headingLevel}
+    class={className}
+  />
+) : (
+  <ProjectCard
+    href={localizePath(`/work/${app.id}`, locale)}
+    name={app.data.name}
+    meta={text.meta}
+    description={text.oneLiner}
+    kind={app.data.type}
+    kindLabel={app.data.type === 'game' ? t('common.game') : t('common.app')}
+    icon={assets.icon}
+    banner={assets.banner}
+    cta={ctaLabel}
+    headingLevel={headingLevel}
+    class={className}
+  />
+)}

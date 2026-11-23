@@ -4,6 +4,7 @@ type: app
 status: live
 order: 1
 featured: true
+themeColor: '#1b283b'
 mood: work
 hasCaseStudy: true
 packageId: 'uz.angrykitten.uybekak'
@@ -14,7 +15,9 @@ text:
   en:
     oneLiner: 'Buy, sell and browse homes across Uzbekistan, with filters and direct chat.'
     meta: 'Real estate · Android'
-    description: 'Buy, sell, and discover real estate across Uzbekistan with Uybek.'
+    description: 'Find homes faster in Uzbekistan. A property marketplace with clear filters, real listings and direct chat between buyers and sellers.'
+    category: 'Real estate'
+    built: 'Search · Chat · Listings · Auth'
   # uz / ru: TODO translate (falls back to English until added)
 ---
 

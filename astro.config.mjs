@@ -33,6 +33,7 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: { include: ['react', 'react-dom', 'react-dom/client', 'motion/react'] },
     build: {
       rollupOptions: {
         onwarn(warning, warn) {

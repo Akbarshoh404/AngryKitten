@@ -1,0 +1,150 @@
+---
+/** Games lab — Figma 9:100. Dark (plum) section: showcase games in phones + "also" chips. Mobile: snap carousel. */
+import { Image } from 'astro:assets';
+import SectionHeader from '../../ui/SectionHeader.astro';
+import Button from '../../ui/Button.astro';
+import Phone from '../../ui/Phone.astro';
+import { getApps, localized } from '../../../lib/content';
+import { appAssets } from '../../../lib/appAssets';
+import { getDict, localizePath, useTranslations, type Locale } from '../../../i18n/utils';
+
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const d = getDict(locale).home.games;
+const games = (await getApps()).filter((a) => a.data.type === 'game' && a.data.status === 'live');
+const showcase = games.filter((g) => g.data.showcase);
+const also = games.filter((g) => !g.data.showcase);
+---
+
+<section data-theme="dark" class="section-y" aria-labelledby="games-title">
+  <div class="container-page flex flex-col gap-14">
+    <SectionHeader id="games-title" eyebrow={d.eyebrow} title={d.title} body={d.body}>
+      <Button slot="action" href={localizePath('/work?type=games', locale)} variant="light" size="M">
+        {d.all}
+      </Button>
+    </SectionHeader>
+
+    <ul class="ak-games" aria-label={d.eyebrow}>
+      {showcase.map((game) => {
+        const a = appAssets(game.id);
+        const meta = localized(game.data.text, locale).meta.split(' · ')[0];
+        return (
+          <li class="ak-games__item">
+            <a href={localizePath(`/work/${game.id}`, locale)} class="ak-games__link">
+              {a.screenshots[0] && (
+                <Phone
+                  src={a.screenshots[0]}
+                  alt={t('common.screenshotOf', { app: game.data.name, n: 1 })}
+                  width="100%"
+                  sizes="(min-width: 1024px) 264px, 60vw"
+                />
+              )}
+              <span class="ak-games__caption">
+                {a.icon && <Image src={a.icon} alt="" width={42} height={42} densities={[1, 2]} />}
+                <span>
+                  <span class="text-label-l block">{game.data.name}</span>
+                  <span class="text-meta text-fg-2 block">
+                    {meta} · {t('common.googlePlay')}
+                  </span>
+                </span>
+              </span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+
+    <div class="flex flex-wrap items-center gap-3 border-t border-subtle pt-6">
+      <p class="text-eyebrow text-fg-2">{d.also}</p>
+      <ul class="flex flex-wrap gap-3">
+        {also.map((g) => (
+          <li>
+            <a href={localizePath(`/work/${g.id}`, locale)} class="ak-games__chip">
+              {g.data.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .ak-games {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(220px, 62vw);
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 16px;
+      margin-inline: calc(var(--page-gutter) * -1);
+      padding-inline: var(--page-gutter);
+      scrollbar-width: none;
+    }
+    .ak-games::-webkit-scrollbar {
+      display: none;
+    }
+    @media (min-width: 1024px) {
+      .ak-games {
+        grid-auto-flow: row;
+        grid-template-columns: repeat(4, minmax(0, 264px));
+        justify-content: space-between;
+        overflow: visible;
+        margin-inline: 0;
+        padding-inline: 0;
+      }
+    }
+    .ak-games__item {
+      scroll-snap-align: center;
+    }
+    .ak-games__link {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      color: inherit;
+      text-decoration: none;
+      border-radius: var(--radius-xl);
+    }
+    .ak-games__link :global(.ak-phone) {
+      transition: transform 300ms var(--ease-spring);
+    }
+    @media (hover: hover) {
+      .ak-games__link:hover :global(.ak-phone) {
+        transform: translateY(-8px) rotate(-2deg);
+      }
+    }
+    .ak-games__caption {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .ak-games__caption img {
+      width: 42px;
+      height: 42px;
+      border: 2px solid var(--color-paper);
+      border-radius: 12px;
+    }
+    .ak-games__chip {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      padding: 8px 16px;
+      border: 1.5px solid var(--border-default);
+      border-radius: var(--radius-pill);
+      color: var(--text-primary);
+      font-weight: 500;
+      font-size: 0.9375rem;
+      text-decoration: none;
+      transition:
+        border-color 150ms var(--ease-out),
+        background-color 150ms var(--ease-out);
+    }
+    .ak-games__chip:hover {
+      border-color: var(--color-gold);
+      background: var(--bg-surface);
+    }
+  }
+</style>

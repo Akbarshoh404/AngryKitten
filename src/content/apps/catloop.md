@@ -4,6 +4,7 @@ type: game
 status: live
 order: 7
 featured: false
+showcase: true
 mood: play
 hasCaseStudy: false
 packageId: 'uz.angrykitten.catloopak'

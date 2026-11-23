@@ -1,0 +1,67 @@
+---
+/** Home hero wrapper: prepares optimized images and copy for the MoodHero island. */
+import MoodHero from '../../islands/MoodHero';
+import { appAssets } from '../../../lib/appAssets';
+import { responsive } from '../../../lib/images';
+import { getEntry } from 'astro:content';
+import { localized } from '../../../lib/content';
+import { ctaHref } from '../../../config/nav';
+import { getDict, fill, localizePath, useTranslations, type Locale } from '../../../i18n/utils';
+import sticker from '../../../assets/brand/sticker.png';
+import scratchSvg from '../../../assets/illustrations/scratch-marks.svg?raw';
+
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const d = getDict(locale).home.hero;
+
+async function phones(slugs: [string, string, string]) {
+  const out = await Promise.all(
+    slugs.map(async (slug) => {
+      const app = (await getEntry('apps', slug))!;
+      const shot = appAssets(slug).screenshots[0]!;
+      return responsive(shot, t('common.screenshotOf', { app: app.data.name, n: 1 }), [280, 420, 560]);
+    }),
+  );
+  return out as [(typeof out)[0], (typeof out)[0], (typeof out)[0]];
+}
+async function badge(slug: string, metaSuffix: string) {
+  const app = (await getEntry('apps', slug))!;
+  const meta = localized(app.data.text, locale).meta.split(' · ')[0];
+  return {
+    icon: await responsive(appAssets(slug).icon!, '', [72]),
+    name: app.data.name,
+    meta: `${meta} · ${metaSuffix}`,
+  };
+}
+
+const playSlugs: [string, string, string] = ['catris', 'cipher', 'catloop'];
+const workSlugs: [string, string, string] = ['pulchi', 'uybek', 'nerva'];
+const names = async (slugs: string[]) =>
+  (await Promise.all(slugs.map((s) => getEntry('apps', s)))).map((a) => a!.data.name).join(', ');
+
+const props = {
+  play: {
+    copy: { ...d.play, secondaryHref: localizePath('/work?type=games', locale) },
+    phones: await phones(playSlugs),
+    badge: await badge('catris', d.badgeLive),
+  },
+  work: {
+    copy: { ...d.work, secondaryHref: localizePath('/work?type=apps', locale) },
+    phones: await phones(workSlugs),
+    badge: await badge('nerva', d.badgeLive),
+  },
+  primary: { label: d.primary, href: localizePath(ctaHref, locale) },
+  toggleLabels: getDict(locale).home.mood,
+  sticker: await responsive(sticker, '', [190, 380]),
+  scratchSvg,
+  phonesLabel: {
+    play: fill(d.phonesAlt, { apps: await names(playSlugs) }),
+    work: fill(d.phonesAlt, { apps: await names(workSlugs) }),
+  },
+};
+---
+
+<section data-theme="tangerine" data-hero class="flex min-h-svh items-center pt-(--nav-h)">
+  <MoodHero client:load {...props} />
+</section>

@@ -1,0 +1,78 @@
+---
+/** Ticker — Figma 20:753. Ink strip with a scrolling marquee; pauses on hover; static with reduced motion. */
+import Star from '../../../assets/illustrations/star.svg';
+import { getDict, type Locale } from '../../../i18n/utils';
+
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const { items, label } = getDict(locale).home.ticker;
+---
+
+<section class="ak-ticker" aria-label={label}>
+  <div class="ak-ticker__track">
+    {[0, 1].map((copy) => (
+      <ul class="ak-ticker__list" aria-hidden={copy === 1 ? 'true' : undefined}>
+        {items.map((item) => (
+          <li>
+            <span>{item}</span>
+            <Star width={22} height={22} class="ak-ticker__star" aria-hidden="true" />
+          </li>
+        ))}
+      </ul>
+    ))}
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .ak-ticker {
+      overflow: hidden;
+      background: var(--color-ink);
+      color: var(--color-paper);
+    }
+    .ak-ticker__track {
+      display: flex;
+      width: max-content;
+      animation: var(--animate-marquee);
+      --marquee-duration: 38s;
+    }
+    .ak-ticker:hover .ak-ticker__track {
+      animation-play-state: paused;
+    }
+    .ak-ticker__list {
+      display: flex;
+      flex: none;
+      align-items: center;
+      gap: 32px;
+      padding: 22px 16px 22px 32px;
+    }
+    .ak-ticker__list li {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .ak-ticker__star {
+      flex: none;
+      color: var(--color-tabby);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ak-ticker__track {
+        animation: none;
+        width: auto;
+        flex-wrap: wrap;
+      }
+      .ak-ticker__list[aria-hidden='true'] {
+        display: none;
+      }
+      .ak-ticker__list {
+        flex-wrap: wrap;
+        row-gap: 8px;
+      }
+    }
+  }
+</style>

@@ -158,6 +158,10 @@
     background-color: var(--bg-base);
     color: var(--text-primary);
   }
+  /* Hero art may poke past the edge (like the Figma frames); never cause sideways scroll. */
+  [data-hero] {
+    overflow-x: clip;
+  }
 
   h1,
   h2,

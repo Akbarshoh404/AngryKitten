@@ -1,0 +1,72 @@
+---
+/** CTA — Figma 9:257: "Have an idea? Let's pounce." on tangerine, with the testimonial (placeholder until real). */
+import Button from '../../ui/Button.astro';
+import Testimonial from '../../cards/Testimonial.astro';
+import site from '../../../content/site.json';
+import { ctaHref } from '../../../config/nav';
+import { fill, getDict, localizePath, type Locale } from '../../../i18n/utils';
+
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const d = getDict(locale).home;
+---
+
+<section data-theme="tangerine" class="ak-cta" aria-labelledby="cta-title">
+  <div class="container-page grid items-center gap-12 lg:grid-cols-[minmax(0,680px)_minmax(0,520px)] lg:justify-between lg:gap-20">
+    <div class="flex flex-col gap-7">
+      <h2 id="cta-title" class="ak-cta__title">
+        <span>{d.cta.line1}</span>
+        <span>{d.cta.line2}</span>
+      </h2>
+      <p class="text-body-l">{fill(d.cta.body, { replyTime: site.replyTime })}</p>
+      <div class="flex flex-wrap gap-3">
+        <Button href={localizePath(ctaHref, locale)}>{d.cta.primary}</Button>
+        <Button href={`mailto:${site.email}`} variant="light" arrow={false} class="ak-cta__email">
+          {site.email}
+        </Button>
+      </div>
+    </div>
+    <Testimonial
+      placeholder
+      quote={d.testimonial.quote}
+      name={d.testimonial.name}
+      jobTitle={d.testimonial.role}
+      class="ak-cta__quote"
+    />
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .ak-cta {
+      display: flex;
+      align-items: center;
+      min-height: min(100svh, 900px);
+      padding-block: var(--section-y);
+    }
+    .ak-cta__title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(3rem, 2rem + 4.2vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+    .ak-cta__title span {
+      display: block;
+    }
+    .ak-cta :global(.ak-cta__quote) {
+      --bg-surface: var(--color-paper);
+      background: var(--color-paper);
+      transform: rotate(1.5deg);
+    }
+    @media (max-width: 639px) {
+      .ak-cta :global(.ak-btn) {
+        width: 100%;
+      }
+      .ak-cta :global(.ak-cta__email) {
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+    }
+  }
+</style>

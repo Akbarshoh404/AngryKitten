@@ -4,6 +4,7 @@ type: game
 status: live
 order: 6
 featured: false
+showcase: true
 mood: play
 hasCaseStudy: false
 packageId: 'uz.angrykitten.spinject'

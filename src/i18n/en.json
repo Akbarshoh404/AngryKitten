@@ -47,5 +47,208 @@
     "meow": "Meow?",
     "notMyFault": "Not my fault",
     "artAlt": "The angry kitten sits on a table after knocking app icons onto the floor."
+  },
+  "common": {
+    "game": "Game",
+    "app": "App",
+    "comingSoon": "Coming soon",
+    "comingSoonBody": "Something new is in the oven. Follow along on Google Play.",
+    "viewProject": "View project",
+    "readCaseStudy": "Read case study",
+    "viewOnPlay": "View on Google Play",
+    "googlePlay": "Google Play",
+    "live": "Live",
+    "liveOnPlay": "Live on Google Play",
+    "android": "Android",
+    "featured": "Featured",
+    "platform": "Platform",
+    "built": "Built",
+    "status": "Status",
+    "screenshotOf": "{app} screenshot {n}",
+    "iconOf": "{app} app icon"
+  },
+  "home": {
+    "meta": {
+      "title": "AngryKitten · Android apps and games with claws",
+      "description": "Independent app studio from Tashkent. We design, build and launch Android apps, games and websites. 12 apps live on Google Play."
+    },
+    "mood": {
+      "group": "Choose what you came for",
+      "play": "Play mode",
+      "work": "Work mode"
+    },
+    "hero": {
+      "play": {
+        "line1": "Apps and games",
+        "line2": "with claws.",
+        "body": "Android apps and games from Tashkent.",
+        "secondary": "See our work"
+      },
+      "work": {
+        "line1": "Apps that",
+        "line2": "do the job.",
+        "body": "We design, build and launch Android apps for clients, from first sketch to Google Play.",
+        "secondary": "See client work"
+      },
+      "primary": "Start a project",
+      "phonesAlt": "Screens from {apps}",
+      "badgeLive": "Live"
+    },
+    "ticker": {
+      "label": "Studio highlights",
+      "items": [
+        "New: Cipher is out",
+        "12 apps live",
+        "Offline-first",
+        "EN · UZ · RU",
+        "Private by default",
+        "Made in Tashkent",
+        "3 more coming"
+      ]
+    },
+    "shelf": {
+      "eyebrow": "Shipped by the kitten · {total} apps",
+      "meta": "{live} live · {coming} coming soon",
+      "label": "All our apps"
+    },
+    "work": {
+      "eyebrow": "Selected work",
+      "title": "Real products, **real users.**",
+      "body": "Marketplaces, money, sign-in, chat and offline storage. The things clients actually hire a studio for.",
+      "all": "View all {total} projects"
+    },
+    "games": {
+      "eyebrow": "Games lab",
+      "title": "Games that **bite back.**",
+      "body": "Nine casual and arcade games, built in-house to sharpen the craft we bring to every client project.",
+      "all": "All games",
+      "also": "Also in the litter:"
+    },
+    "services": {
+      "eyebrow": "Services",
+      "title": "What we can **build** for you.",
+      "body": "Bring an idea, a sketch or a half-built app. We'll take it from there.",
+      "all": "All services",
+      "notSureTitle": "Not sure yet?",
+      "notSureBody": "Tell us the problem. We'll suggest the right mix.",
+      "notSureCta": "Talk to us"
+    },
+    "why": {
+      "eyebrow": "Why AngryKitten",
+      "title": "Small studio. **Sharp claws.**",
+      "body": "We're small on purpose. You talk to the people who design and build your app, not to an account manager.",
+      "items": [
+        {
+          "title": "Offline-first",
+          "body": "Most of our apps work without internet. Yours will feel fast on any connection."
+        },
+        {
+          "title": "Private by default",
+          "body": "Several of our apps ship with no ads, no accounts and no tracking. We build only what you need."
+        },
+        {
+          "title": "Speaks your users' language",
+          "body": "English, Uzbek and Russian built in from day one, not bolted on later."
+        },
+        {
+          "title": "Polished to the pixel",
+          "body": "Dark mode, haptics, achievements: the small details that make people stay."
+        }
+      ]
+    },
+    "process": {
+      "eyebrow": "How we work",
+      "title": "Sniff. Stalk. **Pounce.** Purr.",
+      "body": "Four clear stages, one shared board, and a working build in your hands as early as possible.",
+      "steps": [
+        {
+          "title": "Sniff",
+          "timing": "Discovery",
+          "body": "We dig into your idea, your users and your goals, and agree on what to build first."
+        },
+        {
+          "title": "Stalk",
+          "timing": "Design",
+          "body": "User flows, then high-fidelity screens you can click through before any code."
+        },
+        {
+          "title": "Pounce",
+          "timing": "Build",
+          "body": "Native Android development in short cycles, with builds you can test on your own phone."
+        },
+        {
+          "title": "Purr",
+          "timing": "Launch and care",
+          "body": "Store listing, release on Google Play, then updates and support when you need them."
+        }
+      ]
+    },
+    "team": {
+      "eyebrow": "The litter",
+      "title": "The people behind the **claws.**",
+      "body": "A small team on purpose. You talk to the people who design and build your app.",
+      "all": "Meet the studio"
+    },
+    "cta": {
+      "line1": "Have an idea?",
+      "line2": "Let's pounce.",
+      "body": "Tell us what you're building. We reply within {replyTime}, usually with good questions.",
+      "primary": "Start a project"
+    },
+    "testimonial": {
+      "quote": "[Client quote placeholder] Replace with a real quote from a client or a user review. Short and specific beats long and glowing.",
+      "name": "[Name Surname]",
+      "role": "[Role, Company]"
+    },
+    "contact": {
+      "eyebrow": "Contact",
+      "title": "Say hi to the **kitten.**",
+      "body": "Pick whatever's easiest. We read everything and reply within {replyTime}.",
+      "mobileCta": "Send a quick message"
+    }
+  },
+  "contactMethods": {
+    "email": "Email",
+    "telegram": "Telegram",
+    "phone": "Phone",
+    "studio": "Studio"
+  },
+  "form": {
+    "quickTitle": "Quick message",
+    "typeLabel": "What are we building?",
+    "types": {
+      "mobile": "Mobile app",
+      "game": "Game",
+      "website": "Website",
+      "design": "UI/UX design",
+      "update": "Update an existing app",
+      "notSure": "Not sure yet"
+    },
+    "budgetLabel": "Budget (optional)",
+    "budgets": {
+      "small": "[Budget range 1]",
+      "medium": "[Budget range 2]",
+      "large": "[Budget range 3]",
+      "unknown": "Not sure yet"
+    },
+    "name": "Your name",
+    "namePlaceholder": "Akbar",
+    "contactField": "Email or Telegram",
+    "contactPlaceholder": "you@company.com",
+    "company": "Company",
+    "optional": "(optional)",
+    "message": "Message",
+    "messagePlaceholder": "A few sentences about your idea",
+    "send": "Send to the kitten",
+    "sending": "Sending…",
+    "errors": {
+      "name": "Please tell us your name.",
+      "contact": "Add an email or a Telegram handle so we can reply.",
+      "message": "A sentence or two helps us reply with good questions.",
+      "generic": "Something went wrong. Please try again, or email us directly."
+    },
+    "successTitle": "The kitten got your message.",
+    "successBody": "We'll reply within {replyTime}. Meanwhile, the kitten is pretending not to care.",
+    "sendAnother": "Send another message"
   }
 }

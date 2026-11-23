@@ -3,7 +3,7 @@ name: 'Cipher'
 type: game
 status: live
 order: 4
-featured: false
+featured: true
 mood: play
 hasCaseStudy: false
 packageId: 'uz.angrykitten.spygame'

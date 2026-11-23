@@ -1,0 +1,146 @@
+---
+/**
+ * App shelf — Figma 7:72. Every app icon (+ coming-soon slots) in a slow marquee.
+ * Pauses on hover/focus; icons lift and tilt; each links to its project page.
+ * Reduced motion: a plain horizontal scroller.
+ */
+import { Image } from 'astro:assets';
+import { getApps } from '../../lib/content';
+import { appAssets } from '../../lib/appAssets';
+import { fill, getDict, localizePath, useTranslations, type Locale } from '../../i18n/utils';
+import mark from '../../assets/brand/mark.png';
+
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const d = getDict(locale).home.shelf;
+const apps = await getApps();
+const live = apps.filter((a) => a.data.status === 'live');
+const coming = apps.filter((a) => a.data.status === 'coming');
+---
+
+<section class="ak-shelf bg-sunken" aria-labelledby="shelf-title">
+  <div class="container-page flex flex-wrap items-baseline justify-between gap-2">
+    <h2 id="shelf-title" class="text-eyebrow text-fg-2">
+      {fill(d.eyebrow, { total: apps.length })}
+    </h2>
+    <p class="text-meta text-fg-2">{fill(d.meta, { live: live.length, coming: coming.length })}</p>
+  </div>
+  <div class="ak-shelf__viewport">
+    <div class="ak-shelf__track">
+      {[0, 1].map((copy) => (
+        <ul class="ak-shelf__list" aria-hidden={copy === 1 ? 'true' : undefined}>
+          {apps.map((app, i) => {
+            const icon = appAssets(app.id).icon;
+            const tilt = i % 2 === 0 ? -6 : 6;
+            return (
+              <li style={`--tilt:${tilt}deg`}>
+                {app.data.status === 'live' && icon ? (
+                  <a
+                    href={localizePath(`/work/${app.id}`, locale)}
+                    class="ak-shelf__icon"
+                    tabindex={copy === 1 ? -1 : undefined}
+                    title={app.data.name}
+                  >
+                    <Image src={icon} alt={app.data.name} width={68} height={68} densities={[1, 2]} />
+                  </a>
+                ) : (
+                  <span class="ak-shelf__icon is-soon" title={t('common.comingSoon')}>
+                    <Image src={mark} alt="" width={40} height={40} densities={[1, 2]} />
+                    <span class="sr-only">{t('common.comingSoon')}</span>
+                  </span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .ak-shelf {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding-block: 40px;
+    }
+    .ak-shelf__viewport {
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    }
+    .ak-shelf__track {
+      display: flex;
+      width: max-content;
+      animation: var(--animate-marquee);
+      --marquee-duration: 50s;
+    }
+    .ak-shelf__viewport:hover .ak-shelf__track,
+    .ak-shelf__viewport:focus-within .ak-shelf__track {
+      animation-play-state: paused;
+    }
+    .ak-shelf__list {
+      display: flex;
+      flex: none;
+      gap: clamp(16px, 1.8vw, 18px);
+      padding: 10px clamp(8px, 0.9vw, 9px);
+    }
+    .ak-shelf__icon {
+      display: grid;
+      place-items: center;
+      width: 68px;
+      height: 68px;
+      overflow: hidden;
+      border: 2.5px solid var(--color-ink);
+      border-radius: 18px;
+      background: var(--color-white);
+      box-shadow: var(--shadow-sticker-sm);
+      transition:
+        transform 250ms var(--ease-spring),
+        box-shadow 250ms var(--ease-out);
+    }
+    .ak-shelf__icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .ak-shelf__icon.is-soon {
+      border-style: dashed;
+      background: var(--bg-base);
+      box-shadow: none;
+    }
+    .ak-shelf__icon.is-soon img {
+      width: 40px;
+      height: 40px;
+      opacity: 0.35;
+    }
+    a.ak-shelf__icon:focus-visible {
+      outline-offset: 4px;
+    }
+    @media (hover: hover) {
+      a.ak-shelf__icon:hover {
+        transform: translateY(-6px) rotate(var(--tilt));
+        box-shadow: var(--shadow-sticker);
+      }
+    }
+    a.ak-shelf__icon:focus-visible {
+      transform: translateY(-6px) rotate(var(--tilt));
+      box-shadow: var(--shadow-sticker);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ak-shelf__viewport {
+        overflow-x: auto;
+        mask-image: none;
+      }
+      .ak-shelf__track {
+        animation: none;
+        padding-inline: var(--page-gutter);
+      }
+      .ak-shelf__list[aria-hidden='true'] {
+        display: none;
+      }
+    }
+  }
+</style>

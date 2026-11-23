@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "check": "astro check && eslint . && prettier --check .",
-    "favicons": "node scripts/build-favicons.mjs"
+    "favicons": "node scripts/build-favicons.mjs",
+    "i18n:sync": "node scripts/sync-i18n.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.7.0",

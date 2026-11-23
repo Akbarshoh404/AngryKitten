@@ -1,0 +1,54 @@
+---
+/** Why us — Figma 9:206, on the peach tint: sticker + header left, four principle cards right. */
+import { Image } from 'astro:assets';
+import SectionHeader from '../../ui/SectionHeader.astro';
+import sticker from '../../../assets/brand/sticker.png';
+import { getDict, type Locale } from '../../../i18n/utils';
+
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const d = getDict(locale).home.why;
+---
+
+<section class="bg-tint section-y" aria-labelledby="why-title">
+  <div class="container-page grid gap-12 lg:grid-cols-[440px_minmax(0,1fr)] lg:gap-20">
+    <div class="flex flex-col gap-6">
+      <Image src={sticker} alt="" width={120} height={120} densities={[1, 2]} class="ak-why__sticker" />
+      <SectionHeader id="why-title" eyebrow={d.eyebrow} title={d.title} body={d.body} />
+    </div>
+    <ul class="grid gap-6 sm:grid-cols-2">
+      {d.items.map((item, i) => (
+        <li class="ak-why__card" style={`--tilt:${i % 2 ? 1 : -1}deg`}>
+          <h3 class="text-h3">{item.title}</h3>
+          <p class="text-body-m text-fg-2">{item.body}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .ak-why__sticker {
+      width: 120px;
+      height: 120px;
+      transform: rotate(-6deg);
+    }
+    .ak-why__card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 32px 32px 36px;
+      border: 3px solid var(--color-ink);
+      border-radius: var(--radius-card);
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-sticker);
+      transition: transform 250ms var(--ease-spring);
+    }
+    @media (hover: hover) {
+      .ak-why__card:hover {
+        transform: rotate(var(--tilt)) translateY(-4px);
+      }
+    }
+  }
+</style>

@@ -1,0 +1,26 @@
+---
+/** Process — Figma 9:231: "Sniff. Stalk. Pounce. Purr." four steps. */
+import SectionHeader from '../../ui/SectionHeader.astro';
+import ProcessStep from '../../cards/ProcessStep.astro';
+import { getDict, type Locale } from '../../../i18n/utils';
+
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const d = getDict(locale).home.process;
+---
+
+<section class="section-y" aria-labelledby="process-title">
+  <div class="container-page flex flex-col gap-14">
+    <SectionHeader id="process-title" eyebrow={d.eyebrow} title={d.title} body={d.body} />
+    <ol class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      {d.steps.map((step, i) => (
+        <ProcessStep
+          number={String(i + 1).padStart(2, '0')}
+          title={step.title}
+          timing={step.timing}
+          body={step.body}
+        />
+      ))}
+    </ol>
+  </div>
+</section>

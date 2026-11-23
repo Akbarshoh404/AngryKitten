@@ -1,0 +1,56 @@
+---
+/** Home services — Figma 9:159: five service cards + one orange "Not sure yet?" card. Mobile: first three + link. */
+import SectionHeader from '../../ui/SectionHeader.astro';
+import Button from '../../ui/Button.astro';
+import ServiceCard from '../../cards/ServiceCard.astro';
+import { getServices, localized } from '../../../lib/content';
+import { getDict, localizePath, type Locale } from '../../../i18n/utils';
+import { ctaHref } from '../../../config/nav';
+
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const d = getDict(locale).home.services;
+const services = await getServices();
+---
+
+<section class="section-y" aria-labelledby="services-title">
+  <div class="container-page flex flex-col gap-12">
+    <SectionHeader id="services-title" eyebrow={d.eyebrow} title={d.title} body={d.body}>
+      <Button
+        slot="action"
+        href={localizePath('/services', locale)}
+        variant="secondary"
+        size="M"
+        class="max-md:hidden"
+      >
+        {d.all}
+      </Button>
+    </SectionHeader>
+    <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {services.map((s, i) => {
+        const text = localized(s.data.text, locale);
+        return (
+          <li class:list={['flex', i >= 3 && 'max-md:hidden']}>
+            <ServiceCard
+              index={s.data.number}
+              title={text.title}
+              body={text.cardPitch}
+              items={text.cardDeliverables}
+              class="w-full"
+            />
+          </li>
+        );
+      })}
+      <li class="flex max-md:hidden">
+        <ServiceCard tone="accent" title={d.notSureTitle} body={d.notSureBody} class="w-full">
+          <Button href={localizePath(ctaHref, locale)} size="M">
+            {d.notSureCta}
+          </Button>
+        </ServiceCard>
+      </li>
+    </ul>
+    <Button href={localizePath('/services', locale)} variant="ghost" size="M" class="self-start md:hidden">
+      {d.all} ({services.length})
+    </Button>
+  </div>
+</section>

@@ -48,6 +48,30 @@ export function useTranslations(locale: Locale) {
   };
 }
 
+function deepMerge(base: unknown, over: unknown): unknown {
+  if (Array.isArray(base)) {
+    const arr = Array.isArray(over) ? over : [];
+    return base.map((item, i) => deepMerge(item, arr[i]));
+  }
+  if (base && typeof base === 'object') {
+    const out: Record<string, unknown> = {};
+    const o = (over && typeof over === 'object' ? over : {}) as Record<string, unknown>;
+    for (const [k, v] of Object.entries(base)) out[k] = deepMerge(v, o[k]);
+    return out;
+  }
+  return typeof over === typeof base ? over : base;
+}
+
+/** The whole dictionary for a locale (English fills any gaps). Use for lists and structured copy. */
+export function getDict(locale: Locale): Dict {
+  return (locale === 'en' ? en : deepMerge(en, dictionaries[locale])) as Dict;
+}
+
+/** Replaces {name} placeholders in a string. */
+export function fill(value: string, vars: Record<string, string | number>): string {
+  return Object.entries(vars).reduce((s, [k, v]) => s.replaceAll(`{${k}}`, String(v)), value);
+}
+
 /** Reads the locale from a URL pathname ("/uz/work" -> "uz", "/work" -> "en"). */
 export function getLocaleFromPath(pathname: string): Locale {
   const first = pathname.split('/').filter(Boolean)[0];

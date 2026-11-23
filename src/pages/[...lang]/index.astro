@@ -1,44 +1,41 @@
 ---
-/**
- * Home. Phase 1 shell: tangerine hero + one ivory section so the nav, footer,
- * themes and language routing can be checked. Rebuilt in phase 4 from Figma 7:3.
- */
+/** Home — Figma 7:3 (desktop) / 15:2 (mobile). */
 import PageLayout from '../../layouts/PageLayout.astro';
-import Button from '../../components/ui/Button.astro';
-import { localeStaticPaths, localizePath, type Locale } from '../../i18n/utils';
+import HomeHero from '../../components/sections/home/HomeHero.astro';
+import Ticker from '../../components/sections/home/Ticker.astro';
+import AppShelf from '../../components/sections/AppShelf.astro';
+import SelectedWork from '../../components/sections/home/SelectedWork.astro';
+import GamesLab from '../../components/sections/home/GamesLab.astro';
+import ServicesGrid from '../../components/sections/home/ServicesGrid.astro';
+import WhyUs from '../../components/sections/home/WhyUs.astro';
+import ProcessSection from '../../components/sections/home/ProcessSection.astro';
+import TeamSection from '../../components/sections/TeamSection.astro';
+import CtaPounce from '../../components/sections/home/CtaPounce.astro';
+import HomeContact from '../../components/sections/home/HomeContact.astro';
+import { getDict, localeStaticPaths, type Locale } from '../../i18n/utils';
 
 export const getStaticPaths = localeStaticPaths;
 type Props = { locale: Locale };
 const { locale } = Astro.props;
+const d = getDict(locale).home;
 ---
 
-<PageLayout locale={locale} theme="tangerine">
-  <section data-theme="tangerine" data-hero class="flex min-h-svh items-center pt-(--nav-h)">
-    <div class="container-page flex flex-col gap-6">
-      <h1 class="text-display-2xl max-w-[12ch]">Apps and games with claws.</h1>
-      <div class="flex flex-wrap gap-3">
-        <Button href={localizePath('/work', locale)}>See our apps</Button>
-        <Button href={localizePath('/contact', locale)} variant="light" arrow={false}>
-          Start a project
-        </Button>
-      </div>
-    </div>
-  </section>
-  <section data-theme="light" class="section-y">
-    <div class="container-page">
-      <p class="text-eyebrow text-fg-accent">Phase 1 shell</p>
-      <h2 class="text-display-l mt-4">
-        The home page lands in <span class="text-tabby">phase 4.</span>
-      </h2>
-      <p class="text-body-l text-fg-2 mt-6 max-w-2xl">
-        This page only exists to check the nav, footer, themes and language routing.
-      </p>
-    </div>
-  </section>
-  <section data-theme="dark" class="section-y">
-    <div class="container-page">
-      <h2 class="text-display-l">Dark theme check.</h2>
-      <p class="text-body-l text-fg-2 mt-6">Secondary text on plum.</p>
-    </div>
-  </section>
+<PageLayout locale={locale} title={d.meta.title} description={d.meta.description} theme="tangerine">
+  <HomeHero locale={locale} />
+  <Ticker locale={locale} />
+  <AppShelf locale={locale} />
+  <SelectedWork locale={locale} />
+  <GamesLab locale={locale} />
+  <ServicesGrid locale={locale} />
+  <WhyUs locale={locale} />
+  <ProcessSection locale={locale} />
+  <TeamSection
+    locale={locale}
+    eyebrow={d.team.eyebrow}
+    title={d.team.title}
+    body={d.team.body}
+    linkLabel={d.team.all}
+  />
+  <CtaPounce locale={locale} />
+  <HomeContact locale={locale} />
 </PageLayout>

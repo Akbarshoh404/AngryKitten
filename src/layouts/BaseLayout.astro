@@ -22,7 +22,7 @@ export type BaseProps = {
   locale: Locale;
   title?: string;
   description?: string;
-  /** Theme of the page background (the hero sets its own). */
+  /** Colour of the page's first screen; sets the browser theme-color. Sections set their own data-theme. */
   theme?: 'light' | 'dark' | 'tangerine';
   noindex?: boolean;
   /** Set false for pages that have no translated twins (e.g. 404). */
@@ -42,7 +42,7 @@ const themeColor = theme === 'tangerine' ? '#ff5a1f' : theme === 'dark' ? '#2b16
 ---
 
 <!doctype html>
-<html lang={localeLabels[locale].hreflang} data-theme={theme}>
+<html lang={localeLabels[locale].hreflang} data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />

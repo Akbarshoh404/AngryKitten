@@ -1,0 +1,87 @@
+---
+/** Team — Figma 38:844 (Home) and 14:724 (Studio). Four team cards; scroll-snap carousel on mobile. */
+import SectionHeader from '../ui/SectionHeader.astro';
+import Button from '../ui/Button.astro';
+import TeamCard from '../cards/TeamCard.astro';
+import { getTeam, localized } from '../../lib/content';
+import { localizePath, type Locale } from '../../i18n/utils';
+
+type Props = {
+  locale: Locale;
+  eyebrow?: string;
+  title: string;
+  body?: string;
+  /** Show the "Meet the studio" link (Home only). */
+  linkLabel?: string;
+  tone?: 'sunken' | 'base';
+};
+const { locale, eyebrow, title, body, linkLabel, tone = 'sunken' } = Astro.props;
+const team = await getTeam();
+---
+
+<section class:list={['section-y', tone === 'sunken' && 'bg-sunken']} aria-labelledby="team-title">
+  <div class="container-page flex flex-col gap-14">
+    <SectionHeader id="team-title" eyebrow={eyebrow} title={title} body={body}>
+      {linkLabel && (
+        <Button slot="action" href={localizePath('/studio', locale)} variant="secondary" size="M">
+          {linkLabel}
+        </Button>
+      )}
+    </SectionHeader>
+    <ul class="ak-team-list">
+      {team.map((m) => {
+        const text = localized(m.data.text, locale);
+        return (
+          <li>
+            <TeamCard
+              name={m.data.name}
+              jobTitle={text.jobTitle}
+              badge={text.badge}
+              photo={m.data.photo}
+              telegram={m.data.telegram}
+              linkedin={m.data.linkedin}
+              class="h-full"
+            />
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .ak-team-list {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(240px, 72vw);
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      margin-inline: calc(var(--page-gutter) * -1);
+      padding: 0 var(--page-gutter) 16px;
+      scrollbar-width: none;
+    }
+    .ak-team-list::-webkit-scrollbar {
+      display: none;
+    }
+    .ak-team-list > li {
+      scroll-snap-align: start;
+    }
+    @media (min-width: 768px) {
+      .ak-team-list {
+        grid-auto-flow: row;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        overflow: visible;
+        margin-inline: 0;
+        padding-inline: 0;
+        gap: 24px;
+      }
+    }
+    @media (min-width: 1024px) {
+      .ak-team-list {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  }
+</style>

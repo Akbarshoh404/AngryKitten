@@ -172,3 +172,444 @@
     position: relative;
   }
 }
+
+@layer components {
+  /* Device / Phone — Figma 4:96 (markup in Phone.astro and PhoneMockup.tsx) */
+  .ak-phone {
+    width: var(--phone-w);
+    max-width: 100%;
+    container-type: inline-size;
+  }
+  /* 1 unit (--u) = 1px of the 320px-wide Figma frame. */
+  .ak-phone__body {
+    --u: calc(100cqw / 320);
+    position: relative;
+    width: 100%;
+    aspect-ratio: 320 / 664;
+    border: 1.5px solid var(--device-frame-border);
+    border-radius: calc(52 * var(--u));
+    background: var(--device-frame);
+  }
+  .ak-phone__body.has-shadow {
+    box-shadow: var(--shadow-device);
+  }
+  .ak-phone__bezel {
+    position: absolute;
+    inset: calc(4.5 * var(--u));
+    border: 1px solid var(--device-bezel-border);
+    border-radius: calc(46 * var(--u));
+    background: var(--device-bezel);
+  }
+  .ak-phone__screen,
+  .ak-phone__glare {
+    position: absolute;
+    inset: calc(13.6 * var(--u));
+    border-radius: calc(38 * var(--u));
+    overflow: hidden;
+  }
+  .ak-phone__screen {
+    background: var(--color-ink);
+  }
+  .ak-phone__screen img,
+  .ak-phone__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+  .ak-phone__glare {
+    background: var(--device-glare);
+    pointer-events: none;
+  }
+  .ak-phone__camera {
+    position: absolute;
+    left: 50%;
+    top: calc(32.6 * var(--u));
+    width: calc(16 * var(--u));
+    height: calc(16 * var(--u));
+    border: calc(2 * var(--u)) solid var(--device-camera-ring);
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 35% 35%,
+      var(--device-glint) 0 calc(2 * var(--u)),
+      var(--device-camera) calc(2.2 * var(--u))
+    );
+    transform: translate(-50%, -50%);
+  }
+  .ak-phone__btn {
+    position: absolute;
+    left: 100%;
+    width: calc(4 * var(--u));
+    border-radius: 0 2px 2px 0;
+    background: var(--device-button);
+  }
+  .ak-phone__btn--power {
+    top: calc(175.3 * var(--u));
+    height: calc(62.3 * var(--u));
+  }
+  .ak-phone__btn--volume {
+    top: calc(261.7 * var(--u));
+    height: calc(112.5 * var(--u));
+  }
+}
+
+@layer components {
+  /* Button — Figma 4:42 */
+  .ak-btn {
+    --btn-bg: var(--color-ink);
+    --btn-fg: var(--color-paper);
+    --btn-border: transparent;
+    --btn-shadow: 0 0 0 0 var(--color-ink);
+    --btn-gap: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--btn-gap);
+    border: 2.5px solid var(--btn-border);
+    border-radius: var(--radius-pill);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    box-shadow: var(--btn-shadow);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    line-height: 1.3;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color 150ms var(--ease-out),
+      color 150ms var(--ease-out),
+      box-shadow 150ms var(--ease-out),
+      transform 150ms var(--ease-out),
+      gap 150ms var(--ease-out);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ak-btn--L {
+    padding: 18px 28px;
+    font-size: 1.0625rem;
+    min-height: 3.5rem;
+  }
+  .ak-btn--M {
+    padding: 12px 20px;
+    font-size: 0.9375rem;
+    min-height: 2.75rem;
+  }
+  .ak-btn--block {
+    display: flex;
+    width: 100%;
+  }
+  .ak-btn__arrow {
+    flex: none;
+    transition: transform 150ms var(--ease-out);
+  }
+
+  /* Primary: ink fill (no border). Hover: tabby fill + sticker shadow. */
+  .ak-btn--primary {
+    border-width: 0;
+  }
+
+  .ak-btn--accent {
+    --btn-bg: var(--color-tabby);
+    --btn-fg: var(--color-ink);
+    --btn-border: var(--color-ink);
+  }
+  .ak-btn--secondary {
+    --btn-bg: transparent;
+    --btn-fg: var(--color-ink);
+    --btn-border: var(--color-ink);
+  }
+  .ak-btn--light {
+    --btn-bg: var(--color-paper);
+    --btn-fg: var(--color-ink);
+    --btn-border: var(--color-ink);
+  }
+  .ak-btn--ghost {
+    --btn-bg: transparent;
+    --btn-fg: var(--text-primary);
+    padding-inline: 0;
+    border-width: 0;
+    min-height: auto;
+  }
+
+  @media (hover: hover) {
+    .ak-btn:hover,
+    .ak-btn.is-hover {
+      --btn-shadow: var(--shadow-sticker);
+      --btn-gap: 16px;
+    }
+    .ak-btn--primary:hover,
+    .ak-btn--primary.is-hover {
+      /* tabby, or paper inside tangerine sections (set per theme in tokens.css) */
+      --btn-bg: var(--btn-primary-hover);
+      --btn-fg: var(--color-ink);
+    }
+    .ak-btn--accent:hover,
+    .ak-btn--accent.is-hover {
+      --btn-bg: var(--color-tabby-deep);
+    }
+    .ak-btn--ghost:hover,
+    .ak-btn--ghost.is-hover {
+      --btn-shadow: none;
+    }
+  }
+  .ak-btn:active {
+    transform: translate(3px, 3px);
+    --btn-shadow: var(--shadow-sticker-sm);
+  }
+  .ak-btn--ghost:active {
+    transform: none;
+  }
+}
+
+@layer components {
+  /* Home hero — Figma 7:29. Art box is the 580 × 700 Figma frame; 1 unit = --u. */
+  .ak-hero {
+    display: grid;
+    gap: 32px;
+    align-items: center;
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: 24px var(--page-gutter) 32px;
+  }
+  @media (min-width: 1024px) {
+    .ak-hero {
+      grid-template-columns: minmax(0, 660px) minmax(0, 1fr);
+      gap: 40px;
+      padding: 8px var(--page-gutter) 24px;
+    }
+  }
+  .ak-hero__copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  @media (min-width: 1024px) {
+    .ak-hero__copy {
+      gap: 32px;
+    }
+  }
+  .ak-hero__text {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .ak-hero__title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(3.5rem, 1.9rem + 6.6vw, 7.75rem);
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+    color: var(--color-ink);
+  }
+  .ak-hero__title > span {
+    display: block;
+  }
+  /* Figma sets this line in paper (2.9:1 on tabby); white reaches 3:1 for large text. */
+  .ak-hero__line1 {
+    color: var(--color-white);
+  }
+  .ak-hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  @media (max-width: 639px) {
+    .ak-hero__ctas,
+    .ak-hero__ctas .ak-btn {
+      width: 100%;
+    }
+  }
+
+  .ak-hero__art {
+    --u: calc(100cqw / 580);
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    margin-inline: auto;
+    aspect-ratio: 580 / 680;
+    container-type: inline-size;
+  }
+  @media (min-width: 1024px) {
+    .ak-hero__art {
+      max-width: none;
+      aspect-ratio: 580 / 700;
+      max-height: calc(100svh - var(--nav-h) - 48px);
+    }
+  }
+  .ak-hero__art > * {
+    --u: calc(100cqw / 580);
+  }
+  .ak-hero__slot {
+    position: absolute;
+    left: calc((var(--x) - var(--w) / 2) * var(--u));
+    top: calc(var(--y) * var(--u));
+    width: calc(var(--w) * var(--u));
+    translate: 0 -50%;
+  }
+  .ak-hero__phone-anim {
+    width: 100%;
+  }
+  .ak-hero__float {
+    animation: var(--animate-float);
+  }
+  .ak-hero__sticker {
+    position: absolute;
+    z-index: 3;
+    left: calc(15 * var(--u));
+    top: calc(-18 * var(--u));
+    width: calc(190 * var(--u));
+    height: auto;
+    --tilt: -10deg;
+    transform: rotate(-10deg);
+    animation: var(--animate-wobble);
+    animation-delay: 400ms;
+    filter: drop-shadow(0 10px 18px rgb(23 17 12 / 0.25));
+  }
+  .ak-hero__scratch {
+    position: absolute;
+    left: calc(480 * var(--u));
+    top: 0;
+    width: calc(170 * var(--u));
+    color: var(--color-ink);
+  }
+  .ak-hero__scratch svg {
+    width: 100%;
+    height: auto;
+  }
+  .ak-hero__badge {
+    position: absolute;
+    z-index: 3;
+    right: calc(-10 * var(--u));
+    top: calc(560 * var(--u));
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px 10px 10px;
+    border: 3px solid var(--color-ink);
+    border-radius: var(--radius-pill);
+    background: var(--color-white);
+    box-shadow: var(--shadow-sticker);
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+  .ak-hero__badge img {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+  .ak-hero__badge-name,
+  .ak-hero__badge-meta {
+    display: block;
+    font-weight: 500;
+  }
+  .ak-hero__badge-name {
+    font-size: 0.9375rem;
+    line-height: 1.3;
+  }
+  .ak-hero__badge-meta {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: var(--color-muted);
+  }
+  @media (max-width: 1023px) {
+    .ak-hero__badge {
+      left: auto;
+      right: 0;
+      top: auto;
+      bottom: 4%;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ak-hero__float,
+    .ak-hero__sticker {
+      animation: none;
+    }
+  }
+}
+
+@layer components {
+  /* Contact form island */
+  .ak-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .ak-form__group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .ak-form__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .ak-form__chips .ak-chip {
+    min-height: 40px;
+    padding: 8px 16px;
+  }
+  .ak-form__row {
+    display: grid;
+    gap: 22px;
+  }
+  @media (min-width: 640px) {
+    .ak-form__row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .ak-form__hp {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .ak-form .ak-btn[disabled] {
+    cursor: progress;
+    opacity: 0.85;
+  }
+  .ak-form__spinner {
+    width: 18px;
+    height: 18px;
+    border: 2.5px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: ak-spin 700ms linear infinite;
+  }
+  @keyframes ak-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .ak-form-success {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding-block: 24px;
+  }
+  .ak-form-success h3:focus {
+    outline: none;
+  }
+  .ak-form-success__cat {
+    width: 96px;
+    height: 96px;
+    transform: rotate(-8deg);
+    animation: var(--animate-wobble);
+    --tilt: -8deg;
+  }
+  /* Card that hosts the form (Home quick form, Contact page) */
+  .ak-form-card {
+    padding: clamp(24px, 3vw, 40px);
+    border: 3px solid var(--color-ink);
+    border-radius: var(--radius-xl);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-sticker);
+  }
+}

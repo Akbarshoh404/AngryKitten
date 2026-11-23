@@ -1,0 +1,200 @@
+---
+/** Selected work — Figma 7:92: big featured card (first featured app) + grid of the rest. */
+import { Image } from 'astro:assets';
+import SectionHeader from '../../ui/SectionHeader.astro';
+import Button from '../../ui/Button.astro';
+import Tag from '../../ui/Tag.astro';
+import Phone from '../../ui/Phone.astro';
+import AppCard from '../../cards/AppCard.astro';
+import { getApps, localized, playUrl } from '../../../lib/content';
+import { appAssets } from '../../../lib/appAssets';
+import { fill, getDict, localizePath, useTranslations, type Locale } from '../../../i18n/utils';
+
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const d = getDict(locale).home.work;
+const apps = await getApps();
+const featured = apps.filter((a) => a.data.featured && a.data.status === 'live');
+const [hero, ...rest] = featured;
+const heroText = hero ? localized(hero.data.text, locale) : undefined;
+const heroAssets = hero ? appAssets(hero.id) : undefined;
+---
+
+<section class="section-y" aria-labelledby="work-title">
+  <div class="container-page flex flex-col gap-12">
+    <SectionHeader id="work-title" eyebrow={d.eyebrow} title={d.title} body={d.body}>
+      <Button slot="action" href={localizePath('/work', locale)} variant="secondary" size="M">
+        {fill(d.all, { total: apps.length })}
+      </Button>
+    </SectionHeader>
+
+    {hero && heroText && heroAssets && (
+      <article class="ak-feature">
+        <div class="ak-feature__media" style={`--theme:${hero.data.themeColor ?? 'var(--color-night)'}`}>
+          <span class="ak-feature__glow" aria-hidden="true" />
+          {heroAssets.screenshots.length >= 3 && (
+            <div class="ak-feature__phones">
+              <Phone
+                src={heroAssets.screenshots[1]!}
+                alt=""
+                width="100%"
+                sizes="220px"
+                class="ak-feature__phone is-left"
+              />
+              <Phone
+                src={heroAssets.screenshots[0]!}
+                alt={t('common.screenshotOf', { app: hero.data.name, n: 1 })}
+                width="100%"
+                sizes="240px"
+                class="ak-feature__phone is-center"
+              />
+              <Phone
+                src={heroAssets.screenshots[2]!}
+                alt=""
+                width="100%"
+                sizes="220px"
+                class="ak-feature__phone is-right"
+              />
+            </div>
+          )}
+        </div>
+        <div class="ak-feature__details">
+          <div class="flex flex-wrap gap-2">
+            <Tag kind="dark">{t('common.featured')}</Tag>
+            {heroText.category && <Tag kind={hero.data.type}>{heroText.category}</Tag>}
+          </div>
+          <div class="flex items-center gap-4">
+            {heroAssets.icon && (
+              <Image
+                src={heroAssets.icon}
+                alt=""
+                width={64}
+                height={64}
+                densities={[1, 2]}
+                class="ak-feature__icon"
+              />
+            )}
+            <h3 class="text-h1">{hero.data.name}</h3>
+          </div>
+          <p class="text-body-l text-fg-2">{heroText.description}</p>
+          <dl class="ak-feature__facts">
+            <dt class="text-eyebrow text-fg-2">{t('common.platform')}</dt>
+            <dd class="text-label-m">{t('common.android')}</dd>
+            {heroText.built && (
+              <>
+                <dt class="text-eyebrow text-fg-2">{t('common.built')}</dt>
+                <dd class="text-label-m">{heroText.built}</dd>
+              </>
+            )}
+            <dt class="text-eyebrow text-fg-2">{t('common.status')}</dt>
+            <dd class="text-label-m">{t('common.liveOnPlay')}</dd>
+          </dl>
+          <div class="mt-auto flex flex-wrap items-center gap-3 pt-2">
+            <Button href={localizePath(`/work/${hero.id}`, locale)} size="M">
+              {t('common.readCaseStudy')}
+            </Button>
+            {hero.data.packageId && (
+              <Button
+                href={playUrl(hero.data.packageId)}
+                variant="ghost"
+                size="M"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t('common.googlePlay')}
+                <span class="sr-only"> ({t('a11y.opensInNewTab')})</span>
+              </Button>
+            )}
+          </div>
+        </div>
+      </article>
+    )}
+
+    <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {rest.map((app) => (
+        <li class="flex">
+          <AppCard app={app} locale={locale} cta="view" class="w-full" />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .ak-feature {
+      display: grid;
+      overflow: hidden;
+      border: 3px solid var(--border-strong);
+      border-radius: var(--radius-xl);
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-sticker);
+    }
+    @media (min-width: 1024px) {
+      .ak-feature {
+        grid-template-columns: minmax(0, 720fr) minmax(0, 554fr);
+        border-radius: 40px;
+      }
+    }
+    .ak-feature__media {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 340px;
+      overflow: hidden;
+      background: var(--theme);
+      container-type: inline-size;
+    }
+    @media (min-width: 1024px) {
+      .ak-feature__media {
+        min-height: 600px;
+      }
+    }
+    .ak-feature__glow {
+      position: absolute;
+      width: 72cqw;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--color-tabby);
+      opacity: 0.9;
+      filter: blur(0);
+    }
+    .ak-feature__phones {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1fr;
+      align-items: center;
+      width: min(92cqw, 620px);
+      padding-block: 32px;
+    }
+    .ak-feature__phone.is-left {
+      transform: translateX(18%) rotate(-8deg) scale(0.92);
+    }
+    .ak-feature__phone.is-center {
+      position: relative;
+      z-index: 1;
+    }
+    .ak-feature__phone.is-right {
+      transform: translateX(-18%) rotate(8deg) scale(0.92);
+    }
+    .ak-feature__details {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: clamp(28px, 4vw, 56px) clamp(24px, 3.4vw, 48px);
+    }
+    .ak-feature__icon {
+      width: 64px;
+      height: 64px;
+      border: 2.5px solid var(--color-ink);
+      border-radius: 16px;
+    }
+    .ak-feature__facts {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 10px 28px;
+      align-items: baseline;
+    }
+  }
+</style>
