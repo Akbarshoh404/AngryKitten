@@ -1,0 +1,93 @@
+---
+/**
+ * Contact method — Figma 37:72 (Email · Telegram · Phone · Studio).
+ * Orange icon square, caps label, value, and an "out" arrow when it links somewhere.
+ */
+import MailIcon from '../../assets/icons/mail.svg';
+import TelegramIcon from '../../assets/icons/telegram.svg';
+import PhoneIcon from '../../assets/icons/phone.svg';
+import PinIcon from '../../assets/icons/pin.svg';
+import OutIcon from '../../assets/icons/out.svg';
+
+type Kind = 'email' | 'telegram' | 'phone' | 'studio';
+type Props = { kind: Kind; label: string; value: string; href?: string; class?: string };
+const { kind, label, value, href, class: className } = Astro.props;
+
+const icons = { email: MailIcon, telegram: TelegramIcon, phone: PhoneIcon, studio: PinIcon } as const;
+const Icon = icons[kind];
+const external = href?.startsWith('http');
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag
+  href={href}
+  class:list={['ak-contact', href && 'is-link', className]}
+  {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+>
+  <span class="ak-contact__icon" aria-hidden="true">
+    <Icon width={28} height={28} />
+  </span>
+  <span class="ak-contact__text">
+    <span class="text-eyebrow text-fg-2">{label}</span>
+    <span class="text-label-l ak-contact__value">{value}</span>
+  </span>
+  {href && <OutIcon class="ak-contact__out" width={22} height={22} aria-hidden="true" />}
+</Tag>
+
+<style>
+  @layer components {
+    .ak-contact {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      border: 3px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-sticker);
+      text-decoration: none;
+      transition:
+        transform 200ms var(--ease-spring),
+        box-shadow 200ms var(--ease-out);
+    }
+    @media (hover: hover) {
+      .ak-contact.is-link:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 9px 9px 0 0 var(--color-ink);
+      }
+      .ak-contact.is-link:hover .ak-contact__out {
+        transform: translate(2px, -2px);
+      }
+    }
+    .ak-contact.is-link:active {
+      transform: translate(3px, 3px);
+      box-shadow: var(--shadow-sticker-sm);
+    }
+    .ak-contact__icon {
+      display: grid;
+      flex: none;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      border: 2.5px solid var(--color-ink);
+      border-radius: var(--radius-md);
+      background: var(--bg-accent);
+      color: var(--color-ink);
+    }
+    .ak-contact__text {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .ak-contact__value {
+      overflow-wrap: anywhere;
+    }
+    .ak-contact__out {
+      flex: none;
+      transition: transform 200ms var(--ease-spring);
+    }
+  }
+</style>

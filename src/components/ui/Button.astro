@@ -126,18 +126,23 @@ const classes = ['ak-btn', `ak-btn--${variant}`, `ak-btn--${size}`, block && 'ak
     }
 
     @media (hover: hover) {
-      .ak-btn:hover {
+      .ak-btn:hover,
+      .ak-btn.is-hover {
         --btn-shadow: var(--shadow-sticker);
         --btn-gap: 16px;
       }
-      .ak-btn--primary:hover {
-        --btn-bg: var(--color-tabby);
+      .ak-btn--primary:hover,
+      .ak-btn--primary.is-hover {
+        /* tabby, or paper inside tangerine sections (set per theme in tokens.css) */
+        --btn-bg: var(--btn-primary-hover);
         --btn-fg: var(--color-ink);
       }
-      .ak-btn--accent:hover {
+      .ak-btn--accent:hover,
+      .ak-btn--accent.is-hover {
         --btn-bg: var(--color-tabby-deep);
       }
-      .ak-btn--ghost:hover {
+      .ak-btn--ghost:hover,
+      .ak-btn--ghost.is-hover {
         --btn-shadow: none;
       }
     }
@@ -147,11 +152,6 @@ const classes = ['ak-btn', `ak-btn--${variant}`, `ak-btn--${size}`, block && 'ak
     }
     .ak-btn--ghost:active {
       transform: none;
-    }
-
-    /* On tangerine sections the primary hover can't turn orange-on-orange. */
-    :global([data-theme='tangerine']) .ak-btn--primary:hover {
-      --btn-bg: var(--color-paper);
     }
   }
 </style>

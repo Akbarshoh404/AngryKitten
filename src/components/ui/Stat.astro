@@ -1,0 +1,10 @@
+---
+/** Stat — Figma 6:60. Big Display/L value + Body/M label. */
+type Props = { value: string | number; label: string; class?: string };
+const { value, label, class: className } = Astro.props;
+---
+
+<div class:list={['flex flex-col gap-1.5', className]}>
+  <p class="text-display-l text-fg whitespace-nowrap">{value}</p>
+  <p class="text-body-m text-fg-2">{label}</p>
+</div>

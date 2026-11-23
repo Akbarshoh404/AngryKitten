@@ -1,0 +1,31 @@
+---
+/**
+ * Filter chip — Figma 4:60. States: default (outlined) and active (filled).
+ * Renders a <button aria-pressed> by default, or a link when href is given.
+ * Interactive filtering lives in the WorkFilters island, which reuses these classes.
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = {
+  active?: boolean;
+  count?: number | string;
+  href?: string;
+  class?: string;
+} & Omit<HTMLAttributes<'button'>, 'class'>;
+const { active = false, count, href, class: className, ...rest } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  href={href}
+  type={href ? undefined : 'button'}
+  aria-pressed={href ? undefined : active}
+  aria-current={href && active ? 'page' : undefined}
+  class:list={['ak-chip', active && 'is-active', className]}
+  {...rest}
+>
+  <span class="ak-chip__label">
+    <slot />
+  </span>
+  {count !== undefined && <span class="ak-chip__count">{count}</span>}
+</Tag>

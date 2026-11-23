@@ -1,0 +1,59 @@
+---
+/** Card / Coming soon — Figma 6:28. Dashed outline, faded cat mark. */
+import { Image } from 'astro:assets';
+import Tag from '../ui/Tag.astro';
+import mark from '../../assets/brand/mark.png';
+
+type Props = { name: string; tag: string; body: string; headingLevel?: 'h2' | 'h3'; class?: string };
+const { name, tag, body, headingLevel: Heading = 'h3', class: className } = Astro.props;
+---
+
+<article class:list={['ak-soon', className]}>
+  <div class="ak-soon__media" aria-hidden="true">
+    <Image src={mark} alt="" width={96} height={96} densities={[1, 2]} />
+  </div>
+  <div class="ak-soon__body">
+    <Tag kind="soon" class="self-start">
+      {tag}
+    </Tag>
+    <Heading class="ak-soon__name">{name}</Heading>
+    <p class="text-body-s text-fg-2">{body}</p>
+  </div>
+</article>
+
+<style>
+  @layer components {
+    .ak-soon {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 3px dashed var(--border-strong);
+      border-radius: var(--radius-card);
+      background: var(--bg-sunken);
+      box-shadow: var(--shadow-sticker);
+    }
+    .ak-soon__media {
+      display: grid;
+      place-items: center;
+      min-height: 210px;
+    }
+    .ak-soon__media img {
+      width: 96px;
+      height: 96px;
+      opacity: 0.35;
+    }
+    .ak-soon__body {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 20px 24px 24px;
+    }
+    .ak-soon__name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.5rem;
+      line-height: 1.15;
+      letter-spacing: -0.008em;
+    }
+  }
+</style>

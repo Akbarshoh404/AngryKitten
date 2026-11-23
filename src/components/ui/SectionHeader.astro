@@ -1,0 +1,81 @@
+---
+/**
+ * Section header — Figma 4:92. Eyebrow (rust caps) + H1-size title + optional body.
+ * Wrap the key word in **double asterisks** to highlight it in orange.
+ * Put a button in the "action" slot to place it bottom-right (e.g. "All services").
+ */
+import { highlight } from '../../lib/text';
+
+type Props = {
+  eyebrow?: string;
+  title: string;
+  body?: string;
+  as?: 'h1' | 'h2' | 'h3';
+  size?: 'h1' | 'display';
+  align?: 'start' | 'center';
+  class?: string;
+  id?: string;
+};
+const {
+  eyebrow,
+  title,
+  body,
+  as: Heading = 'h2',
+  size = 'h1',
+  align = 'start',
+  class: className,
+  id,
+} = Astro.props;
+const hasAction = Astro.slots.has('action');
+---
+
+<div class:list={['ak-sh', `ak-sh--${align}`, hasAction && 'ak-sh--with-action', className]}>
+  <div class="ak-sh__text">
+    {eyebrow && <p class="text-eyebrow text-fg-accent">{eyebrow}</p>}
+    <Heading
+      id={id}
+      class:list={[size === 'display' ? 'text-display-l' : 'text-h1']}
+      set:html={highlight(title)}
+    />
+    {body && <p class="text-body-l text-fg-2">{body}</p>}
+  </div>
+  {hasAction && (
+    <div class="ak-sh__action">
+      <slot name="action" />
+    </div>
+  )}
+</div>
+
+<style>
+  @layer components {
+    .ak-sh {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .ak-sh__text {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 720px;
+    }
+    .ak-sh--center {
+      align-items: center;
+      text-align: center;
+    }
+    .ak-sh--center .ak-sh__text {
+      align-items: center;
+      margin-inline: auto;
+    }
+    @media (min-width: 768px) {
+      .ak-sh--with-action {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+      .ak-sh__action {
+        flex: none;
+      }
+    }
+  }
+</style>

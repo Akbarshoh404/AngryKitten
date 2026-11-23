@@ -12,8 +12,10 @@ export default defineConfig(
   ...astro.configs.recommended,
   ...astro.configs['jsx-a11y-strict'],
   {
+    // eslint-plugin-astro's jsx-a11y config already registers the plugin; reuse its rules for islands.
     files: ['**/*.{tsx,jsx}'],
-    ...jsxA11y.flatConfigs.strict,
+    languageOptions: jsxA11y.flatConfigs.strict.languageOptions,
+    rules: jsxA11y.flatConfigs.strict.rules,
   },
   {
     languageOptions: { globals: { ...globals.browser, ...globals.node } },

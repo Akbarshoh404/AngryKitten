@@ -113,6 +113,12 @@
   --text-on-accent: var(--color-ink);
   --border-default: var(--color-line);
   --border-strong: var(--color-ink);
+  /* Highlighted key word in titles. Figma uses tabby; tabby-deep keeps the same
+     look but reaches 3.9:1 on ivory (WCAG AA for large text). */
+  --hl-color: var(--color-tabby-deep);
+  /* Error text: rose (#E5484D) is too light for small text, so a deeper rose. */
+  --text-error: #b42318;
+  --btn-primary-hover: var(--color-tabby);
 }
 
 [data-theme='dark'] {
@@ -130,6 +136,9 @@
   --text-on-accent: var(--color-ink);
   --border-default: var(--color-smoke);
   --border-strong: var(--color-paper);
+  --hl-color: var(--color-tabby);
+  --text-error: #ffb4ab;
+  --btn-primary-hover: var(--color-tabby);
 }
 
 [data-theme='tangerine'] {
@@ -147,6 +156,28 @@
   --text-on-accent: var(--color-ink);
   --border-default: var(--color-ink);
   --border-strong: var(--color-ink);
+  --hl-color: var(--color-paper);
+  --text-error: var(--color-ink);
+  /* Orange-on-orange would vanish, so primary buttons hover to paper here. */
+  --btn-primary-hover: var(--color-paper);
+}
+
+/* Realistic phone mockup (Figma "Device / Phone" 4:96). Device greys aren't brand colours. */
+:root {
+  --device-frame-border: #77777c;
+  --device-frame: linear-gradient(90deg, #5b5b60 0%, #2c2c30 4%, #1d1d20 50%, #2c2c30 96%, #5b5b60 100%);
+  --device-bezel: #08080a;
+  --device-bezel-border: #26262a;
+  --device-camera: #050506;
+  --device-camera-ring: #2b2b30;
+  --device-glint: #4b5e86;
+  --device-button: linear-gradient(90deg, #2a2a2e, #5b5b60 50%, #2a2a2e);
+  --device-glare: linear-gradient(
+    114.58deg,
+    rgb(255 255 255 / 0.16) 8.33%,
+    rgb(255 255 255 / 0.04) 43.33%,
+    rgb(255 255 255 / 0) 44.17%
+  );
 }
 
 /* Semantic -> Tailwind utilities (bg-base, text-fg, border-strong…) */

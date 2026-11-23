@@ -1,0 +1,68 @@
+---
+/**
+ * Field — Figma 6:79. Label + input or textarea; focus thickens the border to 3px ink.
+ * Error and hint text are wired with aria-describedby. Used by server-rendered forms;
+ * the React ContactForm island uses the same `.ak-field*` classes.
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = {
+  label: string;
+  name: string;
+  id?: string;
+  multiline?: boolean;
+  hint?: string;
+  error?: string;
+  optionalLabel?: string;
+  class?: string;
+} & Omit<HTMLAttributes<'input'>, 'class' | 'name' | 'id'>;
+
+const {
+  label,
+  name,
+  id = `f-${name}`,
+  multiline = false,
+  hint,
+  error,
+  optionalLabel,
+  class: className,
+  ...rest
+} = Astro.props;
+const describedBy = [hint && `${id}-hint`, error && `${id}-error`].filter(Boolean).join(' ') || undefined;
+---
+
+<div class:list={['ak-field', error && 'has-error', className]}>
+  <label for={id} class="ak-field__label">
+    {label}
+    {optionalLabel && <span class="ak-field__optional">{optionalLabel}</span>}
+  </label>
+  {multiline ? (
+    <textarea
+      id={id}
+      name={name}
+      class="ak-field__control ak-field__control--multi"
+      aria-invalid={error ? 'true' : undefined}
+      aria-describedby={describedBy}
+      {...(rest as HTMLAttributes<'textarea'>)}
+    />
+  ) : (
+    <input
+      id={id}
+      name={name}
+      class="ak-field__control"
+      aria-invalid={error ? 'true' : undefined}
+      aria-describedby={describedBy}
+      {...rest}
+    />
+  )}
+  {hint && (
+    <p id={`${id}-hint`} class="ak-field__hint">
+      {hint}
+    </p>
+  )}
+  {error && (
+    <p id={`${id}-error`} class="ak-field__error">
+      {error}
+    </p>
+  )}
+</div>

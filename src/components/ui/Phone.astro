@@ -1,0 +1,144 @@
+---
+/**
+ * Device / Phone — Figma 4:96. A realistic Android phone built in HTML/CSS
+ * (frame, bezel, screen, glare, punch-hole camera, side buttons) so any
+ * screenshot can be swapped in. Geometry is the Figma 320 × 664 frame,
+ * expressed in container units, so it scales cleanly to any width.
+ *
+ * Pass `src` + `alt` for a single screenshot, or fill the default slot
+ * (e.g. a carousel island) to control the screen yourself.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+type Props = {
+  src?: ImageMetadata;
+  alt?: string;
+  /** Rendered width in CSS (any length). Default 320px. */
+  width?: string;
+  /** Image widths for srcset; tune per usage. */
+  widths?: number[];
+  sizes?: string;
+  loading?: 'eager' | 'lazy';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  shadow?: boolean;
+  class?: string;
+};
+const {
+  src,
+  alt = '',
+  width = '320px',
+  widths = [280, 400, 560, 720],
+  sizes = '(min-width: 1024px) 320px, 60vw',
+  loading = 'lazy',
+  fetchpriority,
+  shadow = true,
+  class: className,
+} = Astro.props;
+---
+
+<div class:list={['ak-phone', className]} style={`--phone-w:${width}`}>
+  <div class:list={['ak-phone__body', shadow && 'has-shadow']}>
+    <div class="ak-phone__bezel"></div>
+    <div class="ak-phone__screen">
+      {src ? (
+        <Image
+          src={src}
+          alt={alt}
+          widths={widths}
+          sizes={sizes}
+          loading={loading}
+          fetchpriority={fetchpriority}
+          class="ak-phone__img"
+        />
+      ) : (
+        <slot />
+      )}
+    </div>
+    <div class="ak-phone__glare" aria-hidden="true"></div>
+    <div class="ak-phone__camera" aria-hidden="true"></div>
+    <div class="ak-phone__btn ak-phone__btn--power" aria-hidden="true"></div>
+    <div class="ak-phone__btn ak-phone__btn--volume" aria-hidden="true"></div>
+  </div>
+</div>
+
+<style>
+  @layer components {
+    .ak-phone {
+      width: var(--phone-w);
+      max-width: 100%;
+      container-type: inline-size;
+    }
+    /* 1 unit (--u) = 1px of the 320px-wide Figma frame. */
+    .ak-phone__body {
+      --u: calc(100cqw / 320);
+      position: relative;
+      width: 100%;
+      aspect-ratio: 320 / 664;
+      border: 1.5px solid var(--device-frame-border);
+      border-radius: calc(52 * var(--u));
+      background: var(--device-frame);
+    }
+    .ak-phone__body.has-shadow {
+      box-shadow: var(--shadow-device);
+    }
+    .ak-phone__bezel {
+      position: absolute;
+      inset: calc(4.5 * var(--u));
+      border: 1px solid var(--device-bezel-border);
+      border-radius: calc(46 * var(--u));
+      background: var(--device-bezel);
+    }
+    .ak-phone__screen,
+    .ak-phone__glare {
+      position: absolute;
+      inset: calc(13.6 * var(--u));
+      border-radius: calc(38 * var(--u));
+      overflow: hidden;
+    }
+    .ak-phone__screen {
+      background: var(--color-ink);
+    }
+    .ak-phone__screen :global(img),
+    .ak-phone__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+    .ak-phone__glare {
+      background: var(--device-glare);
+      pointer-events: none;
+    }
+    .ak-phone__camera {
+      position: absolute;
+      left: 50%;
+      top: calc(32.6 * var(--u));
+      width: calc(16 * var(--u));
+      height: calc(16 * var(--u));
+      border: calc(2 * var(--u)) solid var(--device-camera-ring);
+      border-radius: 50%;
+      background: radial-gradient(
+        circle at 35% 35%,
+        var(--device-glint) 0 calc(2 * var(--u)),
+        var(--device-camera) calc(2.2 * var(--u))
+      );
+      transform: translate(-50%, -50%);
+    }
+    .ak-phone__btn {
+      position: absolute;
+      left: 100%;
+      width: calc(4 * var(--u));
+      border-radius: 0 2px 2px 0;
+      background: var(--device-button);
+    }
+    .ak-phone__btn--power {
+      top: calc(175.3 * var(--u));
+      height: calc(62.3 * var(--u));
+    }
+    .ak-phone__btn--volume {
+      top: calc(261.7 * var(--u));
+      height: calc(112.5 * var(--u));
+    }
+  }
+</style>

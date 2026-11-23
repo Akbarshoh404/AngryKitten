@@ -1,0 +1,406 @@
+---
+/**
+ * Hidden styleguide at /_styleguide (noindex, not in the sitemap).
+ * Shows every component from the Figma Components page (1:3) with its variants and states.
+ * (Astro skips files that start with "_", so the route comes from getStaticPaths.)
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Tag from '../components/ui/Tag.astro';
+import Chip from '../components/ui/Chip.astro';
+import Logo from '../components/ui/Logo.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import Phone from '../components/ui/Phone.astro';
+import Stat from '../components/ui/Stat.astro';
+import Field from '../components/ui/Field.astro';
+import Sticker from '../components/ui/Sticker.astro';
+import ProjectCard from '../components/cards/ProjectCard.astro';
+import ComingSoonCard from '../components/cards/ComingSoonCard.astro';
+import ServiceCard from '../components/cards/ServiceCard.astro';
+import ProcessStep from '../components/cards/ProcessStep.astro';
+import Testimonial from '../components/cards/Testimonial.astro';
+import TeamCard from '../components/cards/TeamCard.astro';
+import ContactMethod from '../components/cards/ContactMethod.astro';
+import MoodToggleDemo from '../components/islands/MoodToggleDemo';
+import site from '../content/site.json';
+import uybekIcon from '../assets/apps/uybek/icon.png';
+import uybekBanner from '../assets/apps/uybek/banner.jpg';
+import uybekShot from '../assets/apps/uybek/shot-1.jpg';
+
+export function getStaticPaths() {
+  return [{ params: { styleguide: '_styleguide' } }];
+}
+
+const variants = ['primary', 'accent', 'secondary', 'light', 'ghost'] as const;
+const colors = [
+  'tabby',
+  'tabby-deep',
+  'rust',
+  'gold',
+  'rose',
+  'ink',
+  'paper',
+  'stone',
+  'white',
+  'muted',
+  'line',
+  'night',
+  'night-surface',
+  'ash',
+  'smoke',
+  'mint',
+  'peach',
+];
+const typeScale = [
+  ['text-display-2xl', 'Display/2XL', 'Apps with claws.'],
+  ['text-display-xl', 'Display/XL', 'Apps with claws.'],
+  ['text-display-l', 'Display/L', 'Games that bite back.'],
+  ['text-h1', 'Heading/H1', 'Same claws. Better manners.'],
+  ['text-h2', 'Heading/H2', 'What we can build for you'],
+  ['text-h3', 'Heading/H3', 'Offline-first by default'],
+  ['text-h4', 'Heading/H4', 'UyBek · Real estate'],
+  ['text-body-l', 'Body/L', 'We design, build and launch Android apps and games from Tashkent.'],
+  ['text-body-m', 'Body/M', 'Body copy for paragraphs, card text and case studies. Comfortable at 17px.'],
+  ['text-body-s', 'Body/S', 'Small print, captions and helper text.'],
+  ['text-label-l', 'Label/L', 'Start a project'],
+  ['text-label-m', 'Label/M', 'See all work'],
+  ['text-eyebrow', 'Caps/Eyebrow', 'Selected work · 2024–2026'],
+  ['text-meta', 'Label/Meta', 'Android · Kotlin · EN/UZ/RU'],
+] as const;
+---
+
+<PageLayout locale="en" title="Styleguide · AngryKitten" noindex alternates={false}>
+  <div class="sg" style="padding-top: var(--nav-h)">
+    <header class="container-page py-16">
+      <p class="text-eyebrow text-fg-accent">Internal · not indexed</p>
+      <h1 class="text-display-xl mt-3">Styleguide</h1>
+      <p class="text-body-l text-fg-2 mt-4 max-w-2xl">
+        Every component from the Figma Components page (1:3), with variants and states. Hover states are also
+        shown statically with <code>.is-hover</code>.
+      </p>
+      <nav class="mt-6 flex flex-wrap gap-2 text-meta" aria-label="Styleguide sections">
+        {[
+          'colours',
+          'type',
+          'buttons',
+          'tags',
+          'chips',
+          'mood',
+          'logo',
+          'stickers',
+          'headers',
+          'phone',
+          'cards',
+          'fields',
+          'team',
+          'contact',
+        ].map((id) => (
+          <a href={`#${id}`} class="ak-chip">
+            {id}
+          </a>
+        ))}
+      </nav>
+    </header>
+
+    <!-- Colours -->
+    <section id="colours" class="container-page sg__block">
+      <h2 class="sg__title">Colour primitives</h2>
+      <ul class="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6">
+        {colors.map((c) => (
+          <li class="sticker overflow-hidden rounded-[20px] bg-white">
+            <div class="h-20" style={`background: var(--color-${c})`} />
+            <p class="text-meta px-3 py-2">{c}</p>
+          </li>
+        ))}
+      </ul>
+      <h2 class="sg__title mt-12">Semantic modes</h2>
+      <div class="grid gap-4 md:grid-cols-3">
+        {(['light', 'dark', 'tangerine'] as const).map((mode) => (
+          <div data-theme={mode} class="sticker flex flex-col gap-3 rounded-[28px] p-6">
+            <p class="text-eyebrow text-fg-accent">{mode}</p>
+            <p class="text-h3">
+              Small studio. <em class="ak-hl">Sharp claws.</em>
+            </p>
+            <p class="text-body-m text-fg-2">Secondary text in this mode.</p>
+            <div class="flex gap-2">
+              <span class="bg-surface border-subtle h-10 w-10 rounded-xl border-2" title="surface" />
+              <span class="bg-sunken border-subtle h-10 w-10 rounded-xl border-2" title="sunken" />
+              <span class="bg-tint border-subtle h-10 w-10 rounded-xl border-2" title="tint" />
+              <span class="bg-accent h-10 w-10 rounded-xl border-2 border-ink" title="accent" />
+              <span class="bg-highlight h-10 w-10 rounded-xl border-2 border-ink" title="highlight" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Type -->
+    <section id="type" class="container-page sg__block">
+      <h2 class="sg__title">Typography</h2>
+      <dl class="flex flex-col gap-6">
+        {typeScale.map(([cls, name, sample]) => (
+          <div class="border-subtle grid gap-2 border-b pb-6 md:grid-cols-[200px_1fr] md:items-baseline">
+            <dt class="text-meta text-fg-2">{name}</dt>
+            <dd class={cls}>{sample}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <!-- Buttons -->
+    <section id="buttons" class="container-page sg__block">
+      <h2 class="sg__title">Button · 4:42</h2>
+      {(['L', 'M'] as const).map((size) => (
+        <div class="mb-8 flex flex-col gap-4">
+          <p class="text-meta text-fg-2">Size {size} · Default / Hover</p>
+          <div class="flex flex-wrap items-center gap-4">
+            {variants.map((v) => (
+              <Button variant={v} size={size}>
+                {v}
+              </Button>
+            ))}
+          </div>
+          <div class="flex flex-wrap items-center gap-4">
+            {variants.map((v) => (
+              <Button variant={v} size={size} class="is-hover">
+                {v}
+              </Button>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div data-theme="tangerine" class="mt-4 flex flex-wrap gap-4 rounded-[28px] p-6">
+        <Button>Primary on tangerine</Button>
+        <Button variant="light" arrow={false}>
+          Light
+        </Button>
+      </div>
+    </section>
+
+    <!-- Tags / chips / mood -->
+    <section id="tags" class="container-page sg__block">
+      <h2 class="sg__title">Tag · 4:53</h2>
+      <div class="flex flex-wrap gap-3">
+        <Tag kind="game">Game</Tag>
+        <Tag kind="app">App</Tag>
+        <Tag kind="neutral">Neutral</Tag>
+        <Tag kind="dark">Dark</Tag>
+        <Tag kind="soon">Coming soon</Tag>
+      </div>
+    </section>
+    <section id="chips" class="container-page sg__block">
+      <h2 class="sg__title">Filter chip · 4:60</h2>
+      <div class="flex flex-wrap gap-3">
+        <Chip active count={15}>
+          All
+        </Chip>
+        <Chip count={9}>Games</Chip>
+        <Chip count={3}>Apps</Chip>
+      </div>
+    </section>
+    <section id="mood" class="container-page sg__block">
+      <h2 class="sg__title">Mood toggle · 33:29 (React island)</h2>
+      <div class="flex flex-wrap gap-6">
+        <MoodToggleDemo client:visible initial="play" />
+        <MoodToggleDemo client:visible initial="work" />
+      </div>
+    </section>
+
+    <!-- Logo / stickers -->
+    <section id="logo" class="container-page sg__block">
+      <h2 class="sg__title">Logo · 4:61</h2>
+      <div class="grid gap-4 md:grid-cols-3">
+        <div class="sticker grid place-items-center rounded-[28px] bg-paper p-10">
+          <Logo />
+        </div>
+        <div data-theme="dark" class="sticker grid place-items-center rounded-[28px] bg-ink p-10">
+          <Logo />
+        </div>
+        <div data-theme="tangerine" class="sticker grid place-items-center rounded-[28px] p-10">
+          <Logo />
+        </div>
+      </div>
+    </section>
+    <section id="stickers" class="container-page sg__block">
+      <h2 class="sg__title">Sticker</h2>
+      <div class="flex flex-wrap gap-6 p-4">
+        <Sticker tilt={-6}>Meow?</Sticker>
+        <Sticker tone="gold" tilt={7}>
+          Not my fault
+        </Sticker>
+        <Sticker tone="tabby" tilt={-3}>
+          12 apps live
+        </Sticker>
+        <Sticker tone="ink" tilt={4}>
+          Free to use
+        </Sticker>
+        <Sticker size="M" tone="gold" tilt={-6}>
+          Size M
+        </Sticker>
+      </div>
+    </section>
+
+    <!-- Section header -->
+    <section id="headers" class="container-page sg__block">
+      <h2 class="sg__title">Section header · 4:92</h2>
+      <SectionHeader
+        eyebrow="Services"
+        title="What we can **build** for you."
+        body="Bring an idea, a sketch or a half-built app. We'll take it from there."
+        as="h3"
+      >
+        <Button slot="action" variant="secondary" size="M">
+          All services
+        </Button>
+      </SectionHeader>
+    </section>
+
+    <!-- Phone -->
+    <section id="phone" class="container-page sg__block">
+      <h2 class="sg__title">Device / Phone · 4:96</h2>
+      <div class="flex flex-wrap items-end gap-10 py-8">
+        <Phone src={uybekShot} alt="UyBek home screen with property listings" />
+        <Phone src={uybekShot} alt="" width="200px" />
+        <Phone src={uybekShot} alt="" width="120px" shadow={false} />
+      </div>
+    </section>
+
+    <!-- Cards -->
+    <section id="cards" class="container-page sg__block">
+      <h2 class="sg__title">Card / Project · 33:96 · Default / Hover</h2>
+      <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+        <ProjectCard
+          href="#cards"
+          name="UyBek"
+          meta="Real estate · Android"
+          description="A marketplace to buy, sell and browse homes across Uzbekistan, with in-app chat."
+          kind="app"
+          kindLabel="App"
+          icon={uybekIcon}
+          banner={uybekBanner}
+          cta="View project"
+        />
+        <ProjectCard
+          href="#cards"
+          name="UyBek"
+          meta="Real estate · Android"
+          description="A marketplace to buy, sell and browse homes across Uzbekistan, with in-app chat."
+          kind="app"
+          kindLabel="App"
+          icon={uybekIcon}
+          banner={uybekBanner}
+          cta="View project"
+          class="is-hover"
+        />
+        <ComingSoonCard
+          name="App 13"
+          tag="Coming soon"
+          body="Something new is in the oven. Follow along on Google Play."
+        />
+      </div>
+
+      <h2 class="sg__title mt-16">Card / Service · 6:36</h2>
+      <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+        <ServiceCard
+          index="01"
+          title="Mobile apps"
+          body="Native Android apps from idea to Google Play."
+          items={['Kotlin · Jetpack Compose', 'Offline-first data', 'Play Store release']}
+        />
+        <ServiceCard tone="accent" title="Not sure yet?" body="Tell us the problem. We'll suggest the shape.">
+          <Button variant="primary" size="M">
+            Tell us
+          </Button>
+        </ServiceCard>
+      </div>
+
+      <h2 class="sg__title mt-16">Process step · 6:47</h2>
+      <ol class="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+        <ProcessStep
+          number="01"
+          title="Sniff"
+          timing="Week 1"
+          body="We dig into your idea, your users and your goals."
+        />
+      </ol>
+
+      <h2 class="sg__title mt-16">Card / Testimonial · 6:52 (placeholder)</h2>
+      <Testimonial
+        placeholder
+        class="max-w-[640px]"
+        quote="[Client quote placeholder] Replace with a real quote from a client or a user review. Short and specific beats long and glowing."
+        name="[Name Surname]"
+        jobTitle="[Role, Company]"
+      />
+
+      <h2 class="sg__title mt-16">Stat · 6:60</h2>
+      <div class="flex flex-wrap gap-12">
+        <Stat value="12" label="apps live on Google Play" />
+        <Stat value="9" label="games" />
+      </div>
+    </section>
+
+    <!-- Fields -->
+    <section id="fields" class="container-page sg__block">
+      <h2 class="sg__title">Field · 6:79 · Default / Focus / Error</h2>
+      <div class="grid max-w-[1000px] gap-6 md:grid-cols-2">
+        <Field label="Name" name="sg-name" placeholder="Your name" autocomplete="name" />
+        <Field
+          label="Email or Telegram"
+          name="sg-email"
+          placeholder="you@company.com"
+          hint="We reply within [two working days]."
+        />
+        <Field label="Message" name="sg-message" multiline placeholder="Tell us about your app" />
+        <Field
+          label="Company"
+          name="sg-company"
+          optionalLabel="(optional)"
+          error="Please keep it under 80 characters."
+          value="An extremely long company name"
+        />
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="container-page sg__block">
+      <h2 class="sg__title">Card / Team member · 37:21</h2>
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <TeamCard
+          name="[Name Surname]"
+          jobTitle="[Role · Android]"
+          badge="Founder"
+          telegram="https://t.me/"
+          linkedin="https://www.linkedin.com/"
+        />
+        <TeamCard name="[Name Surname]" jobTitle="[Role · Design]" badge="Design" />
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="container-page sg__block">
+      <h2 class="sg__title">Contact method · 37:72</h2>
+      <div class="grid max-w-[880px] gap-6 md:grid-cols-2">
+        <ContactMethod kind="email" label="Email" value={site.email} href={`mailto:${site.email}`} />
+        <ContactMethod kind="telegram" label="Telegram" value={site.telegram.handle} />
+        <ContactMethod kind="phone" label="Phone" value={site.phone} />
+        <ContactMethod kind="studio" label="Studio" value={site.address} />
+      </div>
+    </section>
+  </div>
+</PageLayout>
+
+<style>
+  @layer components {
+    .sg__block {
+      padding-block: 56px;
+      border-top: 1px solid var(--border-default);
+    }
+    .sg__title {
+      margin-bottom: 24px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.375rem;
+    }
+  }
+</style>

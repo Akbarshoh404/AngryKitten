@@ -1,0 +1,46 @@
+---
+/** Tag — Figma 4:53. Kinds: game (gold) · app (mint) · neutral (stone) · dark (ink) · soon (tabby). */
+type Kind = 'game' | 'app' | 'neutral' | 'dark' | 'soon';
+type Props = { kind?: Kind; class?: string };
+const { kind = 'neutral', class: className } = Astro.props;
+---
+
+<span class:list={['ak-tag', `ak-tag--${kind}`, className]}>
+  <slot />
+</span>
+
+<style>
+  @layer components {
+    .ak-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border: 1.5px solid var(--color-ink);
+      border-radius: var(--radius-pill);
+      color: var(--color-ink);
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.75rem;
+      line-height: 1.3;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .ak-tag--game {
+      background: var(--color-gold);
+    }
+    .ak-tag--app {
+      background: var(--color-mint);
+    }
+    .ak-tag--neutral {
+      background: var(--color-stone);
+    }
+    .ak-tag--dark {
+      background: var(--color-ink);
+      color: var(--color-paper);
+    }
+    .ak-tag--soon {
+      background: var(--color-tabby);
+    }
+  }
+</style>

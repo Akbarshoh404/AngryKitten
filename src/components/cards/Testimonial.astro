@@ -1,0 +1,62 @@
+---
+/**
+ * Card / Testimonial — Figma 6:52. Only real quotes (UX note 05).
+ * Until one exists, pages pass `placeholder` so it's visibly a placeholder (dashed outline).
+ */
+type Props = { quote: string; name: string; jobTitle: string; placeholder?: boolean; class?: string };
+const { quote, name, jobTitle, placeholder = false, class: className } = Astro.props;
+---
+
+<figure class:list={['ak-quote', placeholder && 'is-placeholder', className]}>
+  <span class="ak-quote__mark" aria-hidden="true">
+    “
+  </span>
+  <blockquote class="text-h3">
+    <p>{quote}</p>
+  </blockquote>
+  <figcaption class="ak-quote__person">
+    <span class="ak-quote__avatar" aria-hidden="true"></span>
+    <span class="flex flex-col gap-0.5">
+      <span class="text-label-l">{name}</span>
+      <span class="text-meta text-fg-2">{jobTitle}</span>
+    </span>
+  </figcaption>
+</figure>
+
+<style>
+  @layer components {
+    .ak-quote {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding: clamp(28px, 3vw, 40px);
+      border: 3px solid var(--border-strong);
+      border-radius: var(--radius-xl);
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-sticker);
+    }
+    .ak-quote.is-placeholder {
+      border-style: dashed;
+    }
+    .ak-quote__mark {
+      height: 60px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 6rem;
+      line-height: 1;
+      color: var(--text-accent);
+    }
+    .ak-quote__person {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .ak-quote__avatar {
+      flex: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--bg-highlight);
+    }
+  }
+</style>

@@ -1,0 +1,14 @@
+---
+/** Process step — Figma 6:47. 2px top rule, rust number, H2 title, timing, body. Render inside an <ol>. */
+type Props = { number: string; title: string; timing?: string; body: string; class?: string };
+const { number, title, timing, body, class: className } = Astro.props;
+---
+
+<li class:list={['border-strong flex flex-col gap-3.5 border-t-2 pt-6', className]}>
+  <p class="text-eyebrow text-fg-accent" aria-hidden="true">
+    {number}
+  </p>
+  <h3 class="text-h2">{title}</h3>
+  {timing && <p class="text-meta text-fg-2">{timing}</p>}
+  <p class="text-body-m text-fg-2">{body}</p>
+</li>

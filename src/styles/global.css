@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import './tokens.css';
+@import './components.css';
 
 /* ---------------------------------------------------------------------------
  * Text styles (Figma "02 · Typography"). Desktop sizes are the Figma values;

@@ -1,0 +1,114 @@
+---
+/**
+ * Card / Service — Figma 6:36. Orange number square, H3 title, pitch, deliverables.
+ * `tone="accent"` is the one orange card per grid ("Not sure yet?"); put its button in the slot.
+ */
+type Props = {
+  index?: string;
+  title: string;
+  body: string;
+  items?: string[];
+  tone?: 'surface' | 'accent';
+  headingLevel?: 'h2' | 'h3';
+  class?: string;
+};
+const {
+  index,
+  title,
+  body,
+  items = [],
+  tone = 'surface',
+  headingLevel: Heading = 'h3',
+  class: className,
+} = Astro.props;
+const hasFooter = Astro.slots.has('default');
+---
+
+<article class:list={['ak-service', `ak-service--${tone}`, className]}>
+  {index && (
+    <span class="ak-service__index" aria-hidden="true">
+      {index}
+    </span>
+  )}
+  <Heading class="text-h3">{title}</Heading>
+  <p class="ak-service__body text-body-m">{body}</p>
+  {items.length > 0 && (
+    <ul class="ak-service__items text-meta">
+      {items.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  )}
+  {hasFooter && (
+    <div class="ak-service__footer">
+      <slot />
+    </div>
+  )}
+</article>
+
+<style>
+  @layer components {
+    .ak-service {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 28px 28px 32px;
+      border: 3px solid var(--border-strong);
+      border-radius: var(--radius-card);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-sticker);
+      transition:
+        transform 250ms var(--ease-spring),
+        box-shadow 250ms var(--ease-out);
+    }
+    @media (hover: hover) {
+      .ak-service:hover {
+        transform: translateY(-4px);
+        box-shadow: 10px 10px 0 0 var(--color-ink);
+      }
+    }
+    .ak-service--accent {
+      border-color: var(--color-ink);
+      background: var(--color-tabby);
+      color: var(--color-ink);
+    }
+    .ak-service__index {
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      border: 2.5px solid var(--color-ink);
+      border-radius: var(--radius-md);
+      background: var(--bg-accent);
+      color: var(--color-ink);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+    }
+    .ak-service--accent .ak-service__index {
+      background: var(--color-paper);
+    }
+    .ak-service__body {
+      color: var(--text-secondary);
+    }
+    .ak-service--accent .ak-service__body {
+      color: var(--color-ink);
+    }
+    .ak-service__items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-default);
+    }
+    .ak-service__items li::before {
+      content: '→';
+      margin-right: 10px;
+    }
+    .ak-service__footer {
+      margin-top: auto;
+      padding-top: 8px;
+    }
+  }
+</style>
