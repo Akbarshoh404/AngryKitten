@@ -24,7 +24,8 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      filter: (page) => !page.includes('/_styleguide'),
+      // Keep internal pages and error pages out of the sitemap.
+      filter: (page) => !/\/(_styleguide|api\/|404)/.test(page),
       i18n: {
         defaultLocale: 'en',
         locales: { en: 'en', uz: 'uz', ru: 'ru' },

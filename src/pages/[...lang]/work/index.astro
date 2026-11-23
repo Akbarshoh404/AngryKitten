@@ -28,7 +28,13 @@ const filters = order
   .filter((f) => f.count > 0);
 ---
 
-<PageLayout locale={locale} title={d.meta.title} description={d.meta.description} theme="tangerine">
+<PageLayout
+  locale={locale}
+  title={d.meta.title}
+  description={d.meta.description}
+  ogImage="/og/work.png"
+  theme="tangerine"
+>
   <WorkHero locale={locale} />
 
   <section class="section-y pt-12!" aria-label={d.filtersLabel}>

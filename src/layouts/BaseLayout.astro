@@ -6,6 +6,7 @@
 import '@fontsource-variable/bricolage-grotesque/wght.css';
 import '@fontsource-variable/dm-sans/wght.css';
 import '../styles/global.css';
+import siteData from '../content/site.json';
 import bricolageLatin from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url';
 import dmSansLatin from '@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url';
 import {
@@ -27,10 +28,20 @@ export type BaseProps = {
   noindex?: boolean;
   /** Set false for pages that have no translated twins (e.g. 404). */
   alternates?: boolean;
+  /** Open Graph image path (from scripts/build-og.mjs), e.g. "/og/work.png". */
+  ogImage?: string;
 };
 
 type Props = BaseProps;
-const { locale, title, description, theme = 'light', noindex = false, alternates = true } = Astro.props;
+const {
+  locale,
+  title,
+  description,
+  theme = 'light',
+  noindex = false,
+  alternates = true,
+  ogImage = '/og/home.png',
+} = Astro.props;
 const t = useTranslations(locale);
 
 const pageTitle = title ?? t('meta.defaultTitle');
@@ -38,6 +49,17 @@ const pageDescription = description ?? t('meta.defaultDescription');
 const site = Astro.site ?? new URL('https://angrykitten.uz');
 const path = stripLocale(Astro.url.pathname);
 const canonical = new URL(localizePath(path, locale), site).href;
+const ogUrl = new URL(ogImage, site).href;
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'AngryKitten',
+  url: site.href,
+  logo: new URL('/icon-512.png', site).href,
+  email: siteData.email,
+  address: { '@type': 'PostalAddress', addressLocality: 'Tashkent', addressCountry: 'UZ' },
+  sameAs: [siteData.googlePlay, ...Object.values(siteData.socials).filter(Boolean)],
+};
 const themeColor = theme === 'tangerine' ? '#ff5a1f' : theme === 'dark' ? '#2b1640' : '#faf7f2';
 ---
 
@@ -77,7 +99,14 @@ const themeColor = theme === 'tangerine' ? '#ff5a1f' : theme === 'dark' ? '#2b16
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={locale === 'en' ? 'en_US' : locale === 'uz' ? 'uz_UZ' : 'ru_RU'} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify(organization)} />
     <slot name="head" />
   </head>
   <body>

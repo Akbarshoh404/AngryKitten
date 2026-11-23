@@ -34,7 +34,13 @@ const rows = await Promise.all(
 );
 ---
 
-<PageLayout locale={locale} title={d.meta.title} description={d.meta.description} theme="tangerine">
+<PageLayout
+  locale={locale}
+  title={d.meta.title}
+  description={d.meta.description}
+  ogImage="/og/services.png"
+  theme="tangerine"
+>
   <!-- Hero -->
   <section data-theme="tangerine" data-hero class="ak-sv-hero">
     <div class="container-page grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)]">

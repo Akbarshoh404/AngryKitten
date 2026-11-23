@@ -83,14 +83,33 @@ const stats = study?.stats ?? [
   { value: app.data.outcome.timeline, label: cs.statLabels.timeline },
 ];
 const theme = app.data.themeColor;
+
+// Structured data for search engines (no ratings: we only publish real numbers).
+const category: Record<string, string> = { game: 'GameApplication', app: 'LifestyleApplication' };
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: app.data.name,
+  description: text.description,
+  operatingSystem: 'Android',
+  applicationCategory: app.data.playCategory === 'Business' ? 'FinanceApplication' : category[app.data.type],
+  url: new URL(localizePath(`/work/${app.id}`, locale), Astro.site).href,
+  ...(store ? { downloadUrl: store, installUrl: store } : {}),
+  ...(assets.icon ? { image: new URL(`/og/work-${app.id}.png`, Astro.site).href } : {}),
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: { '@type': 'Organization', name: 'AngryKitten', url: Astro.site?.href },
+  inLanguage: app.data.languages.length ? app.data.languages : undefined,
+};
 ---
 
 <PageLayout
   locale={locale}
   title={fill(cs.metaTitle, { app: app.data.name, meta: text.meta })}
   description={text.description}
+  ogImage={`/og/work-${app.id}.png`}
   theme="tangerine"
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(appSchema)} />
   <!-- Hero -->
   <section data-theme="tangerine" data-hero class="ak-cs-hero">
     <div class="container-page ak-cs-hero__grid">

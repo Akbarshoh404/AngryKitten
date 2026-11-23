@@ -31,3 +31,6 @@ pnpm-debug.log*
 
 # generated press kit downloads
 public/press/
+
+# generated Open Graph images
+public/og/

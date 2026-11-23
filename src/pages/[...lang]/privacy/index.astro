@@ -1,0 +1,72 @@
+---
+/** /privacy: list of app privacy policies (footer "Privacy policies"). */
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import LegalHeader from '../../../components/sections/LegalHeader.astro';
+import site from '../../../content/site.json';
+import { appAssets } from '../../../lib/appAssets';
+import { getApps } from '../../../lib/content';
+import { highlight } from '../../../lib/text';
+import { fill, getDict, localeStaticPaths, localizePath, type Locale } from '../../../i18n/utils';
+
+export const getStaticPaths = localeStaticPaths;
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const d = getDict(locale).privacy;
+const policies = new Set((await getCollection('privacy')).map((p) => p.data.app.id));
+const apps = (await getApps()).filter((a) => policies.has(a.id));
+---
+
+<PageLayout locale={locale} title={d.meta.title} description={d.meta.description} ogImage="/og/privacy.png">
+  <LegalHeader
+    eyebrow={d.eyebrow}
+    titleHtml={highlight(d.title)}
+    body={fill(d.body, { email: site.email })}
+  />
+  <section class="section-y">
+    <ul class="container-page grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {apps.map((app) => {
+        const icon = appAssets(app.id).icon;
+        return (
+          <li>
+            <a href={localizePath(`/privacy/${app.id}`, locale)} class="ak-legal-link">
+              {icon && <Image src={icon} alt="" width={44} height={44} densities={[1, 2]} />}
+              <span class="text-label-l">{app.data.name}</span>
+              <span class="text-meta text-fg-2 ml-auto" aria-hidden="true">
+                →
+              </span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+</PageLayout>
+
+<style>
+  @layer components {
+    .ak-legal-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      border: 2px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      text-decoration: none;
+      transition:
+        box-shadow 150ms var(--ease-out),
+        transform 150ms var(--ease-out);
+    }
+    .ak-legal-link:hover {
+      box-shadow: var(--shadow-sticker-sm);
+      transform: translate(-1px, -1px);
+    }
+    .ak-legal-link img {
+      border-radius: 12px;
+      border: 1.5px solid var(--color-ink);
+    }
+  }
+</style>

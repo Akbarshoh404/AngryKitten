@@ -659,5 +659,21 @@
     "appDownloadLabel": "Download {app} assets ({size})",
     "contactTitle": "Writing about us? Talk to the kitten.",
     "contactBody": "Interviews, review codes, early builds or anything missing here. We reply to press within {pressReply}."
+  },
+  "privacy": {
+    "meta": {
+      "title": "Privacy policies · AngryKitten",
+      "description": "Privacy policies for every AngryKitten app on Google Play."
+    },
+    "eyebrow": "Legal",
+    "title": "Privacy **policies.**",
+    "body": "One policy per app. Questions about your data? Email {email}.",
+    "pageTitle": "{app} privacy policy · AngryKitten",
+    "pageDescription": "How {app} handles your data.",
+    "effective": "Effective {date}",
+    "source": "Originally published at {source}",
+    "back": "All privacy policies",
+    "appPage": "About {app}",
+    "languageNote": "This policy is available in English."
   }
 }

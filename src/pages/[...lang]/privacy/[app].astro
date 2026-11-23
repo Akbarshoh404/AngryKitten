@@ -1,0 +1,52 @@
+---
+/** /privacy/<app>: one policy per app, rendered from src/content/privacy/<app>.md. */
+import { getCollection, getEntry, render } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import LegalHeader from '../../../components/sections/LegalHeader.astro';
+import { fill, getDict, locales, localizePath, defaultLocale, type Locale } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  const policies = await getCollection('privacy');
+  return locales.flatMap((locale) =>
+    policies.map((policy) => ({
+      params: { lang: locale === defaultLocale ? undefined : locale, app: policy.data.app.id },
+      props: { locale, policy },
+    })),
+  );
+}
+
+type Props = { locale: Locale; policy: Awaited<ReturnType<typeof getCollection<'privacy'>>>[number] };
+const { locale, policy } = Astro.props;
+const d = getDict(locale).privacy;
+const app = (await getEntry(policy.data.app))!;
+const { Content } = await render(policy);
+---
+
+<PageLayout
+  locale={locale}
+  title={fill(d.pageTitle, { app: app.data.name })}
+  description={fill(d.pageDescription, { app: app.data.name })}
+  ogImage="/og/privacy.png"
+>
+  <LegalHeader eyebrow={d.eyebrow} titleHtml={policy.data.title}>
+    <p class="text-meta text-fg-2 flex flex-wrap gap-x-4 gap-y-1">
+      {policy.data.effectiveDate && <span>{fill(d.effective, { date: policy.data.effectiveDate })}</span>}
+      {locale !== 'en' && <span lang="en">{d.languageNote}</span>}
+    </p>
+  </LegalHeader>
+  <article class="section-y">
+    <div class="container-page">
+      <div class="ak-prose" lang="en">
+        <Content />
+      </div>
+      <nav class="mt-14 flex flex-wrap gap-6 text-label-m" aria-label={d.eyebrow}>
+        <a href={localizePath('/privacy', locale)} class="underline underline-offset-4">
+          ← {d.back}
+        </a>
+        <a href={localizePath(`/work/${app.id}`, locale)} class="underline underline-offset-4">
+          {fill(d.appPage, { app: app.data.name })}
+        </a>
+      </nav>
+    </div>
+  </article>
+</PageLayout>

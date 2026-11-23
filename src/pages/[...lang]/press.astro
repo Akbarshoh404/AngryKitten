@@ -49,7 +49,13 @@ const tg =
   (isPlaceholder(site.telegram.handle) ? undefined : `https://t.me/${site.telegram.handle.replace('@', '')}`);
 ---
 
-<PageLayout locale={locale} title={d.meta.title} description={d.meta.description} theme="tangerine">
+<PageLayout
+  locale={locale}
+  title={d.meta.title}
+  description={d.meta.description}
+  ogImage="/og/press.png"
+  theme="tangerine"
+>
   <!-- Hero -->
   <section data-theme="tangerine" data-hero class="ak-pr-hero">
     <div class="container-page grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,500px)]">
