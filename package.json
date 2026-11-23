@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "npm run build && wrangler dev",
     "astro": "astro",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -16,7 +16,8 @@
     "press": "node scripts/build-press.mjs",
     "predev": "node scripts/build-press.mjs && node scripts/build-og.mjs",
     "prebuild": "node scripts/build-press.mjs && node scripts/build-og.mjs",
-    "og": "node scripts/build-og.mjs"
+    "og": "node scripts/build-og.mjs",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.7.0",
