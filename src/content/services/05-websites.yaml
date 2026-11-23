@@ -1,0 +1,20 @@
+# No shipped website examples yet, so "See it in" stays empty (add app slugs or a future sites collection).
+number: '05'
+order: 5
+exampleApps: []
+text:
+  en:
+    title: Websites and web apps
+    pitch: Fast, good-looking sites and web apps that load quickly, rank well and work on any screen.
+    cardPitch: Fast studio sites, landing pages and web dashboards that work on every screen.
+    deliverables:
+      - Studio and company websites
+      - Landing pages for apps and launches
+      - Web apps and admin dashboards
+      - EN · UZ · RU, responsive, SEO-ready
+      - Hosting, domains and support
+    cardDeliverables:
+      - Landing pages and company sites
+      - Web apps and admin panels
+      - Responsive, fast, SEO-ready
+    goodFor: Businesses that need a fast, modern web presence

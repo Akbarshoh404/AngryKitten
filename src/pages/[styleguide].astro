@@ -23,13 +23,20 @@ import TeamCard from '../components/cards/TeamCard.astro';
 import ContactMethod from '../components/cards/ContactMethod.astro';
 import MoodToggleDemo from '../components/islands/MoodToggleDemo';
 import site from '../content/site.json';
-import uybekIcon from '../assets/apps/uybek/icon.png';
-import uybekBanner from '../assets/apps/uybek/banner.jpg';
-import uybekShot from '../assets/apps/uybek/shot-1.jpg';
+import { getEntry } from 'astro:content';
+import { appAssets } from '../lib/appAssets';
+import { getServices, getTeam, localized } from '../lib/content';
 
 export function getStaticPaths() {
   return [{ params: { styleguide: '_styleguide' } }];
 }
+
+const uybek = (await getEntry('apps', 'uybek'))!;
+const uybekText = localized(uybek.data.text, 'en');
+const uybekAssets = appAssets('uybek');
+const uybekShot = uybekAssets.screenshots[0]!;
+const service = localized((await getServices())[0]!.data.text, 'en');
+const team = await getTeam();
 
 const variants = ['primary', 'accent', 'secondary', 'light', 'ghost'] as const;
 const colors = [
@@ -271,24 +278,24 @@ const typeScale = [
       <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
         <ProjectCard
           href="#cards"
-          name="UyBek"
-          meta="Real estate · Android"
-          description="A marketplace to buy, sell and browse homes across Uzbekistan, with in-app chat."
-          kind="app"
+          name={uybek.data.name}
+          meta={uybekText.meta}
+          description={uybekText.oneLiner}
+          kind={uybek.data.type}
           kindLabel="App"
-          icon={uybekIcon}
-          banner={uybekBanner}
+          icon={uybekAssets.icon!}
+          banner={uybekAssets.banner!}
           cta="View project"
         />
         <ProjectCard
           href="#cards"
-          name="UyBek"
-          meta="Real estate · Android"
-          description="A marketplace to buy, sell and browse homes across Uzbekistan, with in-app chat."
-          kind="app"
+          name={uybek.data.name}
+          meta={uybekText.meta}
+          description={uybekText.oneLiner}
+          kind={uybek.data.type}
           kindLabel="App"
-          icon={uybekIcon}
-          banner={uybekBanner}
+          icon={uybekAssets.icon!}
+          banner={uybekAssets.banner!}
           cta="View project"
           class="is-hover"
         />
@@ -303,9 +310,9 @@ const typeScale = [
       <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
         <ServiceCard
           index="01"
-          title="Mobile apps"
-          body="Native Android apps from idea to Google Play."
-          items={['Kotlin · Jetpack Compose', 'Offline-first data', 'Play Store release']}
+          title={service.title}
+          body={service.cardPitch}
+          items={service.cardDeliverables}
         />
         <ServiceCard tone="accent" title="Not sure yet?" body="Tell us the problem. We'll suggest the shape.">
           <Button variant="primary" size="M">
@@ -366,14 +373,19 @@ const typeScale = [
     <section id="team" class="container-page sg__block">
       <h2 class="sg__title">Card / Team member · 37:21</h2>
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        <TeamCard
-          name="[Name Surname]"
-          jobTitle="[Role · Android]"
-          badge="Founder"
-          telegram="https://t.me/"
-          linkedin="https://www.linkedin.com/"
-        />
-        <TeamCard name="[Name Surname]" jobTitle="[Role · Design]" badge="Design" />
+        {team.map((member) => {
+          const text = localized(member.data.text, 'en');
+          return (
+            <TeamCard
+              name={member.data.name}
+              jobTitle={text.jobTitle}
+              badge={text.badge}
+              photo={member.data.photo}
+              telegram={member.data.telegram}
+              linkedin={member.data.linkedin}
+            />
+          );
+        })}
       </div>
     </section>
 

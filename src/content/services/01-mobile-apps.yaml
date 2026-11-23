@@ -1,0 +1,19 @@
+number: '01'
+order: 1
+exampleApps: [uybek, pulchi, nerva]
+text:
+  en:
+    title: Mobile apps
+    pitch: Native Android apps that feel fast, work offline and are easy to keep improving.
+    cardPitch: Native Android apps from first sketch to Google Play.
+    deliverables:
+      - Product scoping and roadmap
+      - Kotlin · Jetpack Compose
+      - Offline-first data and sync
+      - Sign-in, search, chat
+      - Testing on real devices
+    cardDeliverables:
+      - Kotlin · Jetpack Compose
+      - Offline-first architecture
+      - Auth, search, chat
+    goodFor: Startups, local businesses, internal tools

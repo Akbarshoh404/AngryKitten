@@ -1,0 +1,19 @@
+number: '04'
+order: 4
+exampleApps: [uzwordle, catris, pulchi]
+text:
+  en:
+    title: Launch and care
+    pitch: Everything around the app that gets it found, trusted and kept up to date.
+    cardPitch: Everything around the app that gets it found and keeps it running.
+    deliverables:
+      - Store listing copy and graphics
+      - EN · UZ · RU localization
+      - Privacy policy pages
+      - Release management
+      - Updates and support
+    cardDeliverables:
+      - Store listings and assets
+      - EN · UZ · RU localization
+      - Updates and support
+    goodFor: Anyone shipping to Google Play

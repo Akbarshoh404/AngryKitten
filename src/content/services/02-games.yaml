@@ -1,0 +1,19 @@
+number: '02'
+order: 2
+exampleApps: [catris, spinject, cipher]
+text:
+  en:
+    title: Games
+    pitch: Casual and arcade games with tight loops, juicy feedback and that one-more-go feeling.
+    cardPitch: Casual and arcade games with tight loops and that one-more-go feeling.
+    deliverables:
+      - Game concept and design
+      - Level and difficulty balancing
+      - Achievements and stats
+      - Local multiplayer
+      - Sound and haptics
+    cardDeliverables:
+      - Game design and balancing
+      - Achievements and stats
+      - Local multiplayer
+    goodFor: Brands, edtech, entertainment

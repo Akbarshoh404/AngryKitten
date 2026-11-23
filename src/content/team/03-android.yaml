@@ -1,0 +1,6 @@
+order: 3
+name: '[Name Surname]'
+text:
+  en:
+    badge: Android
+    jobTitle: '[Android engineer]'

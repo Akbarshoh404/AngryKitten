@@ -1,0 +1,6 @@
+order: 4
+name: '[Name Surname]'
+text:
+  en:
+    badge: Web
+    jobTitle: '[Web developer]'

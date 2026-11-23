@@ -1,0 +1,9 @@
+# TODO: real name, role, photo (4:5, e.g. photo: ../../assets/team/founder.jpg) and links.
+order: 1
+name: '[Name Surname]'
+# telegram: https://t.me/...
+# linkedin: https://www.linkedin.com/in/...
+text:
+  en:
+    badge: Founder
+    jobTitle: '[Founder · Android]'

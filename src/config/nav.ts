@@ -10,12 +10,6 @@ export const mainNav: NavItem[] = [
   { key: 'nav.contact', href: '/contact' },
 ];
 
-/**
- * Counts shown next to links in the mobile menu (Figma 15:184).
- * TODO(phase 3): derive from the apps and services content collections.
- */
-export const navCounts: Partial<Record<string, number>> = { '/work': 15, '/services': 5 };
-
 /** Where every "Start a project" button points. */
 export const ctaHref = '/contact#start';
 

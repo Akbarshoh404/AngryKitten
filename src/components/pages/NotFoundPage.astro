@@ -11,16 +11,18 @@ import Sticker from '../ui/Sticker.astro';
 import MotionLines from '../../assets/illustrations/motion-lines.svg';
 import mark from '../../assets/brand/mark.png';
 import sticker from '../../assets/brand/sticker.png';
-import uybek from '../../assets/apps/uybek/icon.png';
-import catris from '../../assets/apps/catris/icon.png';
-import pulchi from '../../assets/apps/pulchi/icon.png';
-import catloop from '../../assets/apps/catloop/icon.png';
+import { appAssets } from '../../lib/appAssets';
 import { mainNav } from '../../config/nav';
 import { localizePath, useTranslations, type Locale } from '../../i18n/utils';
 
 type Props = { locale: Locale };
 const { locale } = Astro.props;
 const t = useTranslations(locale);
+const icon = (slug: string) => appAssets(slug).icon!;
+const uybek = icon('uybek');
+const catris = icon('catris');
+const pulchi = icon('pulchi');
+const catloop = icon('catloop');
 
 // Positions from the Figma frame: the scene is a 560 × 640 box; values are
 // icon centres in that box, so the whole scene scales with its width.

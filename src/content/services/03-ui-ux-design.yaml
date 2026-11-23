@@ -1,0 +1,19 @@
+number: '03'
+order: 3
+exampleApps: [mathrow, sudokitten, catloop]
+text:
+  en:
+    title: UI/UX design
+    pitch: Interfaces people understand on the first tap, designed before a single line of code.
+    cardPitch: Interfaces people understand on the first tap.
+    deliverables:
+      - User flows and wireframes
+      - High-fidelity UI, light and dark
+      - Design systems
+      - Clickable prototypes
+      - Usability checks
+    cardDeliverables:
+      - Flows and wireframes
+      - UI kits, light and dark
+      - Clickable prototypes
+    goodFor: Teams who already have developers
