@@ -137,6 +137,8 @@ const team = defineCollection({
 /* ------------------------------------------------------------ services --- */
 const serviceText = {
   title: z.string(),
+  /** Shorter label for the Services hero stickers ("Websites"). */
+  shortTitle: z.string().optional(),
   /** Service row pitch (Services page). */
   pitch: z.string(),
   /** Shorter card pitch (Home). */

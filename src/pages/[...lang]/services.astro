@@ -1,0 +1,343 @@
+---
+/** Services — Figma 12:552 (no mobile frame: stacked using the mobile patterns). */
+import { Image } from 'astro:assets';
+import { getEntries } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Button from '../../components/ui/Button.astro';
+import Phone from '../../components/ui/Phone.astro';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
+import BuildYourAppCard from '../../components/islands/BuildYourAppCard';
+import { getFaqs, getServices, localized } from '../../lib/content';
+import { appAssets } from '../../lib/appAssets';
+import { highlight } from '../../lib/text';
+import { ctaHref } from '../../config/nav';
+import { getDict, localeStaticPaths, localizePath, type Locale } from '../../i18n/utils';
+
+export const getStaticPaths = localeStaticPaths;
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const d = getDict(locale).servicesPage;
+const services = await getServices();
+const faqs = await getFaqs();
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+const heroShot = appAssets('pulchi').screenshots[0];
+const rows = await Promise.all(
+  services.map(async (s) => ({
+    entry: s,
+    text: localized(s.data.text, locale),
+    examples: s.data.exampleApps.length ? await getEntries(s.data.exampleApps) : [],
+  })),
+);
+---
+
+<PageLayout locale={locale} title={d.meta.title} description={d.meta.description} theme="tangerine">
+  <!-- Hero -->
+  <section data-theme="tangerine" data-hero class="ak-sv-hero">
+    <div class="container-page grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)]">
+      <div class="flex flex-col gap-6">
+        <p class="text-eyebrow">{d.eyebrow}</p>
+        <h1 class="text-display-xl" set:html={highlight(d.title)} />
+        <p class="text-body-l max-w-lg">{d.body}</p>
+        <Button href={localizePath(ctaHref, locale)} class="self-start">
+          {d.cta}
+        </Button>
+      </div>
+      <div class="ak-sv-hero__art">
+        <BuildYourAppCard
+          client:visible
+          labels={d.builder}
+          contactHref={localizePath('/contact#start', locale)}
+        />
+        {heroShot && (
+          <Phone
+            src={heroShot}
+            alt=""
+            width="200px"
+            sizes="200px"
+            class="ak-sv-hero__phone"
+            loading="eager"
+          />
+        )}
+      </div>
+    </div>
+    <div class="container-page">
+      <ul class="ak-sv-stickers" aria-label={d.stickersLabel}>
+        {rows.map(({ entry, text }, i) => (
+          <li style={`--tilt:${[-3, 2, -1, 3, -2][i % 5]}deg`}>
+            <a href={`#${slugify(text.title)}`} class="ak-sv-sticker">
+              {entry.data.number} {text.shortTitle ?? text.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Service rows -->
+  <section class="section-y" aria-label={d.eyebrow}>
+    <div class="container-page">
+      {rows.map(({ entry, text, examples }) => (
+        <article id={slugify(text.title)} class="ak-sv-row">
+          <div class="flex flex-col gap-3">
+            <p class="text-eyebrow text-fg-accent">{entry.data.number}</p>
+            <h2 class="text-display-l">{text.title}</h2>
+          </div>
+          <div class="flex flex-col gap-6">
+            <p class="text-h4">{text.pitch}</p>
+            <div class="grid gap-8 sm:grid-cols-2">
+              <div class="flex flex-col gap-3">
+                <h3 class="text-eyebrow text-fg-2">{d.whatYouGet}</h3>
+                <ul class="ak-sv-list text-body-s">
+                  {text.deliverables.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div class="flex flex-col gap-6">
+                <div class="flex flex-col gap-2">
+                  <h3 class="text-eyebrow text-fg-2">{d.goodFor}</h3>
+                  <p class="text-body-s">{text.goodFor}</p>
+                </div>
+                {examples.length > 0 && (
+                  <div class="flex flex-col gap-2">
+                    <h3 class="text-eyebrow text-fg-2">{d.seeItIn}</h3>
+                    <ul class="flex gap-2">
+                      {examples.map((app) => {
+                        const icon = appAssets(app.id).icon;
+                        return icon ? (
+                          <li>
+                            <a
+                              href={localizePath(`/work/${app.id}`, locale)}
+                              class="ak-sv-icon"
+                              title={app.data.name}
+                            >
+                              <Image
+                                src={icon}
+                                alt={app.data.name}
+                                width={48}
+                                height={48}
+                                densities={[1, 2]}
+                              />
+                            </a>
+                          </li>
+                        ) : null;
+                      })}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Ways to work -->
+  <section class="bg-tint section-y" aria-labelledby="ways-title">
+    <div class="container-page flex flex-col gap-12">
+      <SectionHeader id="ways-title" eyebrow={d.ways.eyebrow} title={d.ways.title} />
+      <ul class="grid gap-6 lg:grid-cols-3">
+        {d.ways.items.map((w, i) => (
+          <li class:list={['ak-way', i === 1 && 'is-accent']}>
+            <p class="text-eyebrow">{w.tag}</p>
+            <h3 class="text-h2">{w.title}</h3>
+            <p class="text-body-m">{w.body}</p>
+            <p class="text-meta mt-auto">{w.price}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-y" aria-labelledby="faq-title">
+    <div class="container-page grid gap-10 lg:grid-cols-[420px_minmax(0,780px)] lg:justify-between">
+      <SectionHeader id="faq-title" eyebrow={d.faq.eyebrow} title={d.faq.title} />
+      <div class="ak-faq">
+        {faqs.map((f, i) => {
+          const text = localized(f.data.text, locale);
+          return (
+            <details class="ak-faq__item" open={i === 0} name="faq">
+              <summary class="ak-faq__q text-h4">
+                <span>{text.question}</span>
+                <span class="ak-faq__icon" aria-hidden="true" />
+              </summary>
+              <p class="text-body-m text-fg-2 pb-6">{text.answer}</p>
+            </details>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  @layer components {
+    .ak-sv-hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 40px;
+      min-height: 100svh;
+      padding-top: calc(var(--nav-h) + 24px);
+      padding-bottom: 48px;
+    }
+    .ak-sv-hero__art {
+      position: relative;
+      isolation: isolate;
+      max-width: 420px;
+      width: 100%;
+      justify-self: center;
+    }
+    .ak-sv-hero__art :global(.ak-sv-hero__phone) {
+      position: absolute;
+      right: -120px;
+      bottom: -60px;
+      z-index: -1;
+      rotate: 6deg;
+    }
+    @media (max-width: 1279px) {
+      .ak-sv-hero__art :global(.ak-sv-hero__phone) {
+        display: none;
+      }
+    }
+    .ak-sv-stickers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 18px;
+    }
+    .ak-sv-sticker {
+      display: inline-flex;
+      padding: 12px 20px;
+      border: 3px solid var(--color-ink);
+      border-radius: var(--radius-pill);
+      background: var(--color-paper);
+      box-shadow: var(--shadow-sticker);
+      color: var(--color-ink);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.125rem;
+      text-decoration: none;
+      rotate: var(--tilt);
+      transition:
+        rotate 250ms var(--ease-spring),
+        transform 250ms var(--ease-spring);
+    }
+    @media (hover: hover) {
+      .ak-sv-sticker:hover {
+        rotate: calc(var(--tilt) * -1.5);
+        transform: translateY(-3px);
+      }
+    }
+
+    .ak-sv-row {
+      display: grid;
+      gap: 24px;
+      padding-block: 48px;
+      border-top: 1px solid var(--border-default);
+      scroll-margin-top: calc(var(--nav-h) + 16px);
+    }
+    .ak-sv-row:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+    @media (min-width: 1024px) {
+      .ak-sv-row {
+        grid-template-columns: 420px minmax(0, 1fr);
+        gap: 80px;
+        padding-block: 56px;
+      }
+    }
+    .ak-sv-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ak-sv-list li::before {
+      content: '→';
+      margin-right: 10px;
+    }
+    .ak-sv-icon {
+      display: block;
+      width: 48px;
+      height: 48px;
+      overflow: hidden;
+      border: 2px solid var(--color-ink);
+      border-radius: 12px;
+      transition: transform 200ms var(--ease-spring);
+    }
+    .ak-sv-icon:hover {
+      transform: translateY(-3px) rotate(-4deg);
+    }
+
+    .ak-way {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 300px;
+      padding: 32px;
+      border: 3px solid var(--color-ink);
+      border-radius: var(--radius-card);
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-sticker);
+    }
+    .ak-way .text-eyebrow {
+      color: var(--text-accent);
+    }
+    .ak-way.is-accent {
+      background: var(--color-tabby);
+      color: var(--color-ink);
+    }
+    .ak-way.is-accent .text-eyebrow {
+      color: var(--color-ink);
+    }
+
+    .ak-faq {
+      border-top: 1px solid var(--border-default);
+    }
+    .ak-faq__item {
+      border-bottom: 1px solid var(--border-default);
+    }
+    .ak-faq__q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 72px;
+      padding-block: 20px;
+      cursor: pointer;
+      list-style: none;
+    }
+    .ak-faq__q::-webkit-details-marker {
+      display: none;
+    }
+    .ak-faq__icon {
+      position: relative;
+      flex: none;
+      width: 18px;
+      height: 18px;
+    }
+    .ak-faq__icon::before,
+    .ak-faq__icon::after {
+      content: '';
+      position: absolute;
+      inset: 50% 0 auto;
+      height: 3px;
+      margin-top: -1.5px;
+      border-radius: 2px;
+      background: var(--color-tabby-deep);
+      transition: transform 250ms var(--ease-spring);
+    }
+    .ak-faq__icon::after {
+      transform: rotate(90deg);
+    }
+    .ak-faq__item[open] .ak-faq__icon::after {
+      transform: rotate(0deg);
+    }
+  }
+</style>

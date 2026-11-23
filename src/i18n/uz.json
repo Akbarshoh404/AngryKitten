@@ -316,5 +316,125 @@
     "readLess": "Show less",
     "metaTitle": "{app} · {meta} · AngryKitten",
     "privacy": "Privacy policy"
+  },
+  "servicesPage": {
+    "meta": {
+      "title": "Services · Android apps, games, UI/UX and websites · AngryKitten",
+      "description": "From first sketch to Google Play: native Android apps, casual games, UI/UX design, store launch and care, plus fast websites and web apps."
+    },
+    "eyebrow": "Services",
+    "title": "From first sketch to **Google Play.**",
+    "body": "We cover the whole journey, or just the part you're stuck on. Same small team from kickoff to launch.",
+    "cta": "Start a project",
+    "stickersLabel": "Jump to a service",
+    "builder": {
+      "eyebrow": "Build your app",
+      "title": "What do you need?",
+      "options": {
+        "mobile": "Mobile app",
+        "game": "Game",
+        "design": "UI/UX design",
+        "website": "Website",
+        "launch": "Launch"
+      },
+      "toggles": {
+        "offline": "Offline-first",
+        "languages": "EN · UZ · RU",
+        "dark": "Dark mode"
+      },
+      "button": "Get a proposal",
+      "summary": "Your app: {items}",
+      "nothing": "Pick at least one thing to build.",
+      "messageIntro": "I'd like a proposal for:"
+    },
+    "whatYouGet": "What you get",
+    "goodFor": "Good for",
+    "seeItIn": "See it in",
+    "noExamples": "Examples coming soon",
+    "ways": {
+      "eyebrow": "Ways to work together",
+      "title": "Pick the shape that **fits.**",
+      "items": [
+        {
+          "tag": "1–2 weeks",
+          "title": "Design sprint",
+          "body": "Turn a fuzzy idea into clickable screens and a clear plan you can show investors or your team.",
+          "price": "[Timeline and pricing: add yours]"
+        },
+        {
+          "tag": "Most popular",
+          "title": "Fixed-scope project",
+          "body": "One agreed scope, one timeline, one price. Ideal for an MVP or a v1 on Google Play.",
+          "price": "[Timeline and pricing: add yours]"
+        },
+        {
+          "tag": "Monthly",
+          "title": "Ongoing partnership",
+          "body": "A small dedicated team for new features, updates and store releases, month after month.",
+          "price": "[Timeline and pricing: add yours]"
+        }
+      ]
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Questions clients **usually ask.**"
+    }
+  },
+  "studio": {
+    "meta": {
+      "title": "Studio · Small studio, short fuse for bad apps · AngryKitten",
+      "description": "AngryKitten is an independent Android studio in Tashkent. We make our own apps and games and build apps for clients with the same care."
+    },
+    "eyebrow": "Studio",
+    "title": "Small studio. Short fuse for **bad apps.**",
+    "body": "AngryKitten is an independent Android studio in Tashkent. We make our own apps and games, and we build apps for clients with the same care.",
+    "facts": {
+      "live": "{n} apps live",
+      "games": "{n} games",
+      "city": "Tashkent, UZ",
+      "languages": "EN · UZ · RU",
+      "bubble": "We don't ship boring."
+    },
+    "stats": {
+      "live": "apps and games live on Google Play",
+      "games": "games built in-house",
+      "languages": "languages: EN · UZ · RU",
+      "coming": "new apps in the oven"
+    },
+    "story": {
+      "eyebrow": "Our story",
+      "title": "Why the kitten is **angry.**",
+      "paragraphs": [
+        "[Founder story placeholder] How AngryKitten started, who started it and why. Two or three short paragraphs, written in your own voice.",
+        "A suggestion for the angle: we got tired of apps that are slow, nosy and full of ads. So we started making the ones we wanted to use ourselves: offline-first, private by default and polished down to the haptics. That's the kitten's temper, and it's what we bring to every client project."
+      ]
+    },
+    "team": {
+      "eyebrow": "The litter",
+      "title": "The people behind the **claws.**"
+    },
+    "values": {
+      "eyebrow": "How we think",
+      "title": "Three things we **won't compromise** on.",
+      "items": [
+        {
+          "title": "Respect the user",
+          "body": "No dark patterns, no needless permissions, no data we don't need."
+        },
+        {
+          "title": "Fast is a feature",
+          "body": "Offline-first and lightweight, so apps feel instant on any phone."
+        },
+        {
+          "title": "Details are the product",
+          "body": "Haptics, empty states, dark mode. The small things are why people stay."
+        }
+      ]
+    },
+    "careers": {
+      "title": "Want to join the litter?",
+      "body": "We're always happy to hear from Android developers and designers in Tashkent.",
+      "cta": "Say hello"
+    }
   }
 }

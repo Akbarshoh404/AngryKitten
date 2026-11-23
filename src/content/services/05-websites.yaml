@@ -5,6 +5,7 @@ exampleApps: []
 text:
   en:
     title: Websites and web apps
+    shortTitle: Websites
     pitch: Fast, good-looking sites and web apps that load quickly, rank well and work on any screen.
     cardPitch: Fast studio sites, landing pages and web dashboards that work on every screen.
     deliverables:

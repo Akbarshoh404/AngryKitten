@@ -85,8 +85,11 @@ export default function ContactForm({
 
   // Pre-fill from ?type=… and from other islands (Contact chat hero).
   useEffect(() => {
-    const fromUrl = new URLSearchParams(location.search).get('type');
+    const params = new URLSearchParams(location.search);
+    const fromUrl = params.get('type');
     if (fromUrl && types.includes(fromUrl)) setSelected([fromUrl]);
+    const brief = params.get('brief');
+    if (brief) setValues((v) => ({ ...v, message: v.message || brief.slice(0, 600) }));
     const onPrefill = (e: Event) => {
       const detail = (e as CustomEvent<{ type?: string; message?: string }>).detail ?? {};
       if (detail.type && types.includes(detail.type)) setSelected([detail.type]);

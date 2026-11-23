@@ -1,0 +1,236 @@
+---
+/** Studio — Figma 14:678 (no mobile frame: stacked using the mobile patterns). */
+import { Image } from 'astro:assets';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Button from '../../components/ui/Button.astro';
+import Stat from '../../components/ui/Stat.astro';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
+import TeamSection from '../../components/sections/TeamSection.astro';
+import { getApps } from '../../lib/content';
+import { highlight } from '../../lib/text';
+import { fill, getDict, localeStaticPaths, localizePath, type Locale } from '../../i18n/utils';
+import sticker from '../../assets/brand/sticker.png';
+
+export const getStaticPaths = localeStaticPaths;
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const d = getDict(locale).studio;
+const apps = await getApps();
+const live = apps.filter((a) => a.data.status === 'live');
+const games = live.filter((a) => a.data.type === 'game');
+const coming = apps.filter((a) => a.data.status === 'coming');
+
+// Orbiting fact bubbles (Figma positions around the 440px circle), each on its own orbit phase.
+const facts = [
+  { text: fill(d.facts.live, { n: live.length }), x: -70, y: 40, r: -8, tone: 'paper' },
+  { text: fill(d.facts.games, { n: games.length }), x: 330, y: -10, r: 6, tone: 'gold' },
+  { text: d.facts.city, x: 330, y: 370, r: -5, tone: 'mint' },
+  { text: d.facts.languages, x: -60, y: 360, r: 7, tone: 'paper' },
+];
+const stats = [
+  { value: live.length, label: d.stats.live },
+  { value: games.length, label: d.stats.games },
+  { value: 3, label: d.stats.languages },
+  { value: coming.length, label: d.stats.coming },
+];
+---
+
+<PageLayout locale={locale} title={d.meta.title} description={d.meta.description} theme="tangerine">
+  <!-- Hero -->
+  <section data-theme="tangerine" data-hero class="ak-st-hero">
+    <div class="container-page grid items-center gap-16 lg:grid-cols-[minmax(0,740px)_minmax(0,460px)] lg:justify-between">
+      <div class="flex flex-col gap-6">
+        <p class="text-eyebrow">{d.eyebrow}</p>
+        <h1 class="text-display-xl" set:html={highlight(d.title)} />
+        <p class="text-body-l max-w-2xl">{d.body}</p>
+      </div>
+      <div class="ak-orbit" aria-hidden="true">
+        <span class="ak-orbit__sun"></span>
+        <Image
+          src={sticker}
+          alt=""
+          widths={[380, 760]}
+          sizes="(min-width: 1024px) 380px, 70vw"
+          class="ak-orbit__cat"
+          loading="eager"
+        />
+        {facts.map((f, i) => (
+          <span
+            class:list={['ak-orbit__fact', `is-${f.tone}`]}
+            style={`--x:${f.x};--y:${f.y};--r:${f.r}deg;--phase:${i * -1.6}s`}
+          >
+            {f.text}
+          </span>
+        ))}
+        <span class="ak-orbit__bubble">{d.facts.bubble}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Numbers (peach) -->
+  <section class="bg-tint py-16" aria-label={d.eyebrow}>
+    <ul class="container-page grid grid-cols-2 gap-10 lg:grid-cols-4">
+      {stats.map((s) => (
+        <li>
+          <Stat value={s.value} label={s.label} />
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Story -->
+  <section class="section-y" aria-labelledby="story-title">
+    <div class="container-page grid gap-10 lg:grid-cols-[420px_minmax(0,780px)] lg:justify-between">
+      <SectionHeader id="story-title" eyebrow={d.story.eyebrow} title={d.story.title} />
+      <div class="flex flex-col gap-6">
+        {d.story.paragraphs.map((p, i) => (
+          <p class:list={['text-body-l', i > 0 && 'text-fg-2']}>{p}</p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <TeamSection locale={locale} eyebrow={d.team.eyebrow} title={d.team.title} tone="base" />
+
+  <!-- Values (dark) -->
+  <section data-theme="dark" class="section-y" aria-labelledby="values-title">
+    <div class="container-page flex flex-col gap-12">
+      <div class="flex flex-col gap-4">
+        <p class="text-eyebrow text-fg-accent">{d.values.eyebrow}</p>
+        <h2 id="values-title" class="text-h1" set:html={highlight(d.values.title)} />
+      </div>
+      <ol class="grid gap-8 md:grid-cols-3">
+        {d.values.items.map((v, i) => (
+          <li class="flex flex-col gap-3 border-t-2 border-strong pt-6">
+            <p class="text-eyebrow text-fg-accent" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </p>
+            <h3 class="text-h3">{v.title}</h3>
+            <p class="text-body-m text-fg-2">{v.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Careers -->
+  <section data-theme="tangerine" class="py-16" aria-labelledby="careers-title">
+    <div class="container-page flex flex-wrap items-center justify-between gap-6">
+      <div class="flex flex-col gap-2">
+        <h2 id="careers-title" class="text-h1">
+          {d.careers.title}
+        </h2>
+        <p class="text-body-l max-w-xl">{d.careers.body}</p>
+      </div>
+      <Button href={localizePath('/contact#start', locale)} size="M">
+        {d.careers.cta}
+      </Button>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  @layer components {
+    .ak-st-hero {
+      display: flex;
+      align-items: center;
+      min-height: 100svh;
+      padding-top: calc(var(--nav-h) + 48px);
+      padding-bottom: 64px;
+    }
+    /* 1 unit = 1px of the 460px Figma art box. */
+    .ak-orbit {
+      position: relative;
+      width: min(100%, 460px);
+      aspect-ratio: 1;
+      margin-inline: auto;
+      container-type: inline-size;
+    }
+    .ak-orbit > * {
+      --u: calc(100cqw / 460);
+      position: absolute;
+    }
+    .ak-orbit__sun {
+      left: calc(10 * var(--u));
+      top: calc(10 * var(--u));
+      width: calc(440 * var(--u));
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--color-gold);
+    }
+    .ak-orbit__cat {
+      left: calc(40 * var(--u));
+      top: calc(30 * var(--u));
+      width: calc(380 * var(--u));
+      height: auto;
+      rotate: -4deg;
+      filter: drop-shadow(0 14px 22px rgb(23 17 12 / 0.25));
+    }
+    .ak-orbit__fact,
+    .ak-orbit__bubble {
+      left: calc(var(--x) * var(--u));
+      top: calc(var(--y) * var(--u));
+      padding: 10px 18px;
+      border: 3px solid var(--color-ink);
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-sticker);
+      color: var(--color-ink);
+      font-weight: 700;
+      font-size: clamp(0.8rem, 3.6cqw, 1rem);
+      white-space: nowrap;
+      rotate: var(--r);
+      animation: ak-orbit 9s ease-in-out infinite;
+      animation-delay: var(--phase);
+    }
+    .ak-orbit__fact.is-paper {
+      background: var(--color-paper);
+    }
+    .ak-orbit__fact.is-gold {
+      background: var(--color-gold);
+    }
+    .ak-orbit__fact.is-mint {
+      background: var(--color-mint);
+    }
+    .ak-orbit__bubble {
+      --x: 120;
+      --y: -80;
+      --r: -3deg;
+      --phase: -4s;
+      background: var(--color-ink);
+      color: var(--color-paper);
+      box-shadow: none;
+      font-family: var(--font-display);
+      font-size: clamp(0.9rem, 4.2cqw, 1.25rem);
+    }
+    /* Each bubble drifts around a small circle: a gentle orbit. */
+    @keyframes ak-orbit {
+      0% {
+        transform: translate(0, 0);
+      }
+      25% {
+        transform: translate(8px, -6px);
+      }
+      50% {
+        transform: translate(0, -12px);
+      }
+      75% {
+        transform: translate(-8px, -6px);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+    @media (max-width: 1023px) {
+      .ak-orbit {
+        width: min(78%, 400px);
+        margin-top: 60px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ak-orbit__fact,
+      .ak-orbit__bubble {
+        animation: none;
+      }
+    }
+  }
+</style>
