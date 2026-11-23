@@ -1,0 +1,31 @@
+{
+  "generated": "2026-11-23",
+  "kit": 8967356,
+  "logosZip": 4264455,
+  "appAssetsZip": 4609746,
+  "apps": {
+    "catloop": 373794,
+    "catris": 505988,
+    "cipher": 391979,
+    "mathrow": 406472,
+    "nerva": 428830,
+    "pulchi": 350833,
+    "shiftball": 261570,
+    "spinject": 310324,
+    "sudokitten": 582412,
+    "tictactoe": 238105,
+    "uybek": 421983,
+    "uzwordle": 334938
+  },
+  "logos": {
+    "angrykitten-logo.svg": 89693,
+    "angrykitten-logo-light.svg": 89693,
+    "angrykitten-logo.png": 105108,
+    "angrykitten-logo-light.png": 105529,
+    "mark-transparent.png": 835088,
+    "mark-sticker.png": 703161,
+    "mark-on-light.png": 807611,
+    "mark-on-orange.png": 809650,
+    "mark-on-dark.png": 808846
+  }
+}

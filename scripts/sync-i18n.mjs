@@ -1,22 +1,39 @@
-// Adds keys that exist in en.json but are missing in uz.json / ru.json (copied in English),
-// so every locale has the full set. Existing translations are never overwritten.
+// Keeps uz.json and ru.json in step with en.json.
+//  - Keys missing in a locale are added in English (shown until someone translates them).
+//  - Values that are still the untranslated English copy are refreshed when the English changes.
+//  - Real translations (anything that differs from the English it was copied from) are never touched.
+// The English used for the last sync is stored in src/i18n/.en-snapshot.json.
 // Run: npm run i18n:sync
 import { readFile, writeFile } from 'node:fs/promises';
 
-const read = async (l) => JSON.parse(await readFile(`src/i18n/${l}.json`, 'utf8'));
-const en = await read('en');
-
-function merge(base, target) {
-  const out = Array.isArray(base) ? [] : {};
-  if (!Array.isArray(base) && target && '_TODO' in target) out._TODO = target._TODO;
-  for (const [k, v] of Object.entries(base)) {
-    const t = target?.[k];
-    out[k] = v && typeof v === 'object' ? merge(v, t ?? (Array.isArray(v) ? [] : {})) : (t ?? v);
+const dir = 'src/i18n';
+const read = async (f, fallback) => {
+  try {
+    return JSON.parse(await readFile(`${dir}/${f}`, 'utf8'));
+  } catch {
+    return fallback;
   }
-  return out;
+};
+const en = await read('en.json');
+const snapshot = await read('.en-snapshot.json', null);
+
+function merge(base, target, snap) {
+  if (Array.isArray(base)) return base.map((v, i) => merge(v, target?.[i], snap?.[i]));
+  if (base && typeof base === 'object') {
+    const out = {};
+    if (target && typeof target === 'object' && '_TODO' in target) out._TODO = target._TODO;
+    for (const [k, v] of Object.entries(base)) out[k] = merge(v, target?.[k], snap?.[k]);
+    return out;
+  }
+  if (target === undefined) return base; // missing → English
+  if (snap !== undefined && target === snap) return base; // still the English copy → refresh
+  if (snapshot === null && typeof target === 'string' && target === base) return base;
+  return target; // translated
 }
+
 for (const l of ['uz', 'ru']) {
-  const merged = merge(en, await read(l));
-  await writeFile(`src/i18n/${l}.json`, JSON.stringify(merged, null, 2) + '\n');
+  const merged = merge(en, await read(`${l}.json`, {}), snapshot);
+  await writeFile(`${dir}/${l}.json`, JSON.stringify(merged, null, 2) + '\n');
   console.log(`synced ${l}.json`);
 }
+await writeFile(`${dir}/.en-snapshot.json`, JSON.stringify(en, null, 2) + '\n');

@@ -1,0 +1,160 @@
+---
+/** Contact — Figma 13:599 (desktop) / 16:299 (mobile). */
+import { getImage } from 'astro:assets';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Button from '../../components/ui/Button.astro';
+import ChatHero from '../../components/islands/ChatHero';
+import ContactFormIsland from '../../components/sections/ContactFormIsland.astro';
+import site from '../../content/site.json';
+import { highlight } from '../../lib/text';
+import { fill, getDict, localeStaticPaths, type Locale } from '../../i18n/utils';
+import mark from '../../assets/brand/mark.png';
+import sticker from '../../assets/brand/sticker.png';
+
+export const getStaticPaths = localeStaticPaths;
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const d = getDict(locale).contactPage;
+const avatar = (await getImage({ src: mark, width: 72, format: 'webp' })).src;
+const stickerSrc = (await getImage({ src: sticker, width: 208, format: 'webp' })).src;
+const placeholder = (v: string) => v.startsWith('[');
+const tg =
+  site.telegram.url ||
+  (placeholder(site.telegram.handle) ? undefined : `https://t.me/${site.telegram.handle.replace('@', '')}`);
+
+const details: { label: string; value: string; href?: string }[] = [
+  { label: d.details.email, value: site.email, href: `mailto:${site.email}` },
+  { label: d.details.telegram, value: site.telegram.handle, href: tg },
+  {
+    label: d.details.phone,
+    value: site.phone,
+    href: placeholder(site.phone) ? undefined : `tel:${site.phone.replace(/[^\d+]/g, '')}`,
+  },
+  { label: d.details.studio, value: site.address },
+  { label: d.details.languages, value: d.details.languagesValue },
+  { label: d.details.reply, value: site.replyTime },
+];
+---
+
+<PageLayout
+  locale={locale}
+  title={d.meta.title}
+  description={fill(d.meta.description, { replyTime: site.replyTime })}
+  theme="tangerine"
+>
+  <!-- Hero -->
+  <section data-theme="tangerine" data-hero class="ak-ct-hero">
+    <div class="container-page grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-20">
+      <div class="flex flex-col gap-6">
+        <p class="text-eyebrow">{d.eyebrow}</p>
+        <h1 class="text-display-xl" set:html={highlight(d.title)} />
+        <p class="text-body-l max-w-xl">{d.body}</p>
+        <Button href="#start" class="self-start">
+          {d.cta}
+        </Button>
+        <dl class="ak-ct-details">
+          {details.map((row) => (
+            <div>
+              <dt class="text-eyebrow">{row.label}</dt>
+              <dd class="text-body-s">
+                {row.href ? (
+                  <a href={row.href} class="underline-offset-4 hover:underline">
+                    {row.value}
+                  </a>
+                ) : (
+                  row.value
+                )}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+      <ChatHero
+        client:visible
+        labels={{ ...d.chat, status: fill(d.chat.status, { replyTime: site.replyTime }) }}
+        avatar={avatar}
+        sticker={stickerSrc}
+        formId="start"
+      />
+    </div>
+  </section>
+
+  <!-- Form -->
+  <section id="start" class="section-y scroll-mt-(--nav-h)" aria-labelledby="form-title">
+    <div class="container-page grid gap-12 lg:grid-cols-[minmax(0,560px)_minmax(0,620px)] lg:justify-between lg:gap-20">
+      <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-4">
+          <p class="text-eyebrow text-fg-accent">{d.formEyebrow}</p>
+          <h2 id="form-title" class="text-h1" set:html={highlight(d.formTitle)} />
+        </div>
+        <div class="ak-ct-next">
+          <h3 class="text-h4">{d.next.title}</h3>
+          <ol class="flex flex-col gap-4">
+            {d.next.steps.map((step, i) => (
+              <li class="flex items-start gap-3">
+                <span class="ak-ct-next__num" aria-hidden="true">
+                  {i + 1}
+                </span>
+                <span class="text-body-s pt-0.5">{step}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+      <div class="ak-form-card">
+        <ContactFormIsland locale={locale} variant="full" showTitle />
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  @layer components {
+    .ak-ct-hero {
+      display: flex;
+      align-items: center;
+      min-height: 100svh;
+      padding-top: calc(var(--nav-h) + 24px);
+      padding-bottom: 56px;
+    }
+    .ak-ct-details {
+      display: flex;
+      flex-direction: column;
+      margin-top: 12px;
+      border-top: 1.5px solid var(--color-ink);
+    }
+    .ak-ct-details div {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      align-items: baseline;
+      padding-block: 10px;
+      border-bottom: 1.5px solid var(--color-ink);
+    }
+    .ak-ct-details dd {
+      overflow-wrap: anywhere;
+    }
+    .ak-ct-next {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 28px;
+      border: 3px solid var(--color-ink);
+      border-radius: var(--radius-lg);
+      background: var(--bg-sunken);
+      box-shadow: var(--shadow-sticker);
+    }
+    .ak-ct-next__num {
+      display: grid;
+      flex: none;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--color-tabby);
+      color: var(--color-ink);
+      font-weight: 700;
+      font-size: 0.8125rem;
+    }
+  }
+</style>

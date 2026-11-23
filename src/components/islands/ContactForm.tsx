@@ -27,6 +27,11 @@ type Labels = {
   successTitle: string;
   successBody: string;
   sendAnother: string;
+  fullTitle: string;
+  messageFull: string;
+  messageFullPlaceholder: string;
+  companyPlaceholder: string;
+  privacyNote: string;
 };
 
 type Props = {
@@ -96,6 +101,8 @@ export default function ContactForm({
       if (detail.message) setValues((v) => ({ ...v, message: v.message || detail.message! }));
       setStatus('idle');
     };
+    const pending = (window as unknown as { akPrefill?: { type?: string; message?: string } }).akPrefill;
+    if (pending) onPrefill(new CustomEvent('ak:prefill', { detail: pending }));
     window.addEventListener('ak:prefill', onPrefill);
     return () => window.removeEventListener('ak:prefill', onPrefill);
   }, []);
@@ -265,7 +272,7 @@ export default function ContactForm({
 
   return (
     <form ref={formRef} className="ak-form" noValidate onSubmit={onSubmit} aria-busy={status === 'sending'}>
-      {showTitle && <h3 className="text-h2">{labels.quickTitle}</h3>}
+      {showTitle && <h3 className="text-h2">{variant === 'full' ? labels.fullTitle : labels.quickTitle}</h3>}
 
       <fieldset className="ak-form__group">
         <legend className="ak-field__label">{labels.typeLabel}</legend>
@@ -312,8 +319,15 @@ export default function ContactForm({
         })}
       </div>
       {variant === 'full' &&
-        field('company', labels.company, { optional: true, autoComplete: 'organization' })}
-      {field('message', labels.message, { placeholder: labels.messagePlaceholder, multiline: true })}
+        field('company', labels.company, {
+          optional: true,
+          autoComplete: 'organization',
+          placeholder: labels.companyPlaceholder,
+        })}
+      {field('message', variant === 'full' ? labels.messageFull : labels.message, {
+        placeholder: variant === 'full' ? labels.messageFullPlaceholder : labels.messagePlaceholder,
+        multiline: true,
+      })}
 
       {/* Honeypot: hidden from people, tempting for bots. */}
       <div className="ak-form__hp" aria-hidden="true">
@@ -363,6 +377,7 @@ export default function ContactForm({
           </svg>
         )}
       </button>
+      {variant === 'full' && <p className="text-meta text-fg-2">{labels.privacyNote}</p>}
     </form>
   );
 }

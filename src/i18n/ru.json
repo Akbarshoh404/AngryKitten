@@ -225,12 +225,13 @@
       "update": "Update an existing app",
       "notSure": "Not sure yet"
     },
-    "budgetLabel": "Budget (optional)",
+    "budgetLabel": "Rough budget (optional)",
     "budgets": {
-      "small": "[Budget range 1]",
-      "medium": "[Budget range 2]",
-      "large": "[Budget range 3]",
-      "unknown": "Not sure yet"
+      "small": "[< $5k]",
+      "medium": "[$5–15k]",
+      "large": "[$15–40k]",
+      "xl": "[$40k+]",
+      "unknown": "Not sure"
     },
     "name": "Your name",
     "namePlaceholder": "Akbar",
@@ -250,7 +251,12 @@
     },
     "successTitle": "The kitten got your message.",
     "successBody": "We'll reply within {replyTime}. Meanwhile, the kitten is pretending not to care.",
-    "sendAnother": "Send another message"
+    "sendAnother": "Send another message",
+    "fullTitle": "Start a project",
+    "messageFull": "Tell us about it",
+    "messageFullPlaceholder": "What should the app do, who is it for, and is there a deadline?",
+    "privacyNote": "We only use your details to reply to you. No newsletters, no sharing.",
+    "companyPlaceholder": "Company or project name"
   },
   "work": {
     "meta": {
@@ -436,5 +442,222 @@
       "body": "We're always happy to hear from Android developers and designers in Tashkent.",
       "cta": "Say hello"
     }
+  },
+  "contactPage": {
+    "meta": {
+      "title": "Contact · Start a project with AngryKitten",
+      "description": "Tell us about your app, game or website. A few sentences is plenty; we reply within [two working days]."
+    },
+    "eyebrow": "Contact",
+    "title": "Let's build something **people keep.**",
+    "body": "Tell us a little about your idea. No long brief needed, a few sentences is plenty.",
+    "cta": "Fill in the form",
+    "details": {
+      "email": "Email",
+      "telegram": "Telegram",
+      "phone": "Phone",
+      "studio": "Studio",
+      "languages": "Languages",
+      "languagesValue": "English · Oʻzbekcha · Русский",
+      "reply": "Reply time"
+    },
+    "chat": {
+      "label": "Chat with the kitten",
+      "name": "The kitten",
+      "status": "Online · replies within {replyTime}",
+      "hello": "Hi! What are we building?",
+      "chips": [
+        {
+          "label": "Mobile app",
+          "type": "mobile"
+        },
+        {
+          "label": "Game",
+          "type": "game"
+        },
+        {
+          "label": "Redesign",
+          "type": "update"
+        },
+        {
+          "label": "Not sure yet",
+          "type": "notSure"
+        }
+      ],
+      "reply": "Purr-fect. When would you like to launch?",
+      "replyTyped": "Got it. Let's put that in the form.",
+      "placeholder": "Type your idea…",
+      "send": "Send to the form",
+      "typing": "The kitten is typing"
+    },
+    "formEyebrow": "Start a project",
+    "formTitle": "Tell us about it. Takes **two minutes.**",
+    "next": {
+      "title": "What happens next",
+      "steps": [
+        "We read your note and reply with a few questions.",
+        "A short call to understand the goal, users and timing.",
+        "A clear proposal: scope, timeline and price."
+      ]
+    }
+  },
+  "press": {
+    "meta": {
+      "title": "Press kit · AngryKitten",
+      "description": "Logos, facts, colours, app icons and screenshots. Free to use in articles, reviews and videos about AngryKitten."
+    },
+    "eyebrow": "Press kit",
+    "title": "Everything you need to write about **the kitten.**",
+    "body": "Logos, facts, colours, app icons and screenshots. Free to use in articles, reviews and videos about AngryKitten.",
+    "downloadAll": "Download everything · ZIP",
+    "pressContact": "Press contact",
+    "updated": "Updated {date} · {size} · PNG, SVG, JPG",
+    "art": {
+      "colours": "Brand colours",
+      "apps": "{icons} app icons · {shots} screenshots",
+      "free": "Free to use ✓"
+    },
+    "factsEyebrow": "Fact sheet",
+    "factsTitle": "AngryKitten **at a glance.**",
+    "shortLabel": "Short version",
+    "longLabel": "Long version",
+    "shortVersion": "Independent app studio from Tashkent making playful Android games and genuinely useful apps.",
+    "longVersion": "AngryKitten is an independent app studio based in Tashkent, Uzbekistan. The team designs and builds Android games and everyday apps, from word and logic games like UzWordle, Catris and SudoKitten to tools like Pulchi, Nerva and UyBek. Alongside its own catalogue of 12 apps on Google Play, with 3 more on the way, AngryKitten builds mobile apps, games and websites for other companies.",
+    "copyShort": "Copy short",
+    "copyLong": "Copy long",
+    "copied": "Copied to clipboard",
+    "copyFailed": "Couldn't copy. Select the text instead.",
+    "facts": [
+      {
+        "label": "Studio",
+        "value": "AngryKitten"
+      },
+      {
+        "label": "Based in",
+        "value": "Tashkent, Uzbekistan"
+      },
+      {
+        "label": "Founded",
+        "value": "[Year]"
+      },
+      {
+        "label": "Team",
+        "value": "[Number] people"
+      },
+      {
+        "label": "Apps on Google Play",
+        "value": "{live} live · {coming} coming"
+      },
+      {
+        "label": "Downloads",
+        "value": "[Total installs]"
+      },
+      {
+        "label": "What we make",
+        "value": "Games, apps, websites"
+      },
+      {
+        "label": "Languages",
+        "value": "English · Oʻzbekcha · Русский"
+      },
+      {
+        "label": "Website",
+        "value": "angrykitten.uz"
+      },
+      {
+        "label": "Press contact",
+        "value": "{email}"
+      }
+    ],
+    "logosEyebrow": "Logos",
+    "logosTitle": "The kitten, in **every flavour.**",
+    "logosBody": "Use the full logo where there's room, and the mark on its own for small spaces and avatars.",
+    "logosZip": "All logos · ZIP",
+    "logoCards": [
+      {
+        "name": "Full logo",
+        "png": "angrykitten-logo.png",
+        "svg": "angrykitten-logo.svg",
+        "tone": "paper"
+      },
+      {
+        "name": "Full logo, light",
+        "png": "angrykitten-logo-light.png",
+        "svg": "angrykitten-logo-light.svg",
+        "tone": "ink"
+      },
+      {
+        "name": "Mark on light",
+        "png": "mark-on-light.png",
+        "tone": "paper"
+      },
+      {
+        "name": "Mark on orange",
+        "png": "mark-on-orange.png",
+        "tone": "tabby"
+      },
+      {
+        "name": "Mark on dark",
+        "png": "mark-on-dark.png",
+        "tone": "night"
+      }
+    ],
+    "do": "Do",
+    "doBody": "Give the kitten room to breathe. Keep at least half his head width of clear space around him.",
+    "dont": "Don't",
+    "dontBody": "Stretch, recolour, rotate or add effects. And never make him smile. He's angry for a reason.",
+    "coloursEyebrow": "Colours and type",
+    "coloursTitle": "**Tabby orange** does the talking.",
+    "copyHex": "Copy {hex}",
+    "swatches": [
+      {
+        "name": "Tabby",
+        "hex": "#FF5A1F",
+        "use": "Primary accent"
+      },
+      {
+        "name": "Ink",
+        "hex": "#17110C",
+        "use": "Text and outlines"
+      },
+      {
+        "name": "Warm Ivory",
+        "hex": "#FAF7F2",
+        "use": "Backgrounds"
+      },
+      {
+        "name": "Plum Night",
+        "hex": "#2B1640",
+        "use": "Dark sections"
+      },
+      {
+        "name": "Gold",
+        "hex": "#FFD43B",
+        "use": "Highlights"
+      }
+    ],
+    "type": [
+      {
+        "role": "Headlines and display",
+        "name": "Bricolage Grotesque",
+        "note": "Free on Google Fonts",
+        "font": "display"
+      },
+      {
+        "role": "Body text and UI",
+        "name": "DM Sans",
+        "note": "Free on Google Fonts",
+        "font": "sans"
+      }
+    ],
+    "appsEyebrow": "App assets",
+    "appsTitle": "Our apps, **ready to drop in.**",
+    "appsBody": "Icons, store banners and screenshots for every app. Apps 13 to 15 are added at launch.",
+    "appsZip": "All app assets · ZIP",
+    "appContents": "Icon · Banner · 3 shots",
+    "appDownload": "Download",
+    "appDownloadLabel": "Download {app} assets ({size})",
+    "contactTitle": "Writing about us? Talk to the kitten.",
+    "contactBody": "Interviews, review codes, early builds or anything missing here. We reply to press within {pressReply}."
   }
 }

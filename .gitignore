@@ -28,3 +28,6 @@ pnpm-debug.log*
 .dev.vars
 .env.*
 !.env.example
+
+# generated press kit downloads
+public/press/

@@ -1,0 +1,8 @@
+# Copy to .dev.vars for local `npm run dev` (never commit .dev.vars).
+# Production: set these as secrets in Cloudflare (Workers & Pages → your project → Settings → Variables and secrets).
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+TURNSTILE_SECRET_KEY=
+RESEND_API_KEY=
+CONTACT_EMAIL_TO=angrykittenorange@gmail.com
+CONTACT_EMAIL_FROM=

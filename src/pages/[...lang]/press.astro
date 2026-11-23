@@ -1,0 +1,485 @@
+---
+/** Press kit — Figma 60:1456 (desktop) / 61:416 (mobile). Downloads come from scripts/build-press.mjs. */
+import { Image } from 'astro:assets';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Button from '../../components/ui/Button.astro';
+import Sticker from '../../components/ui/Sticker.astro';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
+import CopyButton from '../../components/ui/CopyButton.astro';
+import ContactMethod from '../../components/cards/ContactMethod.astro';
+import site from '../../content/site.json';
+import manifest from '../../generated/press-manifest.json';
+import { getApps } from '../../lib/content';
+import { appAssets } from '../../lib/appAssets';
+import { highlight } from '../../lib/text';
+import { fill, getDict, localeStaticPaths, useTranslations, type Locale } from '../../i18n/utils';
+import mark from '../../assets/brand/mark.png';
+
+export const getStaticPaths = localeStaticPaths;
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const d = getDict(locale).press;
+const apps = await getApps();
+const live = apps.filter((a) => a.data.status === 'live');
+const coming = apps.filter((a) => a.data.status === 'coming');
+
+const mb = (bytes: number) =>
+  bytes >= 1e6 ? `${(bytes / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1e3))} KB`;
+const updated = new Date(manifest.generated).toLocaleDateString(locale === 'en' ? 'en-GB' : locale, {
+  month: 'short',
+  year: 'numeric',
+});
+const facts = d.facts.map((f) => ({
+  label: f.label,
+  value: fill(f.value, { live: live.length, coming: coming.length, email: site.email }),
+}));
+const shots = live.reduce((n, a) => n + appAssets(a.id).screenshots.length, 0);
+const toneBg: Record<string, string> = {
+  paper: 'var(--color-paper)',
+  ink: 'var(--color-ink)',
+  tabby: 'var(--color-tabby)',
+  night: 'var(--color-night)',
+};
+const appZipSize: Record<string, number> = manifest.apps;
+const svgOf = (card: object) => (card as { svg?: string }).svg;
+const isPlaceholder = (v: string) => v.startsWith('[');
+const tg =
+  site.telegram.url ||
+  (isPlaceholder(site.telegram.handle) ? undefined : `https://t.me/${site.telegram.handle.replace('@', '')}`);
+---
+
+<PageLayout locale={locale} title={d.meta.title} description={d.meta.description} theme="tangerine">
+  <!-- Hero -->
+  <section data-theme="tangerine" data-hero class="ak-pr-hero">
+    <div class="container-page grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,500px)]">
+      <div class="flex flex-col gap-6">
+        <p class="text-eyebrow">{d.eyebrow}</p>
+        <h1 class="text-display-xl" set:html={highlight(d.title)} />
+        <p class="text-body-l max-w-xl">{d.body}</p>
+        <div class="flex flex-wrap gap-3">
+          <Button href="/press/angrykitten-press-kit.zip" download>
+            {d.downloadAll}
+          </Button>
+          <Button href="#press-contact" variant="light" arrow={false}>
+            {d.pressContact}
+          </Button>
+        </div>
+        <p class="text-meta">{fill(d.updated, { date: updated, size: mb(manifest.kit) })}</p>
+      </div>
+      <div class="ak-pr-stack" aria-hidden="true">
+        <div class="ak-pr-stack__card is-logo">
+          <Image src={mark} alt="" width={200} height={200} densities={[1, 2]} loading="eager" />
+        </div>
+        <div class="ak-pr-stack__card is-colours">
+          <p class="text-eyebrow">{d.art.colours}</p>
+          <div class="flex gap-2">
+            {d.swatches.map((s) => (
+              <span class="ak-pr-dot" style={`background:${s.hex}`} />
+            ))}
+          </div>
+        </div>
+        <div class="ak-pr-stack__card is-apps">
+          <p class="text-eyebrow">{fill(d.art.apps, { icons: live.length, shots })}</p>
+          <div class="grid grid-cols-4 gap-2">
+            {live.slice(0, 8).map((a) => {
+              const icon = appAssets(a.id).icon;
+              return icon ? <Image src={icon} alt="" width={52} height={52} densities={[1, 2]} /> : null;
+            })}
+          </div>
+        </div>
+        <Sticker tone="gold" tilt={-12} class="ak-pr-stack__free">
+          {d.art.free}
+        </Sticker>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fact sheet -->
+  <section class="section-y" aria-labelledby="facts-title">
+    <div class="container-page flex flex-col gap-12">
+      <SectionHeader id="facts-title" eyebrow={d.factsEyebrow} title={d.factsTitle} />
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,500px)]">
+        <div class="ak-pr-card flex flex-col gap-6">
+          <div class="flex flex-col gap-2">
+            <p class="text-eyebrow text-fg-2">{d.shortLabel}</p>
+            <p class="text-h4">{d.shortVersion}</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <p class="text-eyebrow text-fg-2">{d.longLabel}</p>
+            <p class="text-body-m">{d.longVersion}</p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <CopyButton text={d.shortVersion} copied={d.copied} failed={d.copyFailed}>
+              {d.copyShort}
+            </CopyButton>
+            <CopyButton text={d.longVersion} copied={d.copied} failed={d.copyFailed}>
+              {d.copyLong}
+            </CopyButton>
+          </div>
+        </div>
+        <dl class="ak-pr-card ak-pr-facts">
+          {facts.map((f) => (
+            <div>
+              <dt class="text-meta text-fg-2">{f.label}</dt>
+              <dd class="text-label-m text-right">{f.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logos -->
+  <section class="section-y bg-sunken" aria-labelledby="logos-title">
+    <div class="container-page flex flex-col gap-12">
+      <SectionHeader id="logos-title" eyebrow={d.logosEyebrow} title={d.logosTitle} body={d.logosBody}>
+        <Button slot="action" href="/press/logos.zip" download variant="secondary" size="M">
+          {d.logosZip} · {mb(manifest.logosZip)}
+        </Button>
+      </SectionHeader>
+      <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+        {d.logoCards.map((card) => (
+          <li class="ak-pr-logo">
+            <div class="ak-pr-logo__preview" style={`background:${toneBg[card.tone]}`}>
+              <img src={`/press/logos/${card.png}`} alt={card.name} loading="lazy" decoding="async" />
+            </div>
+            <div class="flex flex-col gap-3 p-5">
+              <p class="text-label-l">{card.name}</p>
+              <div class="flex gap-2">
+                <a href={`/press/logos/${card.png}`} download class="ak-copy">
+                  PNG
+                </a>
+                {svgOf(card) && (
+                  <a href={`/press/logos/${svgOf(card)}`} download class="ak-copy">
+                    SVG
+                  </a>
+                )}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="ak-pr-rule">
+          <p class="text-label-l">✓ {d.do}</p>
+          <p class="text-body-s text-fg-2">{d.doBody}</p>
+        </div>
+        <div class="ak-pr-rule">
+          <p class="text-label-l">✕ {d.dont}</p>
+          <p class="text-body-s text-fg-2">{d.dontBody}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colours and type -->
+  <section class="section-y" aria-labelledby="colours-title">
+    <div class="container-page flex flex-col gap-12">
+      <SectionHeader id="colours-title" eyebrow={d.coloursEyebrow} title={d.coloursTitle} />
+      <ul class="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-5">
+        {d.swatches.map((s) => (
+          <li>
+            <CopyButton
+              text={s.hex}
+              variant="bare"
+              label={fill(d.copyHex, { hex: s.hex })}
+              copied={`${s.hex} · ${d.copied}`}
+              failed={d.copyFailed}
+              class="ak-pr-swatch"
+            >
+              <span class="ak-pr-swatch__chip" style={`background:${s.hex}`} />
+              <span class="flex flex-col gap-0.5 p-4">
+                <span class="text-label-l">{s.name}</span>
+                <span class="text-meta">{s.hex}</span>
+                <span class="text-meta text-fg-2">{s.use}</span>
+              </span>
+            </CopyButton>
+          </li>
+        ))}
+      </ul>
+      <ul class="grid gap-6 md:grid-cols-2">
+        {d.type.map((f) => (
+          <li class="ak-pr-type">
+            <span
+              class:list={[
+                'ak-pr-type__aa',
+                f.font === 'display' ? 'font-display font-extrabold' : 'font-sans font-medium',
+              ]}
+              aria-hidden="true"
+            >
+              Aa
+            </span>
+            <span class="flex flex-col gap-1">
+              <span class="text-eyebrow text-fg-2">{f.role}</span>
+              <span class:list={['text-h3', f.font === 'sans' && 'font-sans!']}>{f.name}</span>
+              <span class="text-meta text-fg-2">{f.note}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- App assets -->
+  <section class="bg-tint section-y" aria-labelledby="apps-title">
+    <div class="container-page flex flex-col gap-12">
+      <SectionHeader id="apps-title" eyebrow={d.appsEyebrow} title={d.appsTitle} body={d.appsBody}>
+        <Button slot="action" href="/press/app-assets.zip" download variant="secondary" size="M">
+          {d.appsZip} · {mb(manifest.appAssetsZip)}
+        </Button>
+      </SectionHeader>
+      <ul class="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-6">
+        {live.map((app) => {
+          const icon = appAssets(app.id).icon;
+          const size = appZipSize[app.id];
+          return (
+            <li class="ak-pr-app">
+              {icon && <Image src={icon} alt="" width={56} height={56} densities={[1, 2]} />}
+              <p class="text-label-l">{app.data.name}</p>
+              <p class="text-meta text-fg-2">{d.appContents}</p>
+              {size && (
+                <a
+                  href={`/press/apps/${app.id}.zip`}
+                  download
+                  class="ak-pr-app__dl"
+                  aria-label={fill(d.appDownloadLabel, { app: app.data.name, size: mb(size) })}
+                >
+                  {d.appDownload} ↓
+                </a>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Press contact -->
+  <section id="press-contact" class="section-y" aria-labelledby="press-contact-title">
+    <div class="container-page">
+      <div data-theme="tangerine" class="ak-pr-contact">
+        <div class="flex flex-col gap-3">
+          <p class="text-eyebrow">{d.pressContact}</p>
+          <h2 id="press-contact-title" class="text-h2">
+            {d.contactTitle}
+          </h2>
+          <p class="text-body-m">{fill(d.contactBody, { pressReply: site.pressReplyTime })}</p>
+        </div>
+        <ul class="flex flex-col gap-4">
+          <li>
+            <ContactMethod
+              kind="email"
+              label={t('contactMethods.email')}
+              value={site.email}
+              href={`mailto:${site.email}`}
+            />
+          </li>
+          <li>
+            <ContactMethod
+              kind="telegram"
+              label={t('contactMethods.telegram')}
+              value={site.telegram.handle}
+              href={tg}
+            />
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  @layer components {
+    .ak-pr-hero {
+      display: flex;
+      align-items: center;
+      min-height: 100svh;
+      padding-top: calc(var(--nav-h) + 32px);
+      padding-bottom: 64px;
+    }
+    .ak-pr-stack {
+      position: relative;
+      width: min(100%, 460px);
+      aspect-ratio: 460 / 400;
+      justify-self: center;
+    }
+    .ak-pr-stack__card {
+      position: absolute;
+      padding: 18px;
+      border: 3px solid var(--color-ink);
+      border-radius: var(--radius-lg);
+      background: var(--color-paper);
+      box-shadow: var(--shadow-sticker);
+      color: var(--color-ink);
+    }
+    .ak-pr-stack__card.is-logo {
+      left: 4%;
+      top: 0;
+      width: 52%;
+      rotate: -6deg;
+      display: grid;
+      place-items: center;
+    }
+    .ak-pr-stack__card.is-logo img {
+      width: 100%;
+      height: auto;
+    }
+    .ak-pr-stack__card.is-colours {
+      right: 0;
+      top: 6%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      rotate: 4deg;
+    }
+    .ak-pr-stack__card.is-apps {
+      right: 2%;
+      bottom: 0;
+      width: 62%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      rotate: -2deg;
+    }
+    .ak-pr-stack__card.is-apps img {
+      width: 100%;
+      height: auto;
+      border: 2px solid var(--color-ink);
+      border-radius: 12px;
+    }
+    .ak-pr-dot {
+      width: 28px;
+      height: 28px;
+      border: 2px solid var(--color-ink);
+      border-radius: 50%;
+    }
+    .ak-pr-stack :global(.ak-pr-stack__free) {
+      position: absolute;
+      left: 0;
+      bottom: 18%;
+    }
+    .ak-pr-card {
+      padding: clamp(24px, 3vw, 36px);
+      border: 3px solid var(--color-ink);
+      border-radius: var(--radius-card);
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-sticker);
+    }
+    .ak-pr-facts div {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-block: 10px;
+      border-bottom: 1px solid var(--border-default);
+    }
+    .ak-pr-facts div:last-child {
+      border-bottom: 0;
+    }
+    .ak-pr-facts dd {
+      overflow-wrap: anywhere;
+    }
+    .ak-pr-logo {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 3px solid var(--color-ink);
+      border-radius: var(--radius-card);
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-sticker);
+    }
+    .ak-pr-logo__preview {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 4 / 3;
+      padding: 20px;
+      border-bottom: 3px solid var(--color-ink);
+    }
+    .ak-pr-logo__preview img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .ak-pr-rule {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 24px;
+      border: 2px solid var(--color-ink);
+      border-radius: var(--radius-lg);
+      background: var(--bg-surface);
+    }
+    .ak-pr-swatch {
+      overflow: hidden;
+      border: 3px solid var(--color-ink);
+      border-radius: var(--radius-lg);
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-sticker);
+    }
+    .ak-pr-swatch:hover {
+      transform: translateY(-3px);
+    }
+    .ak-pr-swatch__chip {
+      display: block;
+      height: 110px;
+      border-bottom: 3px solid var(--color-ink);
+    }
+    .ak-pr-type {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 24px;
+      border: 3px solid var(--color-ink);
+      border-radius: var(--radius-lg);
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-sticker);
+    }
+    .ak-pr-type__aa {
+      font-size: 4.5rem;
+      line-height: 1;
+      color: var(--color-tabby-deep);
+    }
+    .ak-pr-app {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 18px;
+      border: 3px solid var(--color-ink);
+      border-radius: var(--radius-lg);
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-sticker);
+    }
+    .ak-pr-app img {
+      width: 56px;
+      height: 56px;
+      margin-bottom: 6px;
+      border: 2px solid var(--color-ink);
+      border-radius: 14px;
+    }
+    .ak-pr-app__dl {
+      margin-top: 4px;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.9375rem;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .ak-pr-app__dl:hover {
+      color: var(--text-accent);
+    }
+    .ak-pr-contact {
+      display: grid;
+      gap: 32px;
+      align-items: center;
+      padding: clamp(28px, 4vw, 56px);
+      border: 3px solid var(--color-ink);
+      border-radius: 40px;
+      box-shadow: var(--shadow-sticker);
+    }
+    @media (min-width: 1024px) {
+      .ak-pr-contact {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+      }
+    }
+  }
+</style>

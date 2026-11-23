@@ -1,0 +1,72 @@
+---
+/**
+ * Copy-to-clipboard button with a toast ("Copied to clipboard"). One shared toast per page.
+ * Wrap any element in the default slot to make it the button's face (e.g. a colour swatch).
+ */
+type Props = {
+  text: string;
+  label?: string;
+  copied: string;
+  failed: string;
+  class?: string;
+  variant?: 'pill' | 'bare';
+};
+const { text, label, copied, failed, class: className, variant = 'pill' } = Astro.props;
+---
+
+<button
+  type="button"
+  class:list={[variant === 'pill' ? 'ak-copy' : 'ak-copy-bare', className]}
+  data-copy={text}
+  data-copied={copied}
+  data-failed={failed}
+  aria-label={label}
+>
+  <slot />
+</button>
+
+<script>
+  function toast(message: string) {
+    let el = document.getElementById('ak-toast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'ak-toast';
+      el.className = 'ak-toast';
+      el.setAttribute('role', 'status');
+      el.setAttribute('aria-live', 'polite');
+      document.body.appendChild(el);
+    }
+    el.textContent = message;
+    el.classList.remove('is-visible');
+    void el.offsetWidth;
+    el.classList.add('is-visible');
+    window.clearTimeout(Number(el.dataset.timer));
+    el.dataset.timer = String(window.setTimeout(() => el!.classList.remove('is-visible'), 2200));
+  }
+  document.addEventListener('click', async (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-copy]');
+    if (!btn) return;
+    const text = btn.dataset.copy ?? '';
+    // Older/embedded browsers block the async Clipboard API: fall back to a hidden textarea.
+    const legacyCopy = () => {
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.setAttribute('readonly', '');
+      area.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+      document.body.appendChild(area);
+      area.select();
+      const ok = document.execCommand('copy');
+      area.remove();
+      btn.focus();
+      return ok;
+    };
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(text);
+      ok = true;
+    } catch {
+      ok = legacyCopy();
+    }
+    toast(ok ? (btn.dataset.copied ?? 'Copied') : (btn.dataset.failed ?? 'Copy failed'));
+  });
+</script>
