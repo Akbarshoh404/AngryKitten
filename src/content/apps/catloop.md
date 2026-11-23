@@ -1,6 +1,7 @@
 ---
 name: 'CatLoop'
 type: game
+genre: arcade
 status: live
 order: 7
 featured: false

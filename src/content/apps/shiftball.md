@@ -1,6 +1,7 @@
 ---
 name: 'ShiftBall'
 type: game
+genre: arcade
 status: live
 order: 8
 featured: false

@@ -31,6 +31,24 @@ const appText = {
   category: z.string().optional(),
   /** What we built, e.g. "Search · Chat · Listings · Auth". */
   built: z.string().optional(),
+  /** Full case-study copy (Figma template 11:469). Apps without it get a lighter page. */
+  caseStudy: z
+    .object({
+      /** Hero lead; wrap one word in **…** to highlight it. */
+      lead: z.string(),
+      tags: z.array(z.string()).default([]),
+      category: z.string(),
+      role: z.string(),
+      keyFeatures: z.string(),
+      goalTitle: z.string(),
+      goal: z.array(z.string()),
+      screensTitle: z.string(),
+      /** One per screenshot (shot-1..3), in order. */
+      screens: z.array(z.object({ title: z.string(), body: z.string() })),
+      outcomeTitle: z.string(),
+      stats: z.array(z.object({ value: z.string(), label: z.string() })),
+    })
+    .optional(),
 };
 
 const apps = defineCollection({
@@ -44,6 +62,8 @@ const apps = defineCollection({
       order: z.number(),
       /** Show in "Selected work" on Home (the first one by order gets the big card). */
       featured: z.boolean().default(false),
+      /** Work-page filter group for games (Figma chips: Arcade, Puzzle and word, Party and board). */
+      genre: z.enum(['arcade', 'puzzle', 'party']).optional(),
       /** Show as a phone in the Home "Games lab". */
       showcase: z.boolean().default(false),
       /** Background colour behind the app's screens (featured card, case study hero). */

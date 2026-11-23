@@ -1,6 +1,7 @@
 ---
 name: 'Tic Tac Toe'
 type: game
+genre: party
 status: live
 order: 12
 featured: false

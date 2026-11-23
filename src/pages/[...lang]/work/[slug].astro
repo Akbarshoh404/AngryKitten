@@ -1,0 +1,422 @@
+---
+/**
+ * Case study — Figma 11:469 (desktop) / 16:221 (mobile). One template for every live app.
+ * Apps with `text.caseStudy` get the full story (goal, three key screens, outcome); the rest
+ * get the same structure built from their store data, screenshots and Play description.
+ */
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import Button from '../../../components/ui/Button.astro';
+import Tag from '../../../components/ui/Tag.astro';
+import Phone from '../../../components/ui/Phone.astro';
+import Stat from '../../../components/ui/Stat.astro';
+import Testimonial from '../../../components/cards/Testimonial.astro';
+import PhoneCarousel from '../../../components/islands/PhoneCarousel';
+import { getApps, localized, playUrl, type App } from '../../../lib/content';
+import { appAssets } from '../../../lib/appAssets';
+import { responsive } from '../../../lib/images';
+import { highlight } from '../../../lib/text';
+import {
+  fill,
+  getDict,
+  locales,
+  localizePath,
+  useTranslations,
+  defaultLocale,
+  type Locale,
+} from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  const live = (await getCollection('apps')).filter((a) => a.data.status === 'live');
+  return locales.flatMap((locale) =>
+    live.map((app) => ({
+      params: { lang: locale === defaultLocale ? undefined : locale, slug: app.id },
+      props: { locale, app },
+    })),
+  );
+}
+
+type Props = { locale: Locale; app: App };
+const { locale, app } = Astro.props;
+const t = useTranslations(locale);
+const d = getDict(locale);
+const cs = d.caseStudy;
+const text = localized(app.data.text, locale);
+const study = text.caseStudy;
+const assets = appAssets(app.id);
+const { Content } = await render(app);
+
+const live = (await getApps()).filter((a) => a.data.status === 'live');
+const next = live[(live.findIndex((a) => a.id === app.id) + 1) % live.length]!;
+const nextText = localized(next.data.text, locale);
+const nextIcon = appAssets(next.id).icon;
+
+const shots = await Promise.all(
+  assets.screenshots.map((s, i) =>
+    responsive(s, t('common.screenshotOf', { app: app.data.name, n: i + 1 }), [300, 450, 600, 720]),
+  ),
+);
+const typeLabel = app.data.type === 'game' ? t('common.game') : t('common.app');
+const tags = study?.tags ?? [text.meta.split(' · ')[0]!, typeLabel, t('common.android')];
+const store = app.data.packageId ? playUrl(app.data.packageId) : undefined;
+const languages = app.data.languages.length
+  ? app.data.languages.map((l) => l.toUpperCase()).join(' · ')
+  : undefined;
+
+const facts = [
+  { label: cs.facts.category, value: study?.category ?? text.meta.split(' · ')[0] },
+  { label: cs.facts.platform, value: t('common.android') },
+  { label: cs.facts.role, value: study?.role ?? cs.defaultRole },
+  study?.keyFeatures || text.built
+    ? { label: cs.facts.features, value: study?.keyFeatures ?? text.built }
+    : languages
+      ? { label: cs.facts.languages, value: languages }
+      : undefined,
+  { label: cs.facts.status, value: t('common.liveOnPlay') },
+].filter((f): f is { label: string; value: string } => Boolean(f?.value));
+
+const stats = study?.stats ?? [
+  { value: app.data.outcome.installs, label: cs.statLabels.installs },
+  { value: app.data.outcome.rating, label: cs.statLabels.rating },
+  { value: app.data.outcome.languages, label: cs.statLabels.languages },
+  { value: app.data.outcome.timeline, label: cs.statLabels.timeline },
+];
+const theme = app.data.themeColor;
+---
+
+<PageLayout
+  locale={locale}
+  title={fill(cs.metaTitle, { app: app.data.name, meta: text.meta })}
+  description={text.description}
+  theme="tangerine"
+>
+  <!-- Hero -->
+  <section data-theme="tangerine" data-hero class="ak-cs-hero">
+    <div class="container-page ak-cs-hero__grid">
+      <div class="flex flex-col gap-6">
+        <nav aria-label="Breadcrumb" class="text-meta">
+          <ol class="flex gap-2">
+            <li>
+              <a href={localizePath('/work', locale)} class="underline underline-offset-4">
+                {cs.breadcrumb}
+              </a>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page">{app.data.name}</li>
+          </ol>
+        </nav>
+        <div class="flex items-center gap-4 md:gap-6">
+          {assets.icon && (
+            <Image
+              src={assets.icon}
+              alt=""
+              width={96}
+              height={96}
+              densities={[1, 2]}
+              class="ak-cs-hero__icon"
+              loading="eager"
+            />
+          )}
+          <h1 class="text-display-2xl">{app.data.name}</h1>
+        </div>
+        <p class="text-h1" set:html={highlight(study?.lead ?? text.oneLiner)} />
+        <ul class="flex flex-wrap gap-2">
+          {tags.map((tag, i) => (
+            <li>
+              <Tag kind={i === 0 ? (app.data.type === 'game' ? 'game' : 'app') : 'neutral'}>{tag}</Tag>
+            </li>
+          ))}
+        </ul>
+        <div class="flex flex-wrap gap-3 pt-2">
+          {store && (
+            <Button href={store} target="_blank" rel="noopener noreferrer" size="M">
+              {cs.getOnPlay}
+              <span class="sr-only"> ({t('a11y.opensInNewTab')})</span>
+            </Button>
+          )}
+          <Button href={localizePath(`/work/${next.id}`, locale)} variant="light" size="M">
+            {cs.nextProject}
+          </Button>
+        </div>
+      </div>
+
+      <div class="ak-cs-hero__phones">
+        {assets.screenshots[1] && (
+          <Phone
+            src={assets.screenshots[1]}
+            alt=""
+            width="100%"
+            sizes="260px"
+            class="ak-cs-hero__back"
+            loading="eager"
+          />
+        )}
+        {shots.length > 0 && (
+          <div class="ak-cs-hero__front">
+            <PhoneCarousel
+              client:visible
+              images={shots}
+              width="min(300px, 64vw)"
+              label={fill(cs.carouselLabel, { app: app.data.name })}
+              labels={{ prev: cs.prev, next: cs.next, goTo: cs.goTo }}
+            />
+          </div>
+        )}
+      </div>
+    </div>
+
+    <div class="container-page">
+      <dl class="ak-cs-facts">
+        {facts.map((f) => (
+          <div>
+            <dt class="text-eyebrow">{f.label}</dt>
+            <dd class="text-label-l">{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- Overview -->
+  <section class="section-y" aria-labelledby="cs-goal">
+    <div class="container-page grid gap-10 lg:grid-cols-[360px_minmax(0,840px)] lg:justify-between">
+      <div class="flex flex-col gap-4">
+        <p class="text-eyebrow text-fg-accent">{study ? cs.goalLabel : cs.aboutLabel}</p>
+        <h2
+          id="cs-goal"
+          class="text-h2"
+          set:html={highlight(study?.goalTitle ?? fill(cs.aboutTitle, { app: app.data.name }))}
+        />
+      </div>
+      <div class="flex flex-col gap-6">
+        {study ? (
+          study.goal.map((p, i) => <p class:list={['text-body-l', i > 0 && 'text-fg-2']}>{p}</p>)
+        ) : (
+          <>
+            <p class="text-body-l">{text.description}</p>
+            <details class="ak-cs-more">
+              <summary class="text-label-l">{cs.readMore}</summary>
+              <p class="text-eyebrow text-fg-2 mt-6">{cs.fromPlay}</p>
+              <div class="ak-prose mt-3">
+                <Content />
+              </div>
+            </details>
+          </>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- What we built / screens -->
+  {assets.screenshots.length > 0 && (
+    <section class="section-y pt-0!" aria-labelledby="cs-screens">
+      <div class="container-page flex flex-col gap-12">
+        <div class="flex flex-col gap-4">
+          <p class="text-eyebrow text-fg-accent">{study ? cs.builtLabel : cs.screensLabel}</p>
+          <h2 id="cs-screens" class="text-h1" set:html={highlight(study?.screensTitle ?? cs.screensTitle)} />
+        </div>
+        <ul class="ak-cs-screens">
+          {assets.screenshots.map((shot, i) => {
+            const caption = study?.screens[i];
+            return (
+              <li class="ak-cs-screen" style={theme ? `--screen-bg:${theme}` : undefined}>
+                <div class="ak-cs-screen__stage">
+                  <Phone
+                    src={shot}
+                    alt={t('common.screenshotOf', { app: app.data.name, n: i + 1 })}
+                    width="min(220px, 70%)"
+                    sizes="220px"
+                  />
+                </div>
+                {caption && (
+                  <div class="flex flex-col gap-2 px-6 pb-7">
+                    <h3 class="text-h3">{caption.title}</h3>
+                    <p class="text-body-m text-fg-2">{caption.body}</p>
+                  </div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- Outcome -->
+  <section class="section-y bg-sunken" aria-labelledby="cs-outcome">
+    <div class="container-page flex flex-col gap-12">
+      <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div class="flex flex-col gap-4">
+          <p class="text-eyebrow text-fg-accent">{cs.outcomeLabel}</p>
+          <h2 id="cs-outcome" class="text-h1" set:html={highlight(study?.outcomeTitle ?? cs.outcomeTitle)} />
+        </div>
+        <p class="text-body-m text-fg-2 max-w-sm">{cs.statsNote}</p>
+      </div>
+      <ul class="grid grid-cols-2 gap-8 lg:grid-cols-4">
+        {stats.map((s) => (
+          <li>
+            <Stat value={s.value} label={s.label} />
+          </li>
+        ))}
+      </ul>
+      {app.data.hasCaseStudy && (
+        <Testimonial
+          placeholder
+          quote={d.home.testimonial.quote}
+          name={d.home.testimonial.name}
+          jobTitle={d.home.testimonial.role}
+        />
+      )}
+      {app.data.privacySource && (
+        <p class="text-meta">
+          <a href={localizePath(`/privacy/${app.id}`, locale)} class="underline underline-offset-4">
+            {app.data.name} · {cs.privacy}
+          </a>
+        </p>
+      )}
+    </div>
+  </section>
+
+  <!-- Next project -->
+  <section class="py-16" aria-labelledby="cs-next">
+    <div class="container-page flex flex-wrap items-center justify-between gap-8">
+      <div class="flex flex-col gap-3">
+        <p class="text-eyebrow text-fg-2">{cs.nextProject}</p>
+        <div class="flex items-center gap-5">
+          {nextIcon && (
+            <Image
+              src={nextIcon}
+              alt=""
+              width={72}
+              height={72}
+              densities={[1, 2]}
+              class="ak-cs-hero__icon is-small"
+            />
+          )}
+          <div>
+            <h2 id="cs-next" class="text-display-l">
+              {next.data.name}
+            </h2>
+            <p class="text-body-l text-fg-2">
+              {nextText.oneLiner} {nextText.meta}
+            </p>
+          </div>
+        </div>
+      </div>
+      <Button href={localizePath(`/work/${next.id}`, locale)} variant="accent">
+        {next.data.hasCaseStudy ? t('common.readCaseStudy') : t('common.viewProject')}
+      </Button>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  @layer components {
+    .ak-cs-hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 48px;
+      min-height: 100svh;
+      padding-top: calc(var(--nav-h) + 32px);
+      padding-bottom: 48px;
+    }
+    .ak-cs-hero__grid {
+      display: grid;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (min-width: 1024px) {
+      .ak-cs-hero__grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
+      }
+    }
+    .ak-cs-hero__icon {
+      width: clamp(64px, 7vw, 96px);
+      height: auto;
+      aspect-ratio: 1;
+      border: 3px solid var(--color-ink);
+      border-radius: 22%;
+      box-shadow: var(--shadow-sticker);
+    }
+    .ak-cs-hero__icon.is-small {
+      width: 72px;
+    }
+    .ak-cs-hero__phones {
+      position: relative;
+      display: grid;
+      justify-items: center;
+    }
+    .ak-cs-hero__phones :global(.ak-cs-hero__back) {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: min(240px, 52vw);
+      translate: -95% 4%;
+      rotate: -9deg;
+      opacity: 0.95;
+    }
+    .ak-cs-hero__front {
+      position: relative;
+      translate: 18% 0;
+      rotate: 4deg;
+    }
+    @media (max-width: 1023px) {
+      .ak-cs-hero__front {
+        translate: 12% 0;
+      }
+    }
+    .ak-cs-facts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px 24px;
+      padding-block: 24px;
+      border-block: 2px solid var(--color-ink);
+    }
+    @media (min-width: 1024px) {
+      .ak-cs-facts {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+    }
+    .ak-cs-facts div {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .ak-cs-more summary {
+      display: inline-flex;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .ak-cs-more[open] summary {
+      margin-bottom: 4px;
+    }
+
+    .ak-cs-screens {
+      display: grid;
+      gap: 24px;
+    }
+    @media (min-width: 768px) {
+      .ak-cs-screens {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    .ak-cs-screen {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 3px solid var(--color-ink);
+      border-radius: var(--radius-card);
+      background: var(--bg-sunken);
+      box-shadow: var(--shadow-sticker);
+    }
+    .ak-cs-screen__stage {
+      display: grid;
+      place-items: center;
+      padding: 32px 24px;
+    }
+  }
+</style>

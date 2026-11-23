@@ -251,5 +251,70 @@
     "successTitle": "The kitten got your message.",
     "successBody": "We'll reply within {replyTime}. Meanwhile, the kitten is pretending not to care.",
     "sendAnother": "Send another message"
+  },
+  "work": {
+    "meta": {
+      "title": "Work · 15 Android apps and games · AngryKitten",
+      "description": "Everything AngryKitten has shipped to Google Play: real-world apps like UyBek, Pulchi and Nerva, plus nine casual and arcade games."
+    },
+    "eyebrow": "Work · {total} projects",
+    "title": "Fifteen apps. One very **picky** kitten.",
+    "body": "Everything we've shipped to Google Play, plus three that are still in the oven. Real-world products first, games after.",
+    "pillApps": "Apps · {n}",
+    "pillGames": "Games · {n}",
+    "hoverHint": "View case study →",
+    "filtersLabel": "Filter projects",
+    "filters": {
+      "all": "All",
+      "apps": "Apps",
+      "games": "Games",
+      "arcade": "Arcade",
+      "puzzle": "Puzzle and word",
+      "party": "Party and board",
+      "soon": "Coming soon"
+    },
+    "resultsLive": "Showing {n} projects",
+    "cta": "Your app could be number **sixteen.**",
+    "ctaButton": "Start a project",
+    "iconsLabel": "All live apps"
+  },
+  "caseStudy": {
+    "breadcrumb": "Work",
+    "getOnPlay": "Get it on Google Play",
+    "nextProject": "Next project",
+    "facts": {
+      "category": "Category",
+      "platform": "Platform",
+      "role": "Our role",
+      "features": "Key features",
+      "status": "Status",
+      "languages": "Languages",
+      "updated": "Updated"
+    },
+    "defaultRole": "Design · Build · Launch",
+    "goalLabel": "01 · The goal",
+    "builtLabel": "02 · What we built",
+    "outcomeLabel": "03 · The outcome",
+    "aboutLabel": "01 · About the app",
+    "aboutTitle": "What **{app}** does.",
+    "screensLabel": "02 · Screens",
+    "screensTitle": "A closer **look.**",
+    "outcomeTitle": "Live on **Google Play.**",
+    "statsNote": "Placeholders until real numbers are confirmed. Three honest metrics beat ten vague ones.",
+    "statLabels": {
+      "installs": "installs on Google Play",
+      "rating": "average rating",
+      "languages": "languages",
+      "timeline": "from kickoff to launch"
+    },
+    "carouselLabel": "{app} screenshots",
+    "prev": "Previous screenshot",
+    "next": "Next screenshot",
+    "goTo": "Show screenshot {n}",
+    "fromPlay": "From the Google Play listing",
+    "readMore": "Read the full description",
+    "readLess": "Show less",
+    "metaTitle": "{app} · {meta} · AngryKitten",
+    "privacy": "Privacy policy"
   }
 }

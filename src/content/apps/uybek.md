@@ -18,6 +18,30 @@ text:
     description: 'Find homes faster in Uzbekistan. A property marketplace with clear filters, real listings and direct chat between buyers and sellers.'
     category: 'Real estate'
     built: 'Search · Chat · Listings · Auth'
+    caseStudy:
+      lead: 'Find homes **faster** in Uzbekistan.'
+      tags: ['Real estate', 'Marketplace', 'Android']
+      category: 'Real-estate marketplace'
+      role: 'Product design · App build · Launch'
+      keyFeatures: 'Search · Filters · Chat · Listings'
+      goalTitle: 'A calmer way to find a **home.**'
+      goal:
+        - '[Draft — confirm with the team] Looking for a flat usually means scrolling through scattered posts and chats. UyBek puts listings, photos, prices and the seller in one place, so people can compare quickly and reach out with one tap.'
+        - 'We designed and built a native Android marketplace with structured listings, fast search and filters, saved favourites and in-app chat, plus sign-in with email, phone or Google.'
+      screensTitle: 'Three screens that do the **heavy lifting.**'
+      screens:
+        - title: 'Search that helps'
+          body: 'Browse fresh listings with real photos, prices and quick filters for the things people actually care about.'
+        - title: 'Filters with clarity'
+          body: 'Property type, price and rooms in one tidy sheet, so a search takes seconds, not scrolling.'
+        - title: 'Talk to the seller'
+          body: 'Message sellers directly in the app and manage your own listings from the same place.'
+      outcomeTitle: 'Live on **Google Play.**'
+      stats:
+        - { value: '[00K]', label: 'installs on Google Play' }
+        - { value: '[0.0★]', label: 'average rating' }
+        - { value: '[000]', label: 'active listings' }
+        - { value: '[0 wk]', label: 'from kickoff to launch' }
   # uz / ru: TODO translate (falls back to English until added)
 ---
 

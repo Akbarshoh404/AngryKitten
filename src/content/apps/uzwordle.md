@@ -1,6 +1,7 @@
 ---
 name: 'UzWordle'
 type: game
+genre: puzzle
 status: live
 order: 11
 featured: false

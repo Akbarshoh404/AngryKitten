@@ -1,0 +1,61 @@
+---
+/** Work — Figma 10:218 (desktop) / 16:112 (mobile). */
+import PageLayout from '../../../layouts/PageLayout.astro';
+import WorkHero from '../../../components/sections/work/WorkHero.astro';
+import WorkFilters, { type FilterKey } from '../../../components/islands/WorkFilters';
+import AppCard from '../../../components/cards/AppCard.astro';
+import Button from '../../../components/ui/Button.astro';
+import { getApps, type App } from '../../../lib/content';
+import { highlight } from '../../../lib/text';
+import { ctaHref } from '../../../config/nav';
+import { getDict, localeStaticPaths, localizePath, type Locale } from '../../../i18n/utils';
+
+export const getStaticPaths = localeStaticPaths;
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const d = getDict(locale).work;
+const apps = await getApps();
+
+const kinds = (a: App): FilterKey[] => {
+  if (a.data.status === 'coming') return ['all', 'soon'];
+  const k: FilterKey[] = ['all', a.data.type === 'app' ? 'apps' : 'games'];
+  if (a.data.genre) k.push(a.data.genre);
+  return k;
+};
+const order: FilterKey[] = ['all', 'apps', 'games', 'arcade', 'puzzle', 'party', 'soon'];
+const filters = order
+  .map((key) => ({ key, label: d.filters[key], count: apps.filter((a) => kinds(a).includes(key)).length }))
+  .filter((f) => f.count > 0);
+---
+
+<PageLayout locale={locale} title={d.meta.title} description={d.meta.description} theme="tangerine">
+  <WorkHero locale={locale} />
+
+  <section class="section-y pt-12!" aria-label={d.filtersLabel}>
+    <div class="container-page flex flex-col gap-10">
+      <WorkFilters
+        client:load
+        filters={filters}
+        gridId="work-grid"
+        label={d.filtersLabel}
+        resultsTemplate={d.resultsLive}
+      />
+      <ul id="work-grid" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {apps.map((app) => (
+          <li class="flex" data-kinds={kinds(app).join(' ')}>
+            <AppCard app={app} locale={locale} class="w-full" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="bg-tint py-14">
+    <div class="container-page flex flex-wrap items-center justify-between gap-6">
+      <h2 class="text-h1" set:html={highlight(d.cta)} />
+      <Button href={localizePath(ctaHref, locale)} variant="accent">
+        {d.ctaButton}
+      </Button>
+    </div>
+  </section>
+</PageLayout>

@@ -1,6 +1,7 @@
 ---
 name: 'Spinject'
 type: game
+genre: arcade
 status: live
 order: 6
 featured: false

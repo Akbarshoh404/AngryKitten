@@ -24,6 +24,8 @@ type Props = {
   loading?: 'eager' | 'lazy';
   fetchpriority?: 'high' | 'low' | 'auto';
   shadow?: boolean;
+  /** 'auto' = contain when the screenshot isn't roughly 9:16 (e.g. square shots). */
+  fit?: 'auto' | 'cover' | 'contain';
   class?: string;
 };
 const {
@@ -35,8 +37,10 @@ const {
   loading = 'lazy',
   fetchpriority,
   shadow = true,
+  fit = 'auto',
   class: className,
 } = Astro.props;
+const contain = fit === 'contain' || (fit === 'auto' && src !== undefined && src.width / src.height > 0.7);
 ---
 
 <div class:list={['ak-phone', className]} style={`--phone-w:${width}`}>
@@ -51,7 +55,7 @@ const {
           sizes={sizes}
           loading={loading}
           fetchpriority={fetchpriority}
-          class="ak-phone__img"
+          class:list={['ak-phone__img', contain && 'is-contain']}
         />
       ) : (
         <slot />

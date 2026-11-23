@@ -1,6 +1,7 @@
 ---
 name: 'Catris'
 type: game
+genre: arcade
 status: live
 order: 5
 featured: false

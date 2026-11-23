@@ -1,6 +1,7 @@
 ---
 name: 'SudoKitten'
 type: game
+genre: puzzle
 status: live
 order: 9
 featured: false

@@ -37,7 +37,9 @@ export default function PhoneMockup({
             loading={priority ? 'eager' : 'lazy'}
             decoding="async"
             {...(priority ? { fetchPriority: 'high' as const } : {})}
-            className="ak-phone__img"
+            className={['ak-phone__img', image.width / image.height > 0.7 && 'is-contain']
+              .filter(Boolean)
+              .join(' ')}
           />
         </div>
         <div className="ak-phone__glare" aria-hidden="true" />

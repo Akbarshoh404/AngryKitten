@@ -1,6 +1,7 @@
 ---
 name: 'MathRow'
 type: game
+genre: puzzle
 status: live
 order: 10
 featured: false

@@ -1,6 +1,7 @@
 ---
 name: 'Cipher'
 type: game
+genre: party
 status: live
 order: 4
 featured: true

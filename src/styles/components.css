@@ -613,3 +613,163 @@
     box-shadow: var(--shadow-sticker);
   }
 }
+
+@layer components {
+  /* Screenshots that aren't 9:16 (e.g. square) sit centred on the app's colour instead of being cropped. */
+  .ak-phone__img.is-contain {
+    object-fit: contain;
+    object-position: center;
+    background: var(--screen-bg, var(--color-ink));
+  }
+}
+
+@layer components {
+  /* Work filters (island) */
+  .ak-filters__chips {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 4px 2px 12px;
+    scrollbar-width: none;
+  }
+  .ak-filters__chips::-webkit-scrollbar {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .ak-filters__chips {
+      flex-wrap: wrap;
+      overflow: visible;
+    }
+  }
+  .ak-filters__chips .ak-chip {
+    flex: none;
+  }
+}
+
+@layer components {
+  /* Phone carousel (case-study hero) */
+  .ak-carousel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: var(--phone-w);
+    max-width: 100%;
+  }
+  .ak-carousel .ak-phone {
+    width: 100%;
+  }
+  .ak-carousel .ak-phone__screen {
+    touch-action: pan-y;
+  }
+  .ak-carousel__img {
+    position: absolute;
+    inset: 0;
+    cursor: grab;
+  }
+  .ak-carousel__img:active {
+    cursor: grabbing;
+  }
+  .ak-carousel__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .ak-carousel__arrow {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 2.5px solid var(--color-ink);
+    border-radius: 50%;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    cursor: pointer;
+    transition: transform 150ms var(--ease-spring);
+  }
+  .ak-carousel__arrow:active {
+    transform: scale(0.92);
+  }
+  .ak-carousel__dots {
+    display: flex;
+    gap: 2px;
+  }
+  .ak-carousel__dot {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+  .ak-carousel__dot::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--color-ink);
+    border-radius: 50%;
+    transition:
+      background-color 150ms var(--ease-out),
+      width 200ms var(--ease-spring);
+  }
+  .ak-carousel__dot[aria-current='true']::before {
+    width: 22px;
+    border-radius: 999px;
+    background: var(--color-ink);
+  }
+}
+
+@layer components {
+  /* Long-form Markdown (Play descriptions, privacy policies) */
+  .ak-prose {
+    max-width: 72ch;
+    color: var(--text-primary);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    overflow-wrap: break-word;
+  }
+  .ak-prose > * + * {
+    margin-top: 1em;
+  }
+  .ak-prose h2 {
+    margin-top: 2em;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+  .ak-prose h3 {
+    margin-top: 1.6em;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+  .ak-prose ul {
+    list-style: disc;
+    padding-left: 1.4em;
+  }
+  .ak-prose ol {
+    list-style: decimal;
+    padding-left: 1.4em;
+  }
+  .ak-prose li + li {
+    margin-top: 0.35em;
+  }
+  .ak-prose a {
+    color: var(--text-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .ak-prose hr {
+    border: 0;
+    border-top: 1px solid var(--border-default);
+    margin-block: 2em;
+  }
+  .ak-prose strong {
+    font-weight: 700;
+  }
+  .ak-prose blockquote {
+    border-left: 3px solid var(--color-tabby);
+    padding-left: 1em;
+    color: var(--text-secondary);
+  }
+}

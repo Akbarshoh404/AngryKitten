@@ -1,0 +1,245 @@
+---
+/**
+ * Work hero — Figma 31:818: title + icon row left, tilted banner collage right.
+ * The collage follows the mouse (parallax by depth) and drifts slowly on touch screens.
+ * No framework: a few lines of script set CSS variables.
+ */
+import { Image } from 'astro:assets';
+import { getApps } from '../../../lib/content';
+import { appAssets } from '../../../lib/appAssets';
+import { highlight } from '../../../lib/text';
+import { fill, getDict, localizePath, type Locale } from '../../../i18n/utils';
+
+type Props = { locale: Locale };
+const { locale } = Astro.props;
+const d = getDict(locale).work;
+const apps = await getApps();
+const live = apps.filter((a) => a.data.status === 'live');
+const countApps = live.filter((a) => a.data.type === 'app').length;
+const countGames = live.filter((a) => a.data.type === 'game').length;
+const banners = ['catris', 'pulchi', 'uybek']
+  .map((slug) => ({ slug, img: appAssets(slug).banner }))
+  .filter((b): b is { slug: string; img: NonNullable<typeof b.img> } => Boolean(b.img));
+// Figma "Hero art" (560 × 440): banner top-left x/y, rotation, parallax depth.
+const poses = [
+  { x: 0, y: 150, r: 5, depth: 0.5 },
+  { x: 150, y: 0, r: -6, depth: 0.8 },
+  { x: 190, y: 230, r: -3, depth: 1 },
+];
+---
+
+<section data-theme="tangerine" data-hero class="ak-work-hero">
+  <div class="container-page ak-work-hero__grid">
+    <div class="flex flex-col gap-6">
+      <p class="text-eyebrow">{fill(d.eyebrow, { total: apps.length })}</p>
+      <h1 class="text-display-xl" set:html={highlight(d.title)} />
+      <p class="text-body-l max-w-xl">{d.body}</p>
+    </div>
+
+    <div class="ak-collage" data-collage aria-hidden="true">
+      {banners.map((b, i) => (
+        <div
+          class="ak-collage__banner"
+          style={`--x:${poses[i]!.x};--y:${poses[i]!.y};--r:${poses[i]!.r}deg;--d:${poses[i]!.depth}`}
+        >
+          <Image
+            src={b.img}
+            alt=""
+            widths={[370, 560, 740]}
+            sizes="(min-width: 1024px) 370px, 60vw"
+            loading="eager"
+          />
+        </div>
+      ))}
+      <span class="ak-collage__pill is-apps" style="--d:1.2">
+        {fill(d.pillApps, { n: countApps })}
+      </span>
+      <span class="ak-collage__pill is-games" style="--d:1.3">
+        {fill(d.pillGames, { n: countGames })}
+      </span>
+      <span class="ak-collage__hint" style="--d:1.1">
+        {d.hoverHint}
+      </span>
+    </div>
+  </div>
+
+  <div class="container-page">
+    <ul class="ak-work-icons" aria-label={d.iconsLabel}>
+      {live.map((app, i) => {
+        const icon = appAssets(app.id).icon;
+        return icon ? (
+          <li style={`--tilt:${((i % 3) - 1) * 4}deg`}>
+            <a href={localizePath(`/work/${app.id}`, locale)} title={app.data.name}>
+              <Image src={icon} alt={app.data.name} width={80} height={80} densities={[1, 2]} />
+            </a>
+          </li>
+        ) : null;
+      })}
+    </ul>
+  </div>
+</section>
+
+<script>
+  const collage = document.querySelector<HTMLElement>('[data-collage]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (collage && !reduce.matches) {
+    let frame = 0;
+    collage.closest('section')?.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const r = collage.getBoundingClientRect();
+        collage.style.setProperty('--px', String((e.clientX - r.left) / r.width - 0.5));
+        collage.style.setProperty('--py', String((e.clientY - r.top) / r.height - 0.5));
+      });
+    });
+    collage.closest('section')?.addEventListener('pointerleave', () => {
+      collage.style.setProperty('--px', '0');
+      collage.style.setProperty('--py', '0');
+    });
+  }
+</script>
+
+<style>
+  @layer components {
+    .ak-work-hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 40px;
+      min-height: 100svh;
+      padding-top: calc(var(--nav-h) + 24px);
+      padding-bottom: 56px;
+    }
+    .ak-work-hero__grid {
+      display: grid;
+      gap: 40px;
+      align-items: center;
+    }
+    @media (min-width: 1024px) {
+      .ak-work-hero__grid {
+        grid-template-columns: minmax(0, 800px) minmax(0, 560px);
+        justify-content: space-between;
+      }
+    }
+
+    /* Collage: 1 unit = 1px of the 560 × 440 Figma frame. */
+    .ak-collage {
+      --px: 0;
+      --py: 0;
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+      aspect-ratio: 560 / 440;
+      margin-inline: auto;
+      container-type: inline-size;
+    }
+    .ak-collage > * {
+      --u: calc(100cqw / 560);
+      position: absolute;
+      translate: calc(var(--px) * 30px * var(--d)) calc(var(--py) * 24px * var(--d));
+      transition: translate 300ms var(--ease-out);
+    }
+    .ak-collage__banner {
+      left: calc(var(--x) * var(--u));
+      top: calc(var(--y) * var(--u));
+      width: calc(370 * var(--u));
+      aspect-ratio: 1024 / 500;
+      overflow: hidden;
+      border: 3px solid var(--color-ink);
+      border-radius: calc(20 * var(--u));
+      box-shadow: var(--shadow-sticker);
+      rotate: var(--r);
+    }
+    .ak-collage__banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .ak-collage__pill,
+    .ak-collage__hint {
+      display: inline-flex;
+      padding: 10px 18px;
+      border: 3px solid var(--color-ink);
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-sticker);
+      color: var(--color-ink);
+      font-weight: 700;
+      font-size: clamp(0.8rem, 2.8cqw, 1rem);
+      white-space: nowrap;
+    }
+    .ak-collage__pill.is-apps {
+      left: 0;
+      top: calc(40 * var(--u));
+      rotate: -8deg;
+      background: var(--color-mint);
+    }
+    .ak-collage__pill.is-games {
+      left: calc(430 * var(--u));
+      top: calc(170 * var(--u));
+      rotate: 7deg;
+      background: var(--color-gold);
+    }
+    .ak-collage__hint {
+      left: calc(330 * var(--u));
+      top: calc(105 * var(--u));
+      background: var(--color-ink);
+      color: var(--color-paper);
+      font-weight: 500;
+      box-shadow: none;
+      border-color: var(--color-ink);
+    }
+    @media (hover: none) and (prefers-reduced-motion: no-preference) {
+      .ak-collage__banner {
+        animation: ak-drift 7s ease-in-out infinite alternate;
+        animation-delay: calc(var(--d) * -3s);
+      }
+    }
+    @keyframes ak-drift {
+      to {
+        translate: calc(8px * var(--d)) calc(-10px * var(--d));
+      }
+    }
+
+    .ak-work-icons {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding: 8px 4px 16px;
+      scrollbar-width: none;
+    }
+    .ak-work-icons::-webkit-scrollbar {
+      display: none;
+    }
+    @media (min-width: 1280px) {
+      .ak-work-icons {
+        justify-content: space-between;
+        overflow: visible;
+      }
+    }
+    .ak-work-icons a {
+      display: block;
+      width: clamp(64px, 6.5vw, 92px);
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 3px solid var(--color-ink);
+      border-radius: 22%;
+      box-shadow: var(--shadow-sticker);
+      rotate: var(--tilt);
+      transition:
+        transform 250ms var(--ease-spring),
+        rotate 250ms var(--ease-spring);
+    }
+    .ak-work-icons img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @media (hover: hover) {
+      .ak-work-icons a:hover {
+        transform: translateY(-6px);
+        rotate: calc(var(--tilt) * -1.5);
+      }
+    }
+  }
+</style>
