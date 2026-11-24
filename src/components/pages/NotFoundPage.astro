@@ -66,7 +66,7 @@ const lines = [
           <span class="nf__m-icon nf__m-icon--b lg:hidden" aria-hidden="true">
             <Image src={catris} alt="" width={58} height={58} densities={[1, 2]} loading="eager" />
           </span>
-          <Sticker tone="gold" tilt={-6} size="M" class="nf__m-meow lg:hidden">
+          <Sticker tone="gold" tilt={-6} size="M" class="nf__m-meow lg:hidden" drag>
             {t('notFound.meow')}
           </Sticker>
         </div>
@@ -110,10 +110,10 @@ const lines = [
             <Image src={icon.src} alt="" width={92} height={92} densities={[1, 2]} />
           </span>
         ))}
-        <Sticker tone="paper" tilt={-6} class="nf__meow">
+        <Sticker tone="paper" tilt={-6} class="nf__meow" drag>
           {t('notFound.meow')}
         </Sticker>
-        <Sticker tone="gold" tilt={7} class="nf__fault">
+        <Sticker tone="gold" tilt={7} class="nf__fault" drag>
           {t('notFound.notMyFault')}
         </Sticker>
       </div>

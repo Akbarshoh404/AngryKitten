@@ -34,7 +34,9 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
-    optimizeDeps: { include: ['react', 'react-dom', 'react-dom/client', 'motion/react'] },
+    optimizeDeps: { include: ['react', 'react-dom', 'react-dom/client', 'motion', 'motion/react'] },
+    // Pre-bundle SSR deps once so the dev server never reloads mid-request with two Reacts.
+    ssr: { optimizeDeps: { include: ['react', 'react-dom/server', 'astro/zod'] } },
     build: {
       rollupOptions: {
         onwarn(warning, warn) {

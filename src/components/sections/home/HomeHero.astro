@@ -133,6 +133,7 @@ const data = await Promise.all(
         loading="eager"
         fetchpriority="high"
         class="ak-hero__sticker"
+        data-drag
       />
       {data.map((m) => (
         <div class="ak-hero__badge" data-for={m.key} hidden={m.key !== 'play'} aria-hidden="true">

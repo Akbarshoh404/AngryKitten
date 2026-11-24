@@ -5,6 +5,6 @@ const { value, label, class: className } = Astro.props;
 ---
 
 <div class:list={['flex min-w-0 flex-col gap-1.5', className]}>
-  <p class="text-display-l text-fg [overflow-wrap:anywhere]">{value}</p>
+  <p class="ak-stat__value text-display-l text-fg [overflow-wrap:anywhere]">{value}</p>
   <p class="text-body-m text-fg-2">{label}</p>
 </div>

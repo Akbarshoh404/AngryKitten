@@ -3,6 +3,7 @@
  * (FLIP on the server-rendered cards). The filter lives in the URL (?type=games) and, with no
  * URL filter, follows the Home mood (Play → Games, Work → Apps).
  */
+import { MotionConfig, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 
 export type FilterKey = 'all' | 'apps' | 'games' | 'arcade' | 'puzzle' | 'party' | 'soon';
@@ -85,25 +86,38 @@ export default function WorkFilters({ filters, gridId, label, resultsTemplate }:
   }, [active, gridId, resultsTemplate]);
 
   return (
-    <div className="ak-filters">
-      <div className="ak-filters__chips" role="group" aria-label={label}>
-        {filters.map((f) => (
-          <button
-            key={f.key}
-            type="button"
-            className="ak-chip"
-            aria-pressed={active === f.key}
-            aria-controls={gridId}
-            onClick={() => setActive(f.key)}
-          >
-            <span className="ak-chip__label">{f.label}</span>
-            <span className="ak-chip__count">{f.count}</span>
-          </button>
-        ))}
+    <MotionConfig reducedMotion="user">
+      <div className="ak-filters">
+        <div className="ak-filters__chips" role="group" aria-label={label}>
+          {filters.map((f) => (
+            <motion.button
+              key={f.key}
+              type="button"
+              className="ak-chip ak-chip--pill"
+              aria-pressed={active === f.key}
+              aria-controls={gridId}
+              onClick={() => setActive(f.key)}
+              whileTap={{ scale: 0.92 }}
+              whileHover={{ y: -2 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 26 }}
+            >
+              {active === f.key && (
+                <motion.span
+                  layoutId="ak-filter-pill"
+                  className="ak-chip__pill"
+                  transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                  aria-hidden="true"
+                />
+              )}
+              <span className="ak-chip__label">{f.label}</span>
+              <span className="ak-chip__count">{f.count}</span>
+            </motion.button>
+          ))}
+        </div>
+        <p className="sr-only" role="status" aria-live="polite">
+          {announce}
+        </p>
       </div>
-      <p className="sr-only" role="status" aria-live="polite">
-        {announce}
-      </p>
-    </div>
+    </MotionConfig>
   );
 }

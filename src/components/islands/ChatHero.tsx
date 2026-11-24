@@ -2,7 +2,7 @@
  * Contact hero chat (Figma 13:617). The kitten asks "What are we building?"; tapping a quick
  * reply (or typing an idea) answers in the chat, pre-fills the form below and scrolls to it.
  */
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { AnimatePresence, MotionConfig, motion, useReducedMotion } from 'motion/react';
 import { useEffect, useRef, useState, type SyntheticEvent } from 'react';
 
 type Chip = { label: string; type: string };
@@ -74,71 +74,85 @@ export default function ChatHero({ labels, avatar, sticker, formId }: Props) {
       };
 
   return (
-    <section className="ak-chat" aria-label={labels.label}>
-      <img className="ak-chat__sticker" src={sticker} width={140} height={140} alt="" decoding="async" />
-      <header className="ak-chat__head">
-        <img src={avatar} width={36} height={36} alt="" />
-        <div>
-          <p className="ak-chat__name">{labels.name}</p>
-          <p className="ak-chat__status">{labels.status}</p>
-        </div>
-      </header>
+    <MotionConfig reducedMotion="user">
+      <section className="ak-chat" aria-label={labels.label}>
+        <img className="ak-chat__sticker" src={sticker} width={140} height={140} alt="" decoding="async" />
+        <header className="ak-chat__head">
+          <img src={avatar} width={36} height={36} alt="" />
+          <div>
+            <p className="ak-chat__name">{labels.name}</p>
+            <p className="ak-chat__status">{labels.status}</p>
+          </div>
+        </header>
 
-      <div className="ak-chat__log" role="log" aria-live="polite">
-        <AnimatePresence initial={false}>
-          {messages.map((m, i) => (
-            <motion.p key={i} className={`ak-chat__msg is-${m.from}`} {...bubble}>
-              {m.text}
-            </motion.p>
-          ))}
-        </AnimatePresence>
-        {!answered && messages.length > 0 && (
-          <motion.div className="ak-chat__chips" {...bubble}>
-            {labels.chips.map((c) => (
-              <button
-                key={c.type}
-                type="button"
-                className="ak-chip"
-                onClick={() => answer(c.label, { type: c.type }, labels.reply)}
-              >
-                <span className="ak-chip__label">{c.label}</span>
-              </button>
+        <div className="ak-chat__log" role="log" aria-live="polite">
+          <AnimatePresence initial={false}>
+            {messages.map((m, i) => (
+              <motion.p key={i} className={`ak-chat__msg is-${m.from}`} {...bubble}>
+                {m.text}
+              </motion.p>
             ))}
-          </motion.div>
-        )}
-        {typing && (
-          <p className="ak-chat__typing" aria-label={labels.typing}>
-            <span />
-            <span />
-            <span />
-          </p>
-        )}
-      </div>
+          </AnimatePresence>
+          {!answered && messages.length > 0 && (
+            <motion.div className="ak-chat__chips" {...bubble}>
+              {labels.chips.map((c, i) => (
+                <motion.button
+                  key={c.type}
+                  type="button"
+                  className="ak-chip"
+                  initial={reduce ? false : { opacity: 0, y: 10, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 420, damping: 24, delay: 0.25 + i * 0.07 }}
+                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ y: -2, rotate: i % 2 ? 2 : -2 }}
+                  onClick={() => answer(c.label, { type: c.type }, labels.reply)}
+                >
+                  <span className="ak-chip__label">{c.label}</span>
+                </motion.button>
+              ))}
+            </motion.div>
+          )}
+          {typing && (
+            <p className="ak-chat__typing" aria-label={labels.typing}>
+              <span />
+              <span />
+              <span />
+            </p>
+          )}
+        </div>
 
-      <form className="ak-chat__input" onSubmit={onSubmit}>
-        <label htmlFor="ak-chat-draft" className="sr-only">
-          {labels.placeholder}
-        </label>
-        <input
-          id="ak-chat-draft"
-          value={draft}
-          onChange={(e) => setDraft(e.target.value)}
-          placeholder={labels.placeholder}
-          maxLength={300}
-          autoComplete="off"
-        />
-        <button type="submit" aria-label={labels.send} disabled={!draft.trim()}>
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path
-              d="M4 10H16M11 15L16 10L11 5"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-      </form>
-    </section>
+        <form className="ak-chat__input" onSubmit={onSubmit}>
+          <label htmlFor="ak-chat-draft" className="sr-only">
+            {labels.placeholder}
+          </label>
+          <input
+            id="ak-chat-draft"
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            placeholder={labels.placeholder}
+            maxLength={300}
+            autoComplete="off"
+          />
+          <motion.button
+            type="submit"
+            aria-label={labels.send}
+            disabled={!draft.trim()}
+            whileTap={{ scale: 0.85, rotate: -15 }}
+            animate={draft.trim() ? { scale: [1, 1.15, 1] } : { scale: 1 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 15 }}
+          >
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path
+                d="M4 10H16M11 15L16 10L11 5"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </motion.button>
+        </form>
+      </section>
+    </MotionConfig>
   );
 }

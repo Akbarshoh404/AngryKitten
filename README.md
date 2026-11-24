@@ -197,6 +197,21 @@ so nothing is silently lost.
 - **Tested** at 360, 390, 768, 1024, 1280, 1440 and 1920 px (no horizontal scroll) in Chromium.
   Safari (iOS), Firefox and Samsung Internet still need a manual pass on real devices.
 
+### Motion
+
+- **Heroes** animate in pure CSS (`src/styles/components.css`, "Motion layer"), so the first
+  screen never waits for JavaScript.
+- **Everything below the hero** is driven by `src/scripts/motion.ts` (Motion's DOM API, loaded on
+  every page when the browser is idle): split-word heading reveals, staggered card grids, media
+  wipes, squiggle underlines, count-up stats, scroll progress bar, parallax phones, CTA lines
+  that slide in with the scroll, 3D card tilt and magnetic buttons (mouse only), draggable
+  stickers (`data-drag`).
+- **React islands** (forms, filters, chat, builder) use `motion/react` gestures, springs and
+  shared-layout pills.
+- **Between pages:** native cross-document view transitions (the nav stays, the page slides).
+- **Reduced motion:** all of the above is off; changes are instant. Content is never hidden
+  unless the motion script runs, and anything already scrolled past is always revealed.
+
 ### Where the build departs from Figma (on purpose)
 
 - Orange highlight words use `tabby-deep` (#E04412) on light sections; Figma's `tabby` is 2.9:1

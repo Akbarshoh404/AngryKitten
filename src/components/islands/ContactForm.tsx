@@ -5,6 +5,7 @@
  * Spam protection: honeypot field + Cloudflare Turnstile when PUBLIC_TURNSTILE_SITE_KEY is set.
  * Other islands can pre-fill it: window.dispatchEvent(new CustomEvent('ak:prefill', { detail: { type: 'game' } })).
  */
+import { MotionConfig, motion, useAnimate } from 'motion/react';
 import { useEffect, useId, useRef, useState, type SyntheticEvent } from 'react';
 
 type Labels = {
@@ -86,7 +87,8 @@ export default function ContactForm({
   const turnstileRef = useRef<HTMLDivElement>(null);
   const widgetId = useRef<string | undefined>(undefined);
   const successRef = useRef<HTMLHeadingElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
+  // Imperative animations (shake on invalid submit).
+  const [scope, animateScope] = useAnimate<HTMLFormElement>();
 
   // Pre-fill from ?type=… and from other islands (Contact chat hero).
   useEffect(() => {
@@ -159,6 +161,9 @@ export default function ContactForm({
     if (Object.keys(e).length) {
       const first = (['name', 'contact', 'message'] as const).find((k) => e[k]);
       if (first) document.getElementById(id(first))?.focus();
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        animateScope(scope.current, { x: [0, -12, 10, -6, 4, 0] }, { duration: 0.45 });
+      }
       return;
     }
     setStatus('sending');
@@ -197,25 +202,36 @@ export default function ContactForm({
 
   if (status === 'sent') {
     return (
-      <div className="ak-form-success" role="status">
-        {successImage && (
-          <img
-            className="ak-form-success__cat"
-            src={successImage}
-            width={96}
-            height={96}
-            alt=""
-            decoding="async"
-          />
-        )}
-        <h3 ref={successRef} tabIndex={-1} className="text-h2">
-          {labels.successTitle}
-        </h3>
-        <p className="text-body-m text-fg-2">{labels.successBody.replace('{replyTime}', replyTime)}</p>
-        <button type="button" className="ak-btn ak-btn--secondary ak-btn--M" onClick={reset}>
-          <span>{labels.sendAnother}</span>
-        </button>
-      </div>
+      <MotionConfig reducedMotion="user">
+        <motion.div
+          className="ak-form-success"
+          role="status"
+          initial={{ opacity: 0, scale: 0.92, y: 24 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+        >
+          {successImage && (
+            <motion.img
+              initial={{ scale: 0, rotate: -40 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ type: 'spring', stiffness: 320, damping: 12, delay: 0.15 }}
+              className="ak-form-success__cat"
+              src={successImage}
+              width={96}
+              height={96}
+              alt=""
+              decoding="async"
+            />
+          )}
+          <h3 ref={successRef} tabIndex={-1} className="text-h2">
+            {labels.successTitle}
+          </h3>
+          <p className="text-body-m text-fg-2">{labels.successBody.replace('{replyTime}', replyTime)}</p>
+          <button type="button" className="ak-btn ak-btn--secondary ak-btn--M" onClick={reset}>
+            <span>{labels.sendAnother}</span>
+          </button>
+        </motion.div>
+      </MotionConfig>
     );
   }
 
@@ -262,122 +278,142 @@ export default function ContactForm({
           />
         )}
         {err && (
-          <p id={id(`${name}-error`)} className="ak-field__error">
+          <motion.p
+            id={id(`${name}-error`)}
+            className="ak-field__error"
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 28 }}
+          >
             {err}
-          </p>
+          </motion.p>
         )}
       </div>
     );
   };
 
   return (
-    <form ref={formRef} className="ak-form" noValidate onSubmit={onSubmit} aria-busy={status === 'sending'}>
-      {showTitle && <h3 className="text-h2">{variant === 'full' ? labels.fullTitle : labels.quickTitle}</h3>}
+    <MotionConfig reducedMotion="user">
+      <form ref={scope} className="ak-form" noValidate onSubmit={onSubmit} aria-busy={status === 'sending'}>
+        {showTitle && (
+          <h3 className="text-h2">{variant === 'full' ? labels.fullTitle : labels.quickTitle}</h3>
+        )}
 
-      <fieldset className="ak-form__group">
-        <legend className="ak-field__label">{labels.typeLabel}</legend>
-        <div className="ak-form__chips">
-          {types.map((t) => (
-            <button
-              key={t}
-              type="button"
-              className="ak-chip"
-              aria-pressed={selected.includes(t)}
-              onClick={() => toggleType(t)}
-            >
-              <span className="ak-chip__label">{labels.types[t]}</span>
-            </button>
-          ))}
-        </div>
-      </fieldset>
-
-      {variant === 'full' && (
         <fieldset className="ak-form__group">
-          <legend className="ak-field__label">{labels.budgetLabel}</legend>
-          <div className="ak-form__chips" role="radiogroup" aria-label={labels.budgetLabel}>
-            {Object.keys(labels.budgets).map((b) => (
-              <button
-                key={b}
+          <legend className="ak-field__label">{labels.typeLabel}</legend>
+          <div className="ak-form__chips">
+            {types.map((t) => (
+              <motion.button
+                key={t}
                 type="button"
-                role="radio"
+                whileTap={{ scale: 0.92 }}
+                whileHover={{ y: -2 }}
                 className="ak-chip"
-                aria-checked={budget === b}
-                onClick={() => setBudget(budget === b ? '' : b)}
+                aria-pressed={selected.includes(t)}
+                onClick={() => toggleType(t)}
               >
-                <span className="ak-chip__label">{labels.budgets[b]}</span>
-              </button>
+                <span className="ak-chip__label">{labels.types[t]}</span>
+              </motion.button>
             ))}
           </div>
         </fieldset>
-      )}
 
-      <div className={variant === 'full' ? 'ak-form__row' : 'contents'}>
-        {field('name', labels.name, { placeholder: labels.namePlaceholder, autoComplete: 'name' })}
-        {field('contact', labels.contactField, {
-          placeholder: labels.contactPlaceholder,
-          autoComplete: 'email',
-        })}
-      </div>
-      {variant === 'full' &&
-        field('company', labels.company, {
-          optional: true,
-          autoComplete: 'organization',
-          placeholder: labels.companyPlaceholder,
-        })}
-      {field('message', variant === 'full' ? labels.messageFull : labels.message, {
-        placeholder: variant === 'full' ? labels.messageFullPlaceholder : labels.messagePlaceholder,
-        multiline: true,
-      })}
-
-      {/* Honeypot: hidden from people, tempting for bots. */}
-      <div className="ak-form__hp" aria-hidden="true">
-        <label htmlFor={id('website')}>Website</label>
-        <input
-          id={id('website')}
-          name="website"
-          tabIndex={-1}
-          autoComplete="off"
-          value={values.website}
-          onChange={(e) => set('website')(e.target.value)}
-        />
-      </div>
-
-      {turnstileSiteKey && <div ref={turnstileRef} className="ak-form__turnstile" />}
-
-      {errors.form && (
-        <p className="ak-field__error" role="alert">
-          {errors.form} <a href={`mailto:${email}`}>{email}</a>
-        </p>
-      )}
-
-      <button
-        type="submit"
-        className="ak-btn ak-btn--accent ak-btn--L ak-btn--block"
-        disabled={status === 'sending'}
-      >
-        <span>{status === 'sending' ? labels.sending : labels.send}</span>
-        {status === 'sending' ? (
-          <span className="ak-form__spinner" aria-hidden="true" />
-        ) : (
-          <svg
-            className="ak-btn__arrow"
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M4 10H16M11 15L16 10L11 5"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+        {variant === 'full' && (
+          <fieldset className="ak-form__group">
+            <legend className="ak-field__label">{labels.budgetLabel}</legend>
+            <div className="ak-form__chips" role="radiogroup" aria-label={labels.budgetLabel}>
+              {Object.keys(labels.budgets).map((b) => (
+                <motion.button
+                  key={b}
+                  type="button"
+                  whileTap={{ scale: 0.92 }}
+                  whileHover={{ y: -2 }}
+                  role="radio"
+                  className="ak-chip"
+                  aria-checked={budget === b}
+                  onClick={() => setBudget(budget === b ? '' : b)}
+                >
+                  <span className="ak-chip__label">{labels.budgets[b]}</span>
+                </motion.button>
+              ))}
+            </div>
+          </fieldset>
         )}
-      </button>
-      {variant === 'full' && <p className="text-meta text-fg-2">{labels.privacyNote}</p>}
-    </form>
+
+        <div className={variant === 'full' ? 'ak-form__row' : 'contents'}>
+          {field('name', labels.name, { placeholder: labels.namePlaceholder, autoComplete: 'name' })}
+          {field('contact', labels.contactField, {
+            placeholder: labels.contactPlaceholder,
+            autoComplete: 'email',
+          })}
+        </div>
+        {variant === 'full' &&
+          field('company', labels.company, {
+            optional: true,
+            autoComplete: 'organization',
+            placeholder: labels.companyPlaceholder,
+          })}
+        {field('message', variant === 'full' ? labels.messageFull : labels.message, {
+          placeholder: variant === 'full' ? labels.messageFullPlaceholder : labels.messagePlaceholder,
+          multiline: true,
+        })}
+
+        {/* Honeypot: hidden from people, tempting for bots. */}
+        <div className="ak-form__hp" aria-hidden="true">
+          <label htmlFor={id('website')}>Website</label>
+          <input
+            id={id('website')}
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            value={values.website}
+            onChange={(e) => set('website')(e.target.value)}
+          />
+        </div>
+
+        {turnstileSiteKey && <div ref={turnstileRef} className="ak-form__turnstile" />}
+
+        {errors.form && (
+          <motion.p
+            className="ak-field__error"
+            role="alert"
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            {errors.form} <a href={`mailto:${email}`}>{email}</a>
+          </motion.p>
+        )}
+
+        <motion.button
+          whileTap={{ scale: 0.97 }}
+          type="submit"
+          className="ak-btn ak-btn--accent ak-btn--L ak-btn--block"
+          disabled={status === 'sending'}
+        >
+          <span>{status === 'sending' ? labels.sending : labels.send}</span>
+          {status === 'sending' ? (
+            <span className="ak-form__spinner" aria-hidden="true" />
+          ) : (
+            <svg
+              className="ak-btn__arrow"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 10H16M11 15L16 10L11 5"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          )}
+        </motion.button>
+        {variant === 'full' && <p className="text-meta text-fg-2">{labels.privacyNote}</p>}
+      </form>
+    </MotionConfig>
   );
 }

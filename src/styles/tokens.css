@@ -82,16 +82,17 @@
       transform: translateX(-50%);
     }
   }
+  /* Relative wobble: elements keep their resting tilt in the `rotate` property. */
   @keyframes wobble {
     0%,
     100% {
-      transform: rotate(var(--tilt, 0deg));
+      transform: rotate(0deg);
     }
     30% {
-      transform: rotate(calc(var(--tilt, 0deg) - 6deg));
+      transform: rotate(-6deg);
     }
     60% {
-      transform: rotate(calc(var(--tilt, 0deg) + 4deg));
+      transform: rotate(4deg);
     }
   }
 }
