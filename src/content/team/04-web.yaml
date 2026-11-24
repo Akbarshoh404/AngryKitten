@@ -4,3 +4,9 @@ text:
   en:
     badge: Web
     jobTitle: '[Web developer]'
+  uz:
+    badge: 'Veb'
+    jobTitle: '[Veb-dasturchi]'
+  ru:
+    badge: 'Веб'
+    jobTitle: '[Веб-разработчик]'

@@ -17,7 +17,14 @@ text:
     oneLiner: 'Classic 9×9 Sudoku with four difficulty levels and achievements.'
     meta: 'Puzzle · Android'
     description: 'Modern Sudoku game with achievements, stats, dark mode, and offline play.'
-  # uz / ru: TODO translate (falls back to English until added)
+  uz:
+    oneLiner: 'Toʻrt qiyinlik darajasi va yutuqlarga ega klassik 9×9 Sudoku.'
+    meta: 'Boshqotirma · Android'
+    description: 'Yutuqlar, statistika, tungi rejim va oflayn oʻyinga ega zamonaviy Sudoku.'
+  ru:
+    oneLiner: 'Классическое судоку 9×9 с четырьмя уровнями сложности и достижениями.'
+    meta: 'Головоломка · Android'
+    description: 'Современное судоку с достижениями, статистикой, тёмной темой и игрой офлайн.'
 ---
 
 <!-- Google Play "About this app" text, copied from the listing. Edit freely. -->

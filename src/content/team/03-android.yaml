@@ -4,3 +4,9 @@ text:
   en:
     badge: Android
     jobTitle: '[Android engineer]'
+  uz:
+    badge: 'Android'
+    jobTitle: '[Android dasturchi]'
+  ru:
+    badge: 'Android'
+    jobTitle: '[Android-разработчик]'

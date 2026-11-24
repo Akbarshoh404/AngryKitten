@@ -16,7 +16,14 @@ text:
     oneLiner: 'Tap to switch sides and survive the ever-faster corridor.'
     meta: 'Arcade · Android'
     description: 'Dodge walls, collect gems, and survive the endless run.'
-  # uz / ru: TODO translate (falls back to English until added)
+  uz:
+    oneLiner: 'Tomonni almashtirish uchun bosing va tobora tezlashayotgan yoʻlakda omon qoling.'
+    meta: 'Arkada · Android'
+    description: 'Devorlardan qoching, kristallar yigʻing va cheksiz yugurishda omon qoling.'
+  ru:
+    oneLiner: 'Тап — и вы на другой стороне. Выживите в коридоре, который всё ускоряется.'
+    meta: 'Аркада · Android'
+    description: 'Уворачивайтесь от стен, собирайте кристаллы и выживайте в бесконечном забеге.'
 ---
 
 <!-- Google Play "About this app" text, copied from the listing. Edit freely. -->

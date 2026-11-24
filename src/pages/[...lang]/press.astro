@@ -8,6 +8,7 @@ import SectionHeader from '../../components/ui/SectionHeader.astro';
 import CopyButton from '../../components/ui/CopyButton.astro';
 import ContactMethod from '../../components/cards/ContactMethod.astro';
 import site from '../../content/site.json';
+import { siteText } from '../../lib/site';
 import manifest from '../../generated/press-manifest.json';
 import { getApps } from '../../lib/content';
 import { appAssets } from '../../lib/appAssets';
@@ -166,7 +167,7 @@ const tg =
           </li>
         ))}
       </ul>
-      <div class="grid gap-6 md:grid-cols-2">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div class="ak-pr-rule">
           <p class="text-label-l">✓ {d.do}</p>
           <p class="text-body-s text-fg-2">{d.doBody}</p>
@@ -204,7 +205,7 @@ const tg =
           </li>
         ))}
       </ul>
-      <ul class="grid gap-6 md:grid-cols-2">
+      <ul class="grid grid-cols-1 gap-6 md:grid-cols-2">
         {d.type.map((f) => (
           <li class="ak-pr-type">
             <span
@@ -270,7 +271,7 @@ const tg =
           <h2 id="press-contact-title" class="text-h2">
             {d.contactTitle}
           </h2>
-          <p class="text-body-m">{fill(d.contactBody, { pressReply: site.pressReplyTime })}</p>
+          <p class="text-body-m">{fill(d.contactBody, { pressReply: siteText(locale).pressReplyTime })}</p>
         </div>
         <ul class="flex flex-col gap-4">
           <li>

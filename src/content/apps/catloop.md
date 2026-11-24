@@ -17,7 +17,14 @@ text:
     oneLiner: 'Rotate the ring, bounce the cat, dodge the spikes.'
     meta: 'Arcade · Android'
     description: 'Fast-paced cat arcade game! Rotate the ring dodge spikes and beat your high score'
-  # uz / ru: TODO translate (falls back to English until added)
+  uz:
+    oneLiner: 'Halqani aylantiring, mushukni irgʻiting, tikanlardan chetlab oʻting.'
+    meta: 'Arkada · Android'
+    description: 'Shiddatli mushukli arkada! Halqani aylantiring, tikanlardan qoching va rekordingizni yangilang.'
+  ru:
+    oneLiner: 'Вращайте кольцо, подбрасывайте кота, уворачивайтесь от шипов.'
+    meta: 'Аркада · Android'
+    description: 'Динамичная аркада с котом! Вращайте кольцо, уворачивайтесь от шипов и бейте свой рекорд.'
 ---
 
 <!-- Google Play "About this app" text, copied from the listing. Edit freely. -->

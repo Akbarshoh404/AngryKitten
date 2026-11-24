@@ -17,3 +17,33 @@ text:
       - EN · UZ · RU localization
       - Updates and support
     goodFor: Anyone shipping to Google Play
+  uz:
+    title: 'Ishga tushirish va yordam'
+    pitch: 'Ilovani topiladigan, ishonchli va doim yangilangan qiladigan hamma narsa.'
+    cardPitch: 'Ilovani topiladigan va uzluksiz ishlaydigan qiladigan hamma narsa.'
+    deliverables:
+      - 'Doʻkon sahifasi uchun matn va grafika'
+      - 'EN · UZ · RU lokalizatsiya'
+      - 'Maxfiylik siyosati sahifalari'
+      - 'Relizlarni boshqarish'
+      - 'Yangilanishlar va yordam'
+    cardDeliverables:
+      - 'Doʻkon sahifalari va grafika'
+      - 'EN · UZ · RU lokalizatsiya'
+      - 'Yangilanishlar va yordam'
+    goodFor: 'Google Play uchun ilova chiqaradigan har bir kishi'
+  ru:
+    title: 'Запуск и поддержка'
+    pitch: 'Всё вокруг приложения, чтобы его находили, ему доверяли и оно всегда было актуальным.'
+    cardPitch: 'Всё вокруг приложения, чтобы его находили и оно работало без сбоев.'
+    deliverables:
+      - 'Тексты и графика для страницы в магазине'
+      - 'Локализация EN · UZ · RU'
+      - 'Страницы политики конфиденциальности'
+      - 'Управление релизами'
+      - 'Обновления и поддержка'
+    cardDeliverables:
+      - 'Страницы в магазине и графика'
+      - 'Локализация EN · UZ · RU'
+      - 'Обновления и поддержка'
+    goodFor: 'Всем, кто выпускает приложения в Google Play'

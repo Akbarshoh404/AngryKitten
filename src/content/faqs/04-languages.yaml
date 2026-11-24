@@ -3,3 +3,9 @@ text:
   en:
     question: Do you support Uzbek and Russian?
     answer: '[Answer needed: localization offer.]'
+  uz:
+    question: 'Oʻzbek va rus tillarini qoʻllab-quvvatlaysizmi?'
+    answer: '[Javob kerak: lokalizatsiya taklifi.]'
+  ru:
+    question: 'Вы поддерживаете узбекский и русский языки?'
+    answer: '[Нужен ответ: предложение по локализации.]'

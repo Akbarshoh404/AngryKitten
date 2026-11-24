@@ -18,7 +18,14 @@ text:
     oneLiner: 'Cross-sums logic: keep or cut numbers to hit every target.'
     meta: 'Puzzle · Android'
     description: 'Offline cross-sum puzzle game with infinite levels and smart logic challenges.'
-  # uz / ru: TODO translate (falls back to English until added)
+  uz:
+    oneLiner: 'Kross-summa mantigʻi: har bir maqsadga yetish uchun sonlarni qoldiring yoki oʻchiring.'
+    meta: 'Boshqotirma · Android'
+    description: 'Cheksiz darajalar va aqlli mantiqiy topshiriqlarga ega oflayn kross-summa boshqotirmasi.'
+  ru:
+    oneLiner: 'Логика кросс-сумм: оставляйте или вычёркивайте числа, чтобы попасть в каждую цель.'
+    meta: 'Головоломка · Android'
+    description: 'Офлайн-головоломка с кросс-суммами: бесконечные уровни и хитрые логические задачи.'
 ---
 
 <!-- Google Play "About this app" text, copied from the listing. Edit freely. -->

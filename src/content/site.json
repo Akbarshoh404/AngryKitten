@@ -1,10 +1,25 @@
 {
   "email": "angrykittenorange@gmail.com",
-  "telegram": { "handle": "[@angrykitten]", "url": "" },
+  "telegram": {
+    "handle": "[@angrykitten]",
+    "url": ""
+  },
   "phone": "[+998 __ ___ __ __]",
-  "address": "Tashkent, Uzbekistan",
-  "replyTime": "[two working days]",
-  "pressReplyTime": "[24 hours]",
+  "address": {
+    "en": "Tashkent, Uzbekistan",
+    "uz": "Toshkent, Oʻzbekiston",
+    "ru": "Ташкент, Узбекистан"
+  },
+  "replyTime": {
+    "en": "[two working days]",
+    "uz": "[ikki ish kuni]",
+    "ru": "[двух рабочих дней]"
+  },
+  "pressReplyTime": {
+    "en": "[24 hours]",
+    "uz": "[24 soat]",
+    "ru": "[24 часов]"
+  },
   "founded": "[Year]",
   "teamSize": "[Number]",
   "installs": "[Total installs]",

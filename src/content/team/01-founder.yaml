@@ -7,3 +7,9 @@ text:
   en:
     badge: Founder
     jobTitle: '[Founder · Android]'
+  uz:
+    badge: 'Asoschi'
+    jobTitle: '[Asoschi · Android]'
+  ru:
+    badge: 'Основатель'
+    jobTitle: '[Основатель · Android]'

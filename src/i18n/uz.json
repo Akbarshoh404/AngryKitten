@@ -1,679 +1,682 @@
 {
-  "_TODO": "translate: this file still holds the English copy. Do not machine-translate without review.",
+  "_REVIEW": "AI translation (Nov 2026). Please have a native Uzbek speaker review before launch.",
   "meta": {
     "siteName": "AngryKitten",
-    "defaultTitle": "AngryKitten · Independent app studio from Tashkent",
-    "defaultDescription": "AngryKitten designs, builds and launches Android apps and games from Tashkent, Uzbekistan. 12 apps live on Google Play.",
-    "notFoundTitle": "Page not found · AngryKitten",
-    "notFoundDescription": "The kitten knocked this page off the table."
+    "defaultTitle": "AngryKitten · Toshkentdagi mustaqil ilovalar studiyasi",
+    "defaultDescription": "AngryKitten Toshkentda Android ilovalar va oʻyinlarni loyihalaydi, yaratadi va ishga tushiradi. Google Playʼda 12 ta ilova mavjud.",
+    "notFoundTitle": "Sahifa topilmadi · AngryKitten",
+    "notFoundDescription": "Mushukcha bu sahifani stoldan tushirib yubordi."
   },
   "a11y": {
-    "skipToContent": "Skip to content",
-    "mainNav": "Main",
-    "openMenu": "Open menu",
-    "closeMenu": "Close menu",
-    "language": "Language",
-    "home": "AngryKitten home",
-    "footerNav": "Footer",
-    "opensInNewTab": "opens in a new tab"
+    "skipToContent": "Asosiy mazmunga oʻtish",
+    "mainNav": "Asosiy",
+    "openMenu": "Menyuni ochish",
+    "closeMenu": "Menyuni yopish",
+    "language": "Til",
+    "home": "AngryKitten bosh sahifasi",
+    "footerNav": "Pastki menyu",
+    "opensInNewTab": "yangi oynada ochiladi",
+    "breadcrumb": "Navigatsiya yoʻli",
+    "linkSoon": "Havola tez kunda"
   },
   "nav": {
-    "work": "Work",
-    "services": "Services",
-    "studio": "Studio",
-    "contact": "Contact",
-    "cta": "Start a project"
+    "work": "Ishlar",
+    "services": "Xizmatlar",
+    "studio": "Studiya",
+    "contact": "Aloqa",
+    "cta": "Loyiha boshlash"
   },
   "footer": {
-    "pitch": "Got an app in mind?",
-    "studio": "Studio",
-    "apps": "Apps",
-    "social": "Social",
+    "pitch": "Ilova gʻoyangiz bormi?",
+    "studio": "Studiya",
+    "apps": "Ilovalar",
+    "social": "Tarmoqlar",
     "googlePlay": "Google Play",
-    "privacy": "Privacy policies",
-    "press": "Press kit",
+    "privacy": "Maxfiylik siyosatlari",
+    "press": "Press-kit",
     "telegram": "Telegram",
     "instagram": "Instagram",
     "linkedin": "LinkedIn",
-    "copyright": "© {year} AngryKitten · Independent app studio · Tashkent, Uzbekistan"
+    "copyright": "© {year} AngryKitten · Mustaqil ilovalar studiyasi · Toshkent, Oʻzbekiston"
   },
   "notFound": {
-    "eyebrow": "Error 404 · Page not found",
-    "title": "The kitten knocked this page off the table.",
-    "body": "The link may be old, or the page moved. Nothing's broken on your side. Let's get you somewhere useful.",
-    "bodyShort": "The link may be old, or the page moved. Let's get you somewhere useful.",
-    "home": "Back to home",
-    "apps": "See our apps",
-    "orTry": "Or try:",
-    "meow": "Meow?",
-    "notMyFault": "Not my fault",
-    "artAlt": "The angry kitten sits on a table after knocking app icons onto the floor."
+    "eyebrow": "Xato 404 · Sahifa topilmadi",
+    "title": "Mushukcha bu sahifani stoldan tushirib yubordi.",
+    "body": "Havola eskirgan yoki sahifa koʻchirilgan boʻlishi mumkin. Sizda hech narsa buzilmagan. Keling, foydaliroq joyga oʻtamiz.",
+    "bodyShort": "Havola eskirgan yoki sahifa koʻchirilgan boʻlishi mumkin. Keling, foydaliroq joyga oʻtamiz.",
+    "home": "Bosh sahifaga qaytish",
+    "apps": "Ilovalarimizni koʻrish",
+    "orTry": "Yoki bularni sinang:",
+    "meow": "Miyov?",
+    "notMyFault": "Men aybdor emasman",
+    "artAlt": "Jahldor mushukcha ilova ikonkalarini polga tushirib, stol ustida oʻtiribdi."
   },
   "common": {
-    "game": "Game",
-    "app": "App",
-    "comingSoon": "Coming soon",
-    "comingSoonBody": "Something new is in the oven. Follow along on Google Play.",
-    "viewProject": "View project",
-    "readCaseStudy": "Read case study",
-    "viewOnPlay": "View on Google Play",
+    "game": "Oʻyin",
+    "app": "Ilova",
+    "comingSoon": "Tez kunda",
+    "comingSoonBody": "Tandirda yangi narsa pishmoqda. Google Playʼda kuzatib boring.",
+    "viewProject": "Loyihani koʻrish",
+    "readCaseStudy": "Keysni oʻqish",
+    "viewOnPlay": "Google Playʼda koʻrish",
     "googlePlay": "Google Play",
-    "live": "Live",
-    "liveOnPlay": "Live on Google Play",
+    "live": "Faol",
+    "liveOnPlay": "Google Playʼda mavjud",
     "android": "Android",
-    "featured": "Featured",
-    "platform": "Platform",
-    "built": "Built",
-    "status": "Status",
-    "screenshotOf": "{app} screenshot {n}",
-    "iconOf": "{app} app icon"
+    "featured": "Tanlangan",
+    "platform": "Platforma",
+    "built": "Yaratilgan",
+    "status": "Holat",
+    "screenshotOf": "{app} skrinshoti {n}",
+    "iconOf": "{app} ilova ikonkasi"
   },
   "home": {
     "meta": {
-      "title": "AngryKitten · Android apps and games with claws",
-      "description": "Independent app studio from Tashkent. We design, build and launch Android apps, games and websites. 12 apps live on Google Play."
+      "title": "AngryKitten · Tirnoqli Android ilovalar va oʻyinlar",
+      "description": "Toshkentdagi mustaqil ilovalar studiyasi. Android ilovalar, oʻyinlar va veb-saytlarni loyihalaymiz, yaratamiz va ishga tushiramiz. Google Playʼda 12 ta ilova mavjud."
     },
     "mood": {
-      "group": "Choose what you came for",
-      "play": "Play mode",
-      "work": "Work mode"
+      "group": "Nima uchun kelganingizni tanlang",
+      "play": "Oʻyin rejimi",
+      "work": "Ish rejimi"
     },
     "hero": {
       "play": {
-        "line1": "Apps and games",
-        "line2": "with claws.",
-        "body": "Android apps and games from Tashkent.",
-        "secondary": "See our work"
+        "line1": "Tirnoqli ilovalar",
+        "line2": "va oʻyinlar.",
+        "body": "Toshkentdan Android ilovalar va oʻyinlar.",
+        "secondary": "Ishlarimizni koʻring"
       },
       "work": {
-        "line1": "Apps that",
-        "line2": "do the job.",
-        "body": "We design, build and launch Android apps for clients, from first sketch to Google Play.",
-        "secondary": "See client work"
+        "line1": "Ish bitiradigan",
+        "line2": "ilovalar.",
+        "body": "Mijozlar uchun Android ilovalarni ilk eskizdan Google Playʼgacha loyihalaymiz, yaratamiz va ishga tushiramiz.",
+        "secondary": "Mijozlar uchun ishlar"
       },
-      "primary": "Start a project",
-      "phonesAlt": "Screens from {apps}",
-      "badgeLive": "Live"
+      "primary": "Loyiha boshlash",
+      "phonesAlt": "{apps} ekranlari",
+      "badgeLive": "Faol"
     },
     "ticker": {
-      "label": "Studio highlights",
+      "label": "Studiya yangiliklari",
       "items": [
-        "New: Cipher is out",
-        "12 apps live",
-        "Offline-first",
+        "Yangi: Cipher chiqdi",
+        "12 ta ilova faol",
+        "Internetsiz ishlaydi",
         "EN · UZ · RU",
-        "Private by default",
-        "Made in Tashkent",
-        "3 more coming"
+        "Maxfiylik birinchi oʻrinda",
+        "Toshkentda yaratilgan",
+        "Yana 3 tasi yoʻlda"
       ]
     },
     "shelf": {
-      "eyebrow": "Shipped by the kitten · {total} apps",
-      "meta": "{live} live · {coming} coming soon",
-      "label": "All our apps"
+      "eyebrow": "Mushukcha chiqargan · {total} ta ilova",
+      "meta": "{live} ta faol · {coming} ta tez kunda",
+      "label": "Barcha ilovalarimiz"
     },
     "work": {
-      "eyebrow": "Selected work",
-      "title": "Real products, **real users.**",
-      "body": "Marketplaces, money, sign-in, chat and offline storage. The things clients actually hire a studio for.",
-      "all": "View all {total} projects"
+      "eyebrow": "Tanlangan ishlar",
+      "title": "Haqiqiy mahsulotlar, **haqiqiy foydalanuvchilar.**",
+      "body": "Marketpleyslar, moliya, roʻyxatdan oʻtish, chat va oflayn saqlash. Mijozlar studiyani aynan shular uchun yollaydi.",
+      "all": "Barcha {total} ta loyihani koʻrish"
     },
     "games": {
-      "eyebrow": "Games lab",
-      "title": "Games that **bite back.**",
-      "body": "Nine casual and arcade games, built in-house to sharpen the craft we bring to every client project.",
-      "all": "All games",
-      "also": "Also in the litter:"
+      "eyebrow": "Oʻyinlar laboratoriyasi",
+      "title": "**Tishlab oladigan** oʻyinlar.",
+      "body": "Toʻqqizta kazual va arkada oʻyini. Har bir mijoz loyihasiga olib keladigan mahoratimizni charxlash uchun ularni oʻzimiz yaratganmiz.",
+      "all": "Barcha oʻyinlar",
+      "also": "Toʻdada yana:"
     },
     "services": {
-      "eyebrow": "Services",
-      "title": "What we can **build** for you.",
-      "body": "Bring an idea, a sketch or a half-built app. We'll take it from there.",
-      "all": "All services",
-      "notSureTitle": "Not sure yet?",
-      "notSureBody": "Tell us the problem. We'll suggest the right mix.",
-      "notSureCta": "Talk to us"
+      "eyebrow": "Xizmatlar",
+      "title": "Siz uchun nimalar **yarata** olamiz.",
+      "body": "Gʻoya, eskiz yoki chala ilova bilan keling. Qolganini oʻzimiz hal qilamiz.",
+      "all": "Barcha xizmatlar",
+      "notSureTitle": "Hali aniq emasmi?",
+      "notSureBody": "Muammoni aytib bering. Mos yechimni oʻzimiz taklif qilamiz.",
+      "notSureCta": "Biz bilan gaplashing"
     },
     "why": {
-      "eyebrow": "Why AngryKitten",
-      "title": "Small studio. **Sharp claws.**",
-      "body": "We're small on purpose. You talk to the people who design and build your app, not to an account manager.",
+      "eyebrow": "Nega AngryKitten",
+      "title": "Kichik studiya. **Oʻtkir tirnoqlar.**",
+      "body": "Biz ataylab kichikmiz. Siz menejer bilan emas, ilovangizni loyihalab, yaratayotgan odamlar bilan bevosita gaplashasiz.",
       "items": [
         {
-          "title": "Offline-first",
-          "body": "Most of our apps work without internet. Yours will feel fast on any connection."
+          "title": "Internetsiz ishlaydi",
+          "body": "Ilovalarimizning aksariyati internetsiz ishlaydi. Sizniki ham har qanday aloqada tez ishlaydi."
         },
         {
-          "title": "Private by default",
-          "body": "Several of our apps ship with no ads, no accounts and no tracking. We build only what you need."
+          "title": "Maxfiylik birinchi oʻrinda",
+          "body": "Bir qancha ilovalarimiz reklamasiz, akkauntsiz va kuzatuvsiz chiqadi. Faqat sizga keraklisini yaratamiz."
         },
         {
-          "title": "Speaks your users' language",
-          "body": "English, Uzbek and Russian built in from day one, not bolted on later."
+          "title": "Foydalanuvchilaringiz tilida",
+          "body": "Ingliz, oʻzbek va rus tillari birinchi kundanoq quriladi, keyin yamab qoʻyilmaydi."
         },
         {
-          "title": "Polished to the pixel",
-          "body": "Dark mode, haptics, achievements: the small details that make people stay."
+          "title": "Pikselgacha sayqallangan",
+          "body": "Tungi rejim, vibratsiya, yutuqlar: odamlarni ushlab qoladigan mayda detallar."
         }
       ]
     },
     "process": {
-      "eyebrow": "How we work",
-      "title": "Sniff. Stalk. **Pounce.** Purr.",
-      "body": "Four clear stages, one shared board, and a working build in your hands as early as possible.",
+      "eyebrow": "Qanday ishlaymiz",
+      "title": "Hidlash. Poylash. **Sakrash.** Xurillash.",
+      "body": "Toʻrtta aniq bosqich, bitta umumiy doska va imkon qadar tezroq qoʻlingizdagi ishlaydigan versiya.",
       "steps": [
         {
-          "title": "Sniff",
-          "timing": "Discovery",
-          "body": "We dig into your idea, your users and your goals, and agree on what to build first."
+          "title": "Hidlash",
+          "timing": "Tadqiqot",
+          "body": "Gʻoyangiz, foydalanuvchilaringiz va maqsadlaringizni chuqur oʻrganamiz, avval nimani yaratishni kelishib olamiz."
         },
         {
-          "title": "Stalk",
-          "timing": "Design",
-          "body": "User flows, then high-fidelity screens you can click through before any code."
+          "title": "Poylash",
+          "timing": "Dizayn",
+          "body": "Avval foydalanuvchi yoʻllari, soʻng kod yozilishidan oldin bosib koʻrsa boʻladigan batafsil ekranlar."
         },
         {
-          "title": "Pounce",
-          "timing": "Build",
-          "body": "Native Android development in short cycles, with builds you can test on your own phone."
+          "title": "Sakrash",
+          "timing": "Ishlab chiqish",
+          "body": "Qisqa sikllarda native Android ishlab chiqish. Har bir versiyani oʻz telefoningizda sinab koʻrasiz."
         },
         {
-          "title": "Purr",
-          "timing": "Launch and care",
-          "body": "Store listing, release on Google Play, then updates and support when you need them."
+          "title": "Xurillash",
+          "timing": "Chiqarish va qoʻllab-quvvatlash",
+          "body": "Doʻkon sahifasi, Google Playʼda chiqarish, soʻng kerak boʻlganda yangilanishlar va qoʻllab-quvvatlash."
         }
       ]
     },
     "team": {
-      "eyebrow": "The litter",
-      "title": "The people behind the **claws.**",
-      "body": "A small team on purpose. You talk to the people who design and build your app.",
-      "all": "Meet the studio"
+      "eyebrow": "Bizning toʻda",
+      "title": "**Tirnoqlar** ortidagi odamlar.",
+      "body": "Ataylab kichik jamoa. Siz ilovangizni loyihalab, yaratayotgan odamlar bilan gaplashasiz.",
+      "all": "Studiya bilan tanishing"
     },
     "cta": {
-      "line1": "Have an idea?",
-      "line2": "Let's pounce.",
-      "body": "Tell us what you're building. We reply within {replyTime}, usually with good questions.",
-      "primary": "Start a project"
+      "line1": "Gʻoyangiz bormi?",
+      "line2": "Qani, sakradik!",
+      "body": "Nima yaratayotganingizni aytib bering. {replyTime} ichida javob beramiz, odatda yaxshi savollar bilan.",
+      "primary": "Loyiha boshlash"
     },
     "testimonial": {
-      "quote": "[Client quote placeholder] Replace with a real quote from a client or a user review. Short and specific beats long and glowing.",
-      "name": "[Name Surname]",
-      "role": "[Role, Company]"
+      "quote": "[Mijoz fikri uchun joy] Mijozning haqiqiy fikri yoki foydalanuvchi sharhi bilan almashtiring. Qisqa va aniq fikr uzun maqtovdan yaxshiroq.",
+      "name": "[Ism Familiya]",
+      "role": "[Lavozim, Kompaniya]"
     },
     "contact": {
-      "eyebrow": "Contact",
-      "title": "Say hi to the **kitten.**",
-      "body": "Pick whatever's easiest. We read everything and reply within {replyTime}.",
-      "mobileCta": "Send a quick message"
+      "eyebrow": "Aloqa",
+      "title": "**Mushukchaga** salom bering.",
+      "body": "Qaysi biri qulay boʻlsa, oʻshani tanlang. Hammasini oʻqiymiz va {replyTime} ichida javob beramiz.",
+      "mobileCta": "Tezkor xabar yuborish"
     }
   },
   "contactMethods": {
-    "email": "Email",
+    "email": "E-pochta",
     "telegram": "Telegram",
-    "phone": "Phone",
-    "studio": "Studio"
+    "phone": "Telefon",
+    "studio": "Studiya"
   },
   "form": {
-    "quickTitle": "Quick message",
-    "typeLabel": "What are we building?",
+    "quickTitle": "Tezkor xabar",
+    "typeLabel": "Nima yaratamiz?",
     "types": {
-      "mobile": "Mobile app",
-      "game": "Game",
-      "website": "Website",
-      "design": "UI/UX design",
-      "update": "Update an existing app",
-      "notSure": "Not sure yet"
+      "mobile": "Mobil ilova",
+      "game": "Oʻyin",
+      "website": "Veb-sayt",
+      "design": "UI/UX dizayn",
+      "update": "Mavjud ilovani yangilash",
+      "notSure": "Hali aniq emas"
     },
-    "budgetLabel": "Rough budget (optional)",
+    "budgetLabel": "Taxminiy byudjet (ixtiyoriy)",
     "budgets": {
       "small": "[< $5k]",
       "medium": "[$5–15k]",
       "large": "[$15–40k]",
       "xl": "[$40k+]",
-      "unknown": "Not sure"
+      "unknown": "Aniq emas"
     },
-    "name": "Your name",
+    "name": "Ismingiz",
     "namePlaceholder": "Akbar",
-    "contactField": "Email or Telegram",
+    "contactField": "E-pochta yoki Telegram",
     "contactPlaceholder": "you@company.com",
-    "company": "Company",
-    "optional": "(optional)",
-    "message": "Message",
-    "messagePlaceholder": "A few sentences about your idea",
-    "send": "Send to the kitten",
-    "sending": "Sending…",
+    "company": "Kompaniya",
+    "optional": "(ixtiyoriy)",
+    "message": "Xabar",
+    "messagePlaceholder": "Gʻoyangiz haqida bir necha jumla",
+    "send": "Mushukchaga yuborish",
+    "sending": "Yuborilmoqda…",
     "errors": {
-      "name": "Please tell us your name.",
-      "contact": "Add an email or a Telegram handle so we can reply.",
-      "message": "A sentence or two helps us reply with good questions.",
-      "generic": "Something went wrong. Please try again, or email us directly."
+      "name": "Iltimos, ismingizni yozing.",
+      "contact": "Javob berishimiz uchun e-pochta yoki Telegram manzilingizni qoldiring.",
+      "message": "Bir-ikki jumla yozsangiz, yaxshi savollar bilan javob bera olamiz.",
+      "generic": "Nimadir xato ketdi. Qayta urinib koʻring yoki bizga toʻgʻridan-toʻgʻri e-pochta orqali yozing."
     },
-    "successTitle": "The kitten got your message.",
-    "successBody": "We'll reply within {replyTime}. Meanwhile, the kitten is pretending not to care.",
-    "sendAnother": "Send another message",
-    "fullTitle": "Start a project",
-    "messageFull": "Tell us about it",
-    "messageFullPlaceholder": "What should the app do, who is it for, and is there a deadline?",
-    "privacyNote": "We only use your details to reply to you. No newsletters, no sharing.",
-    "companyPlaceholder": "Company or project name"
+    "successTitle": "Mushukcha xabaringizni oldi.",
+    "successBody": "{replyTime} ichida javob beramiz. Hozircha mushukcha oʻzini parvo qilmayotgandek tutyapti.",
+    "sendAnother": "Yana xabar yuborish",
+    "fullTitle": "Loyiha boshlash",
+    "messageFull": "Batafsil aytib bering",
+    "messageFullPlaceholder": "Ilova nima qilishi kerak, kim uchun va muddat bormi?",
+    "privacyNote": "Maʼlumotlaringizdan faqat sizga javob berish uchun foydalanamiz. Reklama xatlari yoʻq, hech kimga berilmaydi.",
+    "companyPlaceholder": "Kompaniya yoki loyiha nomi"
   },
   "work": {
     "meta": {
-      "title": "Work · 15 Android apps and games · AngryKitten",
-      "description": "Everything AngryKitten has shipped to Google Play: real-world apps like UyBek, Pulchi and Nerva, plus nine casual and arcade games."
+      "title": "Ishlar · 15 ta Android ilova va oʻyin · AngryKitten",
+      "description": "AngryKitten Google Playʼga chiqargan hamma narsa: UyBek, Pulchi va Nerva kabi real ilovalar hamda toʻqqizta kazual va arkada oʻyinlari."
     },
-    "eyebrow": "Work · {total} projects",
-    "title": "Fifteen apps. One very **picky** kitten.",
-    "body": "Everything we've shipped to Google Play, plus three that are still in the oven. Real-world products first, games after.",
-    "pillApps": "Apps · {n}",
-    "pillGames": "Games · {n}",
-    "hoverHint": "View case study →",
-    "filtersLabel": "Filter projects",
+    "eyebrow": "Ishlar · {total} ta loyiha",
+    "title": "Oʻn beshta ilova. Bitta juda **injiq** mushukcha.",
+    "body": "Google Playʼga chiqargan hamma narsamiz, yana hali tandirda pishayotgan uchtasi. Avval real mahsulotlar, keyin oʻyinlar.",
+    "pillApps": "Ilovalar · {n}",
+    "pillGames": "Oʻyinlar · {n}",
+    "hoverHint": "Keysni koʻrish →",
+    "filtersLabel": "Loyihalarni saralash",
     "filters": {
-      "all": "All",
-      "apps": "Apps",
-      "games": "Games",
-      "arcade": "Arcade",
-      "puzzle": "Puzzle and word",
-      "party": "Party and board",
-      "soon": "Coming soon"
+      "all": "Hammasi",
+      "apps": "Ilovalar",
+      "games": "Oʻyinlar",
+      "arcade": "Arkada",
+      "puzzle": "Boshqotirma va soʻz",
+      "party": "Davra va stol",
+      "soon": "Tez kunda"
     },
-    "resultsLive": "Showing {n} projects",
-    "cta": "Your app could be number **sixteen.**",
-    "ctaButton": "Start a project",
-    "iconsLabel": "All live apps"
+    "resultsLive": "{n} ta loyiha koʻrsatilmoqda",
+    "cta": "Sizning ilovangiz **oʻn oltinchi** boʻlishi mumkin.",
+    "ctaButton": "Loyiha boshlash",
+    "iconsLabel": "Barcha faol ilovalar"
   },
   "caseStudy": {
-    "breadcrumb": "Work",
-    "getOnPlay": "Get it on Google Play",
-    "nextProject": "Next project",
+    "breadcrumb": "Ishlar",
+    "getOnPlay": "Google Playʼdan yuklab oling",
+    "nextProject": "Keyingi loyiha",
     "facts": {
-      "category": "Category",
-      "platform": "Platform",
-      "role": "Our role",
-      "features": "Key features",
-      "status": "Status",
-      "languages": "Languages",
-      "updated": "Updated"
+      "category": "Turkum",
+      "platform": "Platforma",
+      "role": "Bizning rol",
+      "features": "Asosiy imkoniyatlar",
+      "status": "Holat",
+      "languages": "Tillar",
+      "updated": "Yangilangan"
     },
-    "defaultRole": "Design · Build · Launch",
-    "goalLabel": "01 · The goal",
-    "builtLabel": "02 · What we built",
-    "outcomeLabel": "03 · The outcome",
-    "aboutLabel": "01 · About the app",
-    "aboutTitle": "What **{app}** does.",
-    "screensLabel": "02 · Screens",
-    "screensTitle": "A closer **look.**",
-    "outcomeTitle": "Live on **Google Play.**",
-    "statsNote": "Placeholders until real numbers are confirmed. Three honest metrics beat ten vague ones.",
+    "defaultRole": "Dizayn · Ishlab chiqish · Chiqarish",
+    "goalLabel": "01 · Maqsad",
+    "builtLabel": "02 · Nima yaratdik",
+    "outcomeLabel": "03 · Natija",
+    "aboutLabel": "01 · Ilova haqida",
+    "aboutTitle": "**{app}** nima qiladi.",
+    "screensLabel": "02 · Ekranlar",
+    "screensTitle": "**Yaqinroqdan** nazar.",
+    "outcomeTitle": "**Google Playʼda** mavjud.",
+    "statsNote": "Haqiqiy raqamlar tasdiqlanguncha vaqtinchalik qiymatlar. Uchta halol koʻrsatkich oʻnta mavhum koʻrsatkichdan yaxshiroq.",
     "statLabels": {
-      "installs": "installs on Google Play",
-      "rating": "average rating",
-      "languages": "languages",
-      "timeline": "from kickoff to launch"
+      "installs": "Google Playʼdagi yuklab olishlar",
+      "rating": "oʻrtacha reyting",
+      "languages": "til",
+      "timeline": "boshlanishdan chiqarishgacha"
     },
-    "carouselLabel": "{app} screenshots",
-    "prev": "Previous screenshot",
-    "next": "Next screenshot",
-    "goTo": "Show screenshot {n}",
-    "fromPlay": "From the Google Play listing",
-    "readMore": "Read the full description",
-    "readLess": "Show less",
+    "carouselLabel": "{app} skrinshotlari",
+    "prev": "Oldingi skrinshot",
+    "next": "Keyingi skrinshot",
+    "goTo": "{n}-skrinshotni koʻrsatish",
+    "fromPlay": "Google Play sahifasidan",
+    "readMore": "Toʻliq tavsifni oʻqish",
+    "readLess": "Qisqaroq",
     "metaTitle": "{app} · {meta} · AngryKitten",
-    "privacy": "Privacy policy"
+    "privacy": "Maxfiylik siyosati"
   },
   "servicesPage": {
     "meta": {
-      "title": "Services · Android apps, games, UI/UX and websites · AngryKitten",
-      "description": "From first sketch to Google Play: native Android apps, casual games, UI/UX design, store launch and care, plus fast websites and web apps."
+      "title": "Xizmatlar · Android ilovalar, oʻyinlar, UI/UX va veb-saytlar · AngryKitten",
+      "description": "Ilk eskizdan Google Playʼgacha: native Android ilovalar, kazual oʻyinlar, UI/UX dizayn, doʻkonga chiqarish va qoʻllab-quvvatlash, shuningdek tezkor veb-saytlar va veb-ilovalar."
     },
-    "eyebrow": "Services",
-    "title": "From first sketch to **Google Play.**",
-    "body": "We cover the whole journey, or just the part you're stuck on. Same small team from kickoff to launch.",
-    "cta": "Start a project",
-    "stickersLabel": "Jump to a service",
+    "eyebrow": "Xizmatlar",
+    "title": "Ilk eskizdan **Google Playʼgacha.**",
+    "body": "Butun yoʻlni yoki faqat siz tiqilib qolgan qismini oʻz zimmamizga olamiz. Boshidan oxirigacha oʻsha kichik jamoa.",
+    "cta": "Loyiha boshlash",
+    "stickersLabel": "Xizmatga oʻtish",
     "builder": {
-      "eyebrow": "Build your app",
-      "title": "What do you need?",
+      "eyebrow": "Ilovangizni yigʻing",
+      "title": "Sizga nima kerak?",
       "options": {
-        "mobile": "Mobile app",
-        "game": "Game",
-        "design": "UI/UX design",
-        "website": "Website",
-        "launch": "Launch"
+        "mobile": "Mobil ilova",
+        "game": "Oʻyin",
+        "design": "UI/UX dizayn",
+        "website": "Veb-sayt",
+        "launch": "Chiqarish"
       },
       "toggles": {
-        "offline": "Offline-first",
+        "offline": "Oflayn rejim",
         "languages": "EN · UZ · RU",
-        "dark": "Dark mode"
+        "dark": "Tungi rejim"
       },
-      "button": "Get a proposal",
-      "summary": "Your app: {items}",
-      "nothing": "Pick at least one thing to build.",
-      "messageIntro": "I'd like a proposal for:"
+      "button": "Taklif olish",
+      "summary": "Ilovangiz: {items}",
+      "nothing": "Kamida bitta narsani tanlang.",
+      "messageIntro": "Quyidagilar uchun taklif olmoqchiman:"
     },
-    "whatYouGet": "What you get",
-    "goodFor": "Good for",
-    "seeItIn": "See it in",
-    "noExamples": "Examples coming soon",
+    "whatYouGet": "Nimalarga ega boʻlasiz",
+    "goodFor": "Kimga mos",
+    "seeItIn": "Misollar",
+    "noExamples": "Misollar tez kunda",
     "ways": {
-      "eyebrow": "Ways to work together",
-      "title": "Pick the shape that **fits.**",
+      "eyebrow": "Hamkorlik shakllari",
+      "title": "Sizga **mosini** tanlang.",
       "items": [
         {
-          "tag": "1–2 weeks",
-          "title": "Design sprint",
-          "body": "Turn a fuzzy idea into clickable screens and a clear plan you can show investors or your team.",
-          "price": "[Timeline and pricing: add yours]"
+          "tag": "1–2 hafta",
+          "title": "Dizayn sprinti",
+          "body": "Mavhum gʻoyani bosiladigan ekranlarga va investorlar yoki jamoangizga koʻrsatsa boʻladigan aniq rejaga aylantiring.",
+          "price": "[Muddat va narx: oʻzingiznikini qoʻshing]"
         },
         {
-          "tag": "Most popular",
-          "title": "Fixed-scope project",
-          "body": "One agreed scope, one timeline, one price. Ideal for an MVP or a v1 on Google Play.",
-          "price": "[Timeline and pricing: add yours]"
+          "tag": "Eng mashhur",
+          "title": "Qatʼiy hajmli loyiha",
+          "body": "Bitta kelishilgan hajm, bitta muddat, bitta narx. MVP yoki Google Playʼdagi birinchi versiya uchun ideal.",
+          "price": "[Muddat va narx: oʻzingiznikini qoʻshing]"
         },
         {
-          "tag": "Monthly",
-          "title": "Ongoing partnership",
-          "body": "A small dedicated team for new features, updates and store releases, month after month.",
-          "price": "[Timeline and pricing: add yours]"
+          "tag": "Oylik",
+          "title": "Doimiy hamkorlik",
+          "body": "Yangi funksiyalar, yangilanishlar va doʻkon relizlari uchun oyma-oy ishlaydigan kichik maxsus jamoa.",
+          "price": "[Muddat va narx: oʻzingiznikini qoʻshing]"
         }
       ]
     },
     "faq": {
-      "eyebrow": "FAQ",
-      "title": "Questions clients **usually ask.**"
+      "eyebrow": "Savol-javob",
+      "title": "Mijozlar **koʻp beradigan** savollar."
     }
   },
   "studio": {
     "meta": {
-      "title": "Studio · Small studio, short fuse for bad apps · AngryKitten",
-      "description": "AngryKitten is an independent Android studio in Tashkent. We make our own apps and games and build apps for clients with the same care."
+      "title": "Studiya · Kichik studiya, yomon ilovalarga toqati yoʻq · AngryKitten",
+      "description": "AngryKitten Toshkentdagi mustaqil Android studiyasi. Oʻz ilova va oʻyinlarimizni yaratamiz, mijozlar uchun ham xuddi shunday eʼtibor bilan ilovalar quramiz."
     },
-    "eyebrow": "Studio",
-    "title": "Small studio. Short fuse for **bad apps.**",
-    "body": "AngryKitten is an independent Android studio in Tashkent. We make our own apps and games, and we build apps for clients with the same care.",
+    "eyebrow": "Studiya",
+    "title": "Kichik studiya. **Yomon ilovalarga** toqatimiz yoʻq.",
+    "body": "AngryKitten Toshkentdagi mustaqil Android studiyasi. Oʻz ilova va oʻyinlarimizni yaratamiz, mijozlar uchun ham xuddi shunday eʼtibor bilan ilovalar quramiz.",
     "facts": {
-      "live": "{n} apps live",
-      "games": "{n} games",
-      "city": "Tashkent, UZ",
+      "live": "{n} ta faol ilova",
+      "games": "{n} ta oʻyin",
+      "city": "Toshkent, UZ",
       "languages": "EN · UZ · RU",
-      "bubble": "We don't ship boring."
+      "bubble": "Zerikarli narsa chiqarmaymiz."
     },
     "stats": {
-      "live": "apps and games live on Google Play",
-      "games": "games built in-house",
-      "languages": "languages: EN · UZ · RU",
-      "coming": "new apps in the oven"
+      "live": "Google Playʼdagi faol ilova va oʻyinlar",
+      "games": "oʻzimiz yaratgan oʻyinlar",
+      "languages": "til: EN · UZ · RU",
+      "coming": "tandirdagi yangi ilovalar"
     },
     "story": {
-      "eyebrow": "Our story",
-      "title": "Why the kitten is **angry.**",
+      "eyebrow": "Bizning hikoya",
+      "title": "Mushukcha nega **jahldor.**",
       "paragraphs": [
-        "[Founder story placeholder] How AngryKitten started, who started it and why. Two or three short paragraphs, written in your own voice.",
-        "A suggestion for the angle: we got tired of apps that are slow, nosy and full of ads. So we started making the ones we wanted to use ourselves: offline-first, private by default and polished down to the haptics. That's the kitten's temper, and it's what we bring to every client project."
+        "[Asoschi hikoyasi uchun joy] AngryKitten qanday boshlangani, kim va nima uchun boshlagani. Oʻz uslubingizda yozilgan ikki-uchta qisqa xatboshi.",
+        "Yondashuv boʻyicha taklif: sekin, suqilib kiruvchi va reklamaga toʻla ilovalardan charchadik. Shuning uchun oʻzimiz foydalanmoqchi boʻlgan ilovalarni yarata boshladik: internetsiz ishlaydigan, sukut boʻyicha maxfiy va vibratsiyasigacha sayqallangan. Mushukchaning feʼli shunaqa, va biz buni har bir mijoz loyihasiga olib kiramiz."
       ]
     },
     "team": {
-      "eyebrow": "The litter",
-      "title": "The people behind the **claws.**"
+      "eyebrow": "Bizning toʻda",
+      "title": "**Tirnoqlar** ortidagi odamlar."
     },
     "values": {
-      "eyebrow": "How we think",
-      "title": "Three things we **won't compromise** on.",
+      "eyebrow": "Qanday fikrlaymiz",
+      "title": "**Murosa qilmaydigan** uchta narsamiz.",
       "items": [
         {
-          "title": "Respect the user",
-          "body": "No dark patterns, no needless permissions, no data we don't need."
+          "title": "Foydalanuvchini hurmat qil",
+          "body": "Aldovchi interfeyslar, ortiqcha ruxsatlar va keraksiz maʼlumotlar yoʻq."
         },
         {
-          "title": "Fast is a feature",
-          "body": "Offline-first and lightweight, so apps feel instant on any phone."
+          "title": "Tezlik ham imkoniyat",
+          "body": "Internetsiz va yengil, shuning uchun ilovalar har qanday telefonda bir zumda ochiladi."
         },
         {
-          "title": "Details are the product",
-          "body": "Haptics, empty states, dark mode. The small things are why people stay."
+          "title": "Mahsulot bu detallar",
+          "body": "Vibratsiya, boʻsh holatlar, tungi rejim. Odamlar aynan mayda narsalar uchun qoladi."
         }
       ]
     },
     "careers": {
-      "title": "Want to join the litter?",
-      "body": "We're always happy to hear from Android developers and designers in Tashkent.",
-      "cta": "Say hello"
+      "title": "Toʻdaga qoʻshilasizmi?",
+      "body": "Toshkentdagi Android dasturchilar va dizaynerlardan xabar olishdan doim xursandmiz.",
+      "cta": "Salom yozing"
     }
   },
   "contactPage": {
     "meta": {
-      "title": "Contact · Start a project with AngryKitten",
-      "description": "Tell us about your app, game or website. A few sentences is plenty; we reply within [two working days]."
+      "title": "Aloqa · AngryKitten bilan loyiha boshlang",
+      "description": "Ilovangiz, oʻyiningiz yoki veb-saytingiz haqida aytib bering. Bir necha jumla kifoya; [ikki ish kuni] ichida javob beramiz."
     },
-    "eyebrow": "Contact",
-    "title": "Let's build something **people keep.**",
-    "body": "Tell us a little about your idea. No long brief needed, a few sentences is plenty.",
-    "cta": "Fill in the form",
+    "eyebrow": "Aloqa",
+    "title": "Odamlar **oʻchirmaydigan** narsa yarataylik.",
+    "body": "Gʻoyangiz haqida biroz aytib bering. Uzun texnik topshiriq shart emas, bir necha jumla kifoya.",
+    "cta": "Formani toʻldirish",
     "details": {
-      "email": "Email",
+      "email": "E-pochta",
       "telegram": "Telegram",
-      "phone": "Phone",
-      "studio": "Studio",
-      "languages": "Languages",
+      "phone": "Telefon",
+      "studio": "Studiya",
+      "languages": "Tillar",
       "languagesValue": "English · Oʻzbekcha · Русский",
-      "reply": "Reply time"
+      "reply": "Javob muddati",
+      "replyValue": "{replyTime} ichida"
     },
     "chat": {
-      "label": "Chat with the kitten",
-      "name": "The kitten",
-      "status": "Online · replies within {replyTime}",
-      "hello": "Hi! What are we building?",
+      "label": "Mushukcha bilan suhbat",
+      "name": "Mushukcha",
+      "status": "Onlayn · {replyTime} ichida javob beradi",
+      "hello": "Salom! Nima yaratamiz?",
       "chips": [
         {
-          "label": "Mobile app",
+          "label": "Mobil ilova",
           "type": "mobile"
         },
         {
-          "label": "Game",
+          "label": "Oʻyin",
           "type": "game"
         },
         {
-          "label": "Redesign",
+          "label": "Redizayn",
           "type": "update"
         },
         {
-          "label": "Not sure yet",
+          "label": "Hali aniq emas",
           "type": "notSure"
         }
       ],
-      "reply": "Purr-fect. When would you like to launch?",
-      "replyTyped": "Got it. Let's put that in the form.",
-      "placeholder": "Type your idea…",
-      "send": "Send to the form",
-      "typing": "The kitten is typing"
+      "reply": "Zoʻr-r-r! Qachon chiqarmoqchisiz?",
+      "replyTyped": "Tushundim. Buni formaga qoʻshamiz.",
+      "placeholder": "Gʻoyangizni yozing…",
+      "send": "Formaga yuborish",
+      "typing": "Mushukcha yozmoqda"
     },
-    "formEyebrow": "Start a project",
-    "formTitle": "Tell us about it. Takes **two minutes.**",
+    "formEyebrow": "Loyiha boshlash",
+    "formTitle": "Batafsil aytib bering. Atigi **ikki daqiqa.**",
     "next": {
-      "title": "What happens next",
+      "title": "Keyin nima boʻladi",
       "steps": [
-        "We read your note and reply with a few questions.",
-        "A short call to understand the goal, users and timing.",
-        "A clear proposal: scope, timeline and price."
+        "Xabaringizni oʻqib, bir nechta savol bilan javob beramiz.",
+        "Maqsad, foydalanuvchilar va muddatlarni tushunish uchun qisqa qoʻngʻiroq.",
+        "Aniq taklif: hajm, muddat va narx."
       ]
     }
   },
   "press": {
     "meta": {
-      "title": "Press kit · AngryKitten",
-      "description": "Logos, facts, colours, app icons and screenshots. Free to use in articles, reviews and videos about AngryKitten."
+      "title": "Press-kit · AngryKitten",
+      "description": "Logotiplar, faktlar, ranglar, ilova ikonkalari va skrinshotlar. AngryKitten haqidagi maqolalar, sharhlar va videolarda bepul foydalanish mumkin."
     },
-    "eyebrow": "Press kit",
-    "title": "Everything you need to write about **the kitten.**",
-    "body": "Logos, facts, colours, app icons and screenshots. Free to use in articles, reviews and videos about AngryKitten.",
-    "downloadAll": "Download everything · ZIP",
-    "pressContact": "Press contact",
-    "updated": "Updated {date} · {size} · PNG, SVG, JPG",
+    "eyebrow": "Press-kit",
+    "title": "**Mushukcha** haqida yozish uchun kerak boʻladigan hamma narsa.",
+    "body": "Logotiplar, faktlar, ranglar, ilova ikonkalari va skrinshotlar. AngryKitten haqidagi maqolalar, sharhlar va videolarda bepul foydalanish mumkin.",
+    "downloadAll": "Hammasini yuklab olish · ZIP",
+    "pressContact": "Matbuot uchun aloqa",
+    "updated": "Yangilangan: {date} · {size} · PNG, SVG, JPG",
     "art": {
-      "colours": "Brand colours",
-      "apps": "{icons} app icons · {shots} screenshots",
-      "free": "Free to use ✓"
+      "colours": "Brend ranglari",
+      "apps": "{icons} ta ilova ikonkasi · {shots} ta skrinshot",
+      "free": "Foydalanish bepul ✓"
     },
-    "factsEyebrow": "Fact sheet",
-    "factsTitle": "AngryKitten **at a glance.**",
-    "shortLabel": "Short version",
-    "longLabel": "Long version",
-    "shortVersion": "Independent app studio from Tashkent making playful Android games and genuinely useful apps.",
-    "longVersion": "AngryKitten is an independent app studio based in Tashkent, Uzbekistan. The team designs and builds Android games and everyday apps, from word and logic games like UzWordle, Catris and SudoKitten to tools like Pulchi, Nerva and UyBek. Alongside its own catalogue of 12 apps on Google Play, with 3 more on the way, AngryKitten builds mobile apps, games and websites for other companies.",
-    "copyShort": "Copy short",
-    "copyLong": "Copy long",
-    "copied": "Copied to clipboard",
-    "copyFailed": "Couldn't copy. Select the text instead.",
+    "factsEyebrow": "Faktlar",
+    "factsTitle": "AngryKitten **bir qarashda.**",
+    "shortLabel": "Qisqa versiya",
+    "longLabel": "Toʻliq versiya",
+    "shortVersion": "Toshkentdagi mustaqil ilovalar studiyasi: quvnoq Android oʻyinlari va chindan foydali ilovalar yaratadi.",
+    "longVersion": "AngryKitten Toshkentda (Oʻzbekiston) joylashgan mustaqil ilovalar studiyasi. Jamoa Android oʻyinlari va kundalik ilovalarni loyihalaydi va yaratadi: UzWordle, Catris va SudoKitten kabi soʻz va mantiq oʻyinlaridan tortib Pulchi, Nerva va UyBek kabi vositalargacha. Google Playʼdagi 12 ta oʻz ilovasidan tashqari (yana 3 tasi yoʻlda) AngryKitten boshqa kompaniyalar uchun mobil ilovalar, oʻyinlar va veb-saytlar yaratadi.",
+    "copyShort": "Qisqasini nusxalash",
+    "copyLong": "Toʻliqini nusxalash",
+    "copied": "Nusxalandi",
+    "copyFailed": "Nusxalab boʻlmadi. Matnni qoʻlda belgilang.",
     "facts": [
       {
-        "label": "Studio",
+        "label": "Studiya",
         "value": "AngryKitten"
       },
       {
-        "label": "Based in",
-        "value": "Tashkent, Uzbekistan"
+        "label": "Joylashuv",
+        "value": "Toshkent, Oʻzbekiston"
       },
       {
-        "label": "Founded",
-        "value": "[Year]"
+        "label": "Tashkil topgan",
+        "value": "[Yil]"
       },
       {
-        "label": "Team",
-        "value": "[Number] people"
+        "label": "Jamoa",
+        "value": "[Soni] kishi"
       },
       {
-        "label": "Apps on Google Play",
-        "value": "{live} live · {coming} coming"
+        "label": "Google Playʼdagi ilovalar",
+        "value": "{live} ta faol · {coming} ta tez kunda"
       },
       {
-        "label": "Downloads",
-        "value": "[Total installs]"
+        "label": "Yuklab olishlar",
+        "value": "[Jami oʻrnatishlar]"
       },
       {
-        "label": "What we make",
-        "value": "Games, apps, websites"
+        "label": "Nima yaratamiz",
+        "value": "Oʻyinlar, ilovalar, veb-saytlar"
       },
       {
-        "label": "Languages",
+        "label": "Tillar",
         "value": "English · Oʻzbekcha · Русский"
       },
       {
-        "label": "Website",
+        "label": "Veb-sayt",
         "value": "angrykitten.uz"
       },
       {
-        "label": "Press contact",
+        "label": "Matbuot uchun aloqa",
         "value": "{email}"
       }
     ],
-    "logosEyebrow": "Logos",
-    "logosTitle": "The kitten, in **every flavour.**",
-    "logosBody": "Use the full logo where there's room, and the mark on its own for small spaces and avatars.",
-    "logosZip": "All logos · ZIP",
+    "logosEyebrow": "Logotiplar",
+    "logosTitle": "Mushukcha **har xil koʻrinishda.**",
+    "logosBody": "Joy yetarli boʻlsa toʻliq logotipdan, kichik joylar va avatarlar uchun esa faqat belgidan foydalaning.",
+    "logosZip": "Barcha logotiplar · ZIP",
     "logoCards": [
       {
-        "name": "Full logo",
+        "name": "Toʻliq logotip",
         "png": "angrykitten-logo.png",
         "svg": "angrykitten-logo.svg",
         "tone": "paper"
       },
       {
-        "name": "Full logo, light",
+        "name": "Toʻliq logotip, och",
         "png": "angrykitten-logo-light.png",
         "svg": "angrykitten-logo-light.svg",
         "tone": "ink"
       },
       {
-        "name": "Mark on light",
+        "name": "Och fondagi belgi",
         "png": "mark-on-light.png",
         "tone": "paper"
       },
       {
-        "name": "Mark on orange",
+        "name": "Toʻq sariq fondagi belgi",
         "png": "mark-on-orange.png",
         "tone": "tabby"
       },
       {
-        "name": "Mark on dark",
+        "name": "Toʻq fondagi belgi",
         "png": "mark-on-dark.png",
         "tone": "night"
       }
     ],
-    "do": "Do",
-    "doBody": "Give the kitten room to breathe. Keep at least half his head width of clear space around him.",
-    "dont": "Don't",
-    "dontBody": "Stretch, recolour, rotate or add effects. And never make him smile. He's angry for a reason.",
-    "coloursEyebrow": "Colours and type",
-    "coloursTitle": "**Tabby orange** does the talking.",
-    "copyHex": "Copy {hex}",
+    "do": "Mumkin",
+    "doBody": "Mushukchaga erkin nafas olish uchun joy qoldiring. Atrofida kamida boshining yarmicha boʻsh joy boʻlsin.",
+    "dont": "Mumkin emas",
+    "dontBody": "Choʻzish, rangini oʻzgartirish, aylantirish yoki effekt qoʻshish. Va hech qachon uni jilmaytirmang. U bejiz jahldor emas.",
+    "coloursEyebrow": "Ranglar va shriftlar",
+    "coloursTitle": "Hamma gapni **toʻq sariq** aytadi.",
+    "copyHex": "{hex} nusxalash",
     "swatches": [
       {
         "name": "Tabby",
         "hex": "#FF5A1F",
-        "use": "Primary accent"
+        "use": "Asosiy urgʻu"
       },
       {
         "name": "Ink",
         "hex": "#17110C",
-        "use": "Text and outlines"
+        "use": "Matn va konturlar"
       },
       {
         "name": "Warm Ivory",
         "hex": "#FAF7F2",
-        "use": "Backgrounds"
+        "use": "Fonlar"
       },
       {
         "name": "Plum Night",
         "hex": "#2B1640",
-        "use": "Dark sections"
+        "use": "Toʻq boʻlimlar"
       },
       {
         "name": "Gold",
         "hex": "#FFD43B",
-        "use": "Highlights"
+        "use": "Ajratib koʻrsatish"
       }
     ],
     "type": [
       {
-        "role": "Headlines and display",
+        "role": "Sarlavhalar va displey",
         "name": "Bricolage Grotesque",
-        "note": "Free on Google Fonts",
+        "note": "Google Fontsʼda bepul",
         "font": "display"
       },
       {
-        "role": "Body text and UI",
+        "role": "Asosiy matn va interfeys",
         "name": "DM Sans",
-        "note": "Free on Google Fonts",
+        "note": "Google Fontsʼda bepul",
         "font": "sans"
       }
     ],
-    "appsEyebrow": "App assets",
-    "appsTitle": "Our apps, **ready to drop in.**",
-    "appsBody": "Icons, store banners and screenshots for every app. Apps 13 to 15 are added at launch.",
-    "appsZip": "All app assets · ZIP",
-    "appContents": "Icon · Banner · 3 shots",
-    "appDownload": "Download",
-    "appDownloadLabel": "Download {app} assets ({size})",
-    "contactTitle": "Writing about us? Talk to the kitten.",
-    "contactBody": "Interviews, review codes, early builds or anything missing here. We reply to press within {pressReply}."
+    "appsEyebrow": "Ilova materiallari",
+    "appsTitle": "Ilovalarimiz, **ishlatishga tayyor.**",
+    "appsBody": "Har bir ilova uchun ikonkalar, doʻkon bannerlari va skrinshotlar. 13–15-ilovalar chiqqanda qoʻshiladi.",
+    "appsZip": "Barcha ilova materiallari · ZIP",
+    "appContents": "Ikonka · Banner · 3 ta skrinshot",
+    "appDownload": "Yuklab olish",
+    "appDownloadLabel": "{app} materiallarini yuklab olish ({size})",
+    "contactTitle": "Biz haqimizda yozyapsizmi? Mushukcha bilan gaplashing.",
+    "contactBody": "Intervyular, sharh uchun kodlar, erta versiyalar yoki bu yerda yetishmayotgan har qanday narsa. Matbuotga {pressReply} ichida javob beramiz."
   },
   "privacy": {
     "meta": {
-      "title": "Privacy policies · AngryKitten",
-      "description": "Privacy policies for every AngryKitten app on Google Play."
+      "title": "Maxfiylik siyosatlari · AngryKitten",
+      "description": "Google Playʼdagi har bir AngryKitten ilovasi uchun maxfiylik siyosatlari."
     },
-    "eyebrow": "Legal",
-    "title": "Privacy **policies.**",
-    "body": "One policy per app. Questions about your data? Email {email}.",
-    "pageTitle": "{app} privacy policy · AngryKitten",
-    "pageDescription": "How {app} handles your data.",
-    "effective": "Effective {date}",
-    "source": "Originally published at {source}",
-    "back": "All privacy policies",
-    "appPage": "About {app}",
-    "languageNote": "This policy is available in English."
+    "eyebrow": "Huquqiy",
+    "title": "Maxfiylik **siyosatlari.**",
+    "body": "Har bir ilova uchun alohida siyosat. Maʼlumotlaringiz boʻyicha savollar bormi? {email} manziliga yozing.",
+    "pageTitle": "{app} maxfiylik siyosati · AngryKitten",
+    "pageDescription": "{app} maʼlumotlaringizni qanday qayta ishlaydi.",
+    "effective": "Kuchga kirgan sana: {date}",
+    "source": "Asl nusxasi {source} manzilida chop etilgan",
+    "back": "Barcha maxfiylik siyosatlari",
+    "appPage": "{app} haqida",
+    "languageNote": "Bu siyosat ingliz tilida mavjud."
   }
 }

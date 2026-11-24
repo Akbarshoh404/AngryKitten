@@ -111,7 +111,7 @@ const heroAssets = hero ? appAssets(hero.id) : undefined;
       </article>
     )}
 
-    <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <ul class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {rest.map((app) => (
         <li class="flex">
           <AppCard app={app} locale={locale} cta="view" class="w-full" />

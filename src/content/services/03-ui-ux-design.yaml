@@ -17,3 +17,33 @@ text:
       - UI kits, light and dark
       - Clickable prototypes
     goodFor: Teams who already have developers
+  uz:
+    title: 'UI/UX dizayn'
+    pitch: 'Birinchi bosishdanoq tushunarli interfeyslar — bir qator kod yozilmasdan oldin loyihalangan.'
+    cardPitch: 'Birinchi bosishdanoq tushunarli interfeyslar.'
+    deliverables:
+      - 'Foydalanuvchi yoʻllari va vayrfreymlar'
+      - 'Yorugʻ va qorongʻi mavzuda batafsil UI'
+      - 'Dizayn tizimlari'
+      - 'Bosiladigan prototiplar'
+      - 'Qulaylik tekshiruvlari'
+    cardDeliverables:
+      - 'Yoʻllar va vayrfreymlar'
+      - 'UI kitlar, yorugʻ va qorongʻi'
+      - 'Bosiladigan prototiplar'
+    goodFor: 'Dasturchilari allaqachon bor jamoalar'
+  ru:
+    title: 'UI/UX-дизайн'
+    pitch: 'Интерфейсы, понятные с первого касания и продуманные до первой строчки кода.'
+    cardPitch: 'Интерфейсы, понятные с первого касания.'
+    deliverables:
+      - 'Пользовательские сценарии и вайрфреймы'
+      - 'Детальный UI в светлой и тёмной теме'
+      - 'Дизайн-системы'
+      - 'Кликабельные прототипы'
+      - 'Юзабилити-проверки'
+    cardDeliverables:
+      - 'Сценарии и вайрфреймы'
+      - 'UI-киты, светлая и тёмная тема'
+      - 'Кликабельные прототипы'
+    goodFor: 'Командам, у которых уже есть разработчики'

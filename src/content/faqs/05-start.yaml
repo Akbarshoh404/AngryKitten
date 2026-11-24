@@ -3,3 +3,9 @@ text:
   en:
     question: How do we start?
     answer: '[Answer needed: first steps for a new client.]'
+  uz:
+    question: 'Qanday boshlaymiz?'
+    answer: '[Javob kerak: yangi mijoz uchun dastlabki qadamlar.]'
+  ru:
+    question: 'С чего начать?'
+    answer: '[Нужен ответ: первые шаги для нового клиента.]'

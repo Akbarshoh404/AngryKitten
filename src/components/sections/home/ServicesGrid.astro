@@ -26,7 +26,7 @@ const services = await getServices();
         {d.all}
       </Button>
     </SectionHeader>
-    <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <ul class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {services.map((s, i) => {
         const text = localized(s.data.text, locale);
         return (

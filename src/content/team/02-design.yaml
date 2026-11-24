@@ -4,3 +4,9 @@ text:
   en:
     badge: Design
     jobTitle: '[Product designer]'
+  uz:
+    badge: 'Dizayn'
+    jobTitle: '[Mahsulot dizayneri]'
+  ru:
+    badge: 'Дизайн'
+    jobTitle: '[Продуктовый дизайнер]'

@@ -17,3 +17,33 @@ text:
       - Achievements and stats
       - Local multiplayer
     goodFor: Brands, edtech, entertainment
+  uz:
+    title: 'Oʻyinlar'
+    pitch: 'Puxta oʻyin sikli, jonli effektlar va «yana bir marta» hissi bilan oddiy va arkada oʻyinlar.'
+    cardPitch: 'Puxta oʻyin sikli va «yana bir marta» hissi bilan oddiy va arkada oʻyinlar.'
+    deliverables:
+      - 'Oʻyin konsepsiyasi va dizayni'
+      - 'Darajalar va qiyinlik balansi'
+      - 'Yutuqlar va statistika'
+      - 'Mahalliy multiplayer'
+      - 'Ovoz va tebranish'
+    cardDeliverables:
+      - 'Oʻyin dizayni va balans'
+      - 'Yutuqlar va statistika'
+      - 'Mahalliy multiplayer'
+    goodFor: 'Brendlar, edtech, koʻngilochar loyihalar'
+  ru:
+    title: 'Игры'
+    pitch: 'Казуальные и аркадные игры с цепким геймплеем, сочным откликом и чувством «ещё разок».'
+    cardPitch: 'Казуальные и аркадные игры с цепким геймплеем и чувством «ещё разок».'
+    deliverables:
+      - 'Концепция и геймдизайн'
+      - 'Баланс уровней и сложности'
+      - 'Достижения и статистика'
+      - 'Локальный мультиплеер'
+      - 'Звук и вибрация'
+    cardDeliverables:
+      - 'Геймдизайн и баланс'
+      - 'Достижения и статистика'
+      - 'Локальный мультиплеер'
+    goodFor: 'Бренды, EdTech, развлечения'

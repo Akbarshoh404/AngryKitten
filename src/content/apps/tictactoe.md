@@ -16,7 +16,14 @@ text:
     oneLiner: '3×3 or 5×5, against the AI or a friend on one phone.'
     meta: 'Board · Android'
     description: 'Classic Tic Tac Toe with AI, 2-Player, and 3x3 or 5x5 game modes.'
-  # uz / ru: TODO translate (falls back to English until added)
+  uz:
+    oneLiner: '3×3 yoki 5×5 — sunʼiy intellektga yoki bitta telefonda doʻstingizga qarshi.'
+    meta: 'Stol oʻyini · Android'
+    description: 'Sunʼiy intellekt, ikki oʻyinchi rejimi hamda 3×3 va 5×5 maydonli klassik Tic Tac Toe.'
+  ru:
+    oneLiner: '3×3 или 5×5, против ИИ или друга на одном телефоне.'
+    meta: 'Настольные игры · Android'
+    description: 'Классическая Tic Tac Toe с ИИ, режимом для двоих и полями 3×3 или 5×5.'
 ---
 
 <!-- Google Play "About this app" text, copied from the listing. Edit freely. -->

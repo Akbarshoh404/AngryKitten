@@ -42,7 +42,66 @@ text:
         - { value: '[0.0★]', label: 'average rating' }
         - { value: '[000]', label: 'active listings' }
         - { value: '[0 wk]', label: 'from kickoff to launch' }
-  # uz / ru: TODO translate (falls back to English until added)
+  uz:
+    oneLiner: 'Oʻzbekiston boʻylab uy sotib oling, soting va tanlang — filtrlar va bevosita chat bilan.'
+    meta: 'Koʻchmas mulk · Android'
+    description: 'Oʻzbekistonda uyni tezroq toping. Aniq filtrlar, haqiqiy eʼlonlar hamda xaridor va sotuvchi oʻrtasida bevosita chatga ega koʻchmas mulk marketpleysi.'
+    category: 'Koʻchmas mulk'
+    built: 'Qidiruv · Chat · Eʼlonlar · Avtorizatsiya'
+    caseStudy:
+      lead: 'Oʻzbekistonda uyni **tezroq** toping.'
+      tags: ['Koʻchmas mulk', 'Marketpleys', 'Android']
+      category: 'Koʻchmas mulk marketpleysi'
+      role: 'Mahsulot dizayni · Ilova yaratish · Ishga tushirish'
+      keyFeatures: 'Qidiruv · Filtrlar · Chat · Eʼlonlar'
+      goalTitle: 'Uy topishning **xotirjam yoʻli.**'
+      goal:
+        - '[Qoralama — jamoa bilan tasdiqlang] Kvartira qidirish odatda tarqoq postlar va chatlarni varaqlashni anglatadi. UyBek eʼlonlar, suratlar, narxlar va sotuvchini bir joyga jamlaydi — odamlar tez solishtirib, bir bosishda bogʻlana oladi.'
+        - 'Biz tuzilmali eʼlonlar, tezkor qidiruv va filtrlar, saralanganlar va ilova ichidagi chatga ega native Android marketpleysini loyihalab, yaratdik. Email, telefon yoki Google orqali kirish ham bor.'
+      screensTitle: 'Asosiy yukni koʻtaradigan **uchta ekran.**'
+      screens:
+        - title: 'Yordam beradigan qidiruv'
+          body: 'Haqiqiy suratlar, narxlar va odamlar uchun chindan muhim narsalar boʻyicha tezkor filtrlar bilan yangi eʼlonlarni koʻring.'
+        - title: 'Tushunarli filtrlar'
+          body: 'Mulk turi, narx va xonalar soni bitta ixcham oynada — qidiruv varaqlashni emas, bir necha soniyani oladi.'
+        - title: 'Sotuvchi bilan gaplashing'
+          body: 'Sotuvchilarga toʻgʻridan-toʻgʻri ilovada yozing va oʻz eʼlonlaringizni shu yerning oʻzida boshqaring.'
+      outcomeTitle: 'Hozir **Google Play doʻkonida.**'
+      stats:
+        - { value: '[00K]', label: 'Google Play orqali oʻrnatishlar' }
+        - { value: '[0.0★]', label: 'oʻrtacha reyting' }
+        - { value: '[000]', label: 'faol eʼlonlar' }
+        - { value: '[0 wk]', label: 'boshlanishdan ishga tushirishgacha' }
+  ru:
+    oneLiner: 'Покупайте, продавайте и смотрите жильё по всему Узбекистану — с фильтрами и прямым чатом.'
+    meta: 'Недвижимость · Android'
+    description: 'Находите жильё в Узбекистане быстрее. Маркетплейс недвижимости с понятными фильтрами, реальными объявлениями и прямым чатом между покупателями и продавцами.'
+    category: 'Недвижимость'
+    built: 'Поиск · Чат · Объявления · Авторизация'
+    caseStudy:
+      lead: 'Находите жильё в Узбекистане **быстрее**.'
+      tags: ['Недвижимость', 'Маркетплейс', 'Android']
+      category: 'Маркетплейс недвижимости'
+      role: 'Продуктовый дизайн · Разработка · Запуск'
+      keyFeatures: 'Поиск · Фильтры · Чат · Объявления'
+      goalTitle: 'Спокойный способ найти **дом.**'
+      goal:
+        - '[Черновик — уточнить у команды] Поиск квартиры обычно означает бесконечную прокрутку разрозненных постов и чатов. UyBek собирает объявления, фото, цены и продавца в одном месте, чтобы можно было быстро сравнить варианты и связаться в одно касание.'
+        - 'Мы спроектировали и создали нативный Android-маркетплейс со структурированными объявлениями, быстрым поиском и фильтрами, избранным и чатом в приложении, а также входом через email, телефон или Google.'
+      screensTitle: 'Три экрана, которые берут на себя **всю тяжёлую работу.**'
+      screens:
+        - title: 'Поиск, который помогает'
+          body: 'Смотрите свежие объявления с реальными фото, ценами и быстрыми фильтрами по тому, что действительно важно.'
+        - title: 'Понятные фильтры'
+          body: 'Тип недвижимости, цена и комнаты в одной аккуратной панели — поиск занимает секунды, а не бесконечную прокрутку.'
+        - title: 'Пишите продавцу'
+          body: 'Общайтесь с продавцами прямо в приложении и управляйте своими объявлениями там же.'
+      outcomeTitle: 'Уже в **Google Play.**'
+      stats:
+        - { value: '[00K]', label: 'установок в Google Play' }
+        - { value: '[0.0★]', label: 'средний рейтинг' }
+        - { value: '[000]', label: 'активных объявлений' }
+        - { value: '[0 wk]', label: 'от старта до запуска' }
 ---
 
 <!-- Google Play "About this app" text, copied from the listing. Edit freely. -->

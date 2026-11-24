@@ -63,7 +63,7 @@ const year = new Date().getFullYear();
                       {link.external && <span class="sr-only"> ({t('a11y.opensInNewTab')})</span>}
                     </a>
                   ) : (
-                    <span class="text-label-l ak-footer__pending" title="Link coming soon">
+                    <span class="text-label-l ak-footer__pending" title={t('a11y.linkSoon')}>
                       {t(link.key)}
                     </span>
                   )}
@@ -143,6 +143,9 @@ const year = new Date().getFullYear();
     .ak-footer__pending {
       color: var(--text-primary);
       text-decoration: none;
+      /* Long Russian/Uzbek words ("конфиденциальности") hyphenate instead of overflowing. */
+      hyphens: auto;
+      overflow-wrap: break-word;
     }
     .ak-footer__col a:hover {
       color: var(--text-accent);
@@ -163,6 +166,7 @@ const year = new Date().getFullYear();
       .ak-footer__cols {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 32px 24px;
         width: 100%;
       }
     }

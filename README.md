@@ -121,8 +121,13 @@ text:
 
 ### Translate (Uzbek and Russian)
 
-- UI strings: `src/i18n/uz.json` and `src/i18n/ru.json` currently hold the **English copy** (each
-  file starts with a `_TODO` marker). Translate values in place; keep the keys.
+- **Status: AI-drafted translations (Nov 2026), not yet reviewed by native speakers.** UI strings
+  (`src/i18n/uz.json`, `ru.json`, each starting with a `_REVIEW` note) and every content collection
+  (`text.uz` / `text.ru` in apps, services, FAQs, team) are translated. Please have a native
+  Uzbek and a native Russian speaker review them before launch; edit values in place, keep the keys.
+- Uzbek is Latin script with the proper letters: `ʻ` (U+02BB) in oʻ/gʻ and `ʼ` (U+02BC) for the tutuq belgisi.
+- Facts that read differently per language (address, reply times) are `{ en, uz, ru }` objects in
+  `site.json`. Russian reply times are in the genitive («в течение [двух рабочих дней]»).
 - After adding new English strings, run `npm run i18n:sync`: new keys are copied into `uz`/`ru`,
   untranslated copies follow English changes, and real translations are never overwritten.
 - Content collections: add a `uz:` or `ru:` block under `text:` with any subset of fields; missing
@@ -130,7 +135,6 @@ text:
 - Privacy policies stay in English on every language (pages say so).
 - Russian uses **Onest** for Cyrillic letters automatically (the brand fonts are Latin-only); it
   only downloads on pages that contain Cyrillic.
-- Please don't machine-translate without a native review.
 
 ## 4. Deploy (Cloudflare)
 
@@ -246,7 +250,7 @@ Placeholders are written in `[brackets]` so they're easy to find (search the rep
 - `[Year]` founded, `[Number]` team size, `[Total installs]` (press fact sheet)
 - Testimonials: real quotes only (placeholder cards are dashed)
 - Apps 13–15: names, type and assets (`src/content/apps/app-13.md`…)
-- Uzbek and Russian translations (`src/i18n/uz.json`, `ru.json`, content `text.uz/ru`)
+- Native review of the AI-drafted Uzbek and Russian translations (`src/i18n/uz.json`, `ru.json`, content `text.uz/ru`)
 - Social links: Telegram, Instagram, LinkedIn (`site.json`)
 - FAQ answers: 4 of 5 are `[Answer needed]`; the iOS one needs confirming (`src/content/faqs/`)
 - Budget ranges on the contact form (`form.budgets` in `en.json`) and prices/timelines for the

@@ -3,3 +3,9 @@ text:
   en:
     question: Who owns the code and the app?
     answer: '[Answer needed: code and app ownership.]'
+  uz:
+    question: 'Kod va ilova kimga tegishli boʻladi?'
+    answer: '[Javob kerak: kod va ilovaga egalik.]'
+  ru:
+    question: 'Кому принадлежат код и приложение?'
+    answer: '[Нужен ответ: права на код и приложение.]'

@@ -17,3 +17,33 @@ text:
       - Offline-first architecture
       - Auth, search, chat
     goodFor: Startups, local businesses, internal tools
+  uz:
+    title: 'Mobil ilovalar'
+    pitch: 'Tez ishlaydigan, oflayn ham ishlaydigan va oson rivojlantiriladigan native Android ilovalar.'
+    cardPitch: 'Birinchi eskizdan Google Play doʻkonigacha native Android ilovalar.'
+    deliverables:
+      - 'Mahsulot doirasi va yoʻl xaritasi'
+      - 'Kotlin · Jetpack Compose'
+      - 'Oflayn-birinchi maʼlumotlar va sinxronlash'
+      - 'Kirish, qidiruv, chat'
+      - 'Haqiqiy qurilmalarda sinov'
+    cardDeliverables:
+      - 'Kotlin · Jetpack Compose'
+      - 'Oflayn-birinchi arxitektura'
+      - 'Avtorizatsiya, qidiruv, chat'
+    goodFor: 'Startaplar, mahalliy bizneslar, ichki servislar'
+  ru:
+    title: 'Мобильные приложения'
+    pitch: 'Нативные Android-приложения, которые работают быстро, не боятся офлайна и легко развиваются.'
+    cardPitch: 'Нативные Android-приложения от первого эскиза до Google Play.'
+    deliverables:
+      - 'Продуктовая концепция и роадмап'
+      - 'Kotlin · Jetpack Compose'
+      - 'Офлайн-first данные и синхронизация'
+      - 'Вход, поиск, чат'
+      - 'Тесты на реальных устройствах'
+    cardDeliverables:
+      - 'Kotlin · Jetpack Compose'
+      - 'Офлайн-first архитектура'
+      - 'Авторизация, поиск, чат'
+    goodFor: 'Стартапы, местный бизнес, внутренние сервисы'

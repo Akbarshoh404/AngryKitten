@@ -21,7 +21,8 @@ function merge(base, target, snap) {
   if (Array.isArray(base)) return base.map((v, i) => merge(v, target?.[i], snap?.[i]));
   if (base && typeof base === 'object') {
     const out = {};
-    if (target && typeof target === 'object' && '_TODO' in target) out._TODO = target._TODO;
+    if (target && typeof target === 'object')
+      for (const k of Object.keys(target)) if (k.startsWith('_')) out[k] = target[k];
     for (const [k, v] of Object.entries(base)) out[k] = merge(v, target?.[k], snap?.[k]);
     return out;
   }

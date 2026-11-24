@@ -1,679 +1,682 @@
 {
-  "_TODO": "translate: this file still holds the English copy. Do not machine-translate without review.",
+  "_REVIEW": "AI translation (Nov 2026). Please have a native Russian speaker review before launch.",
   "meta": {
     "siteName": "AngryKitten",
-    "defaultTitle": "AngryKitten · Independent app studio from Tashkent",
-    "defaultDescription": "AngryKitten designs, builds and launches Android apps and games from Tashkent, Uzbekistan. 12 apps live on Google Play.",
-    "notFoundTitle": "Page not found · AngryKitten",
-    "notFoundDescription": "The kitten knocked this page off the table."
+    "defaultTitle": "AngryKitten · Независимая студия приложений из Ташкента",
+    "defaultDescription": "AngryKitten придумывает, разрабатывает и запускает Android-приложения и игры в Ташкенте. 12 приложений уже в Google Play.",
+    "notFoundTitle": "Страница не найдена · AngryKitten",
+    "notFoundDescription": "Котёнок смахнул эту страницу со стола."
   },
   "a11y": {
-    "skipToContent": "Skip to content",
-    "mainNav": "Main",
-    "openMenu": "Open menu",
-    "closeMenu": "Close menu",
-    "language": "Language",
-    "home": "AngryKitten home",
-    "footerNav": "Footer",
-    "opensInNewTab": "opens in a new tab"
+    "skipToContent": "Перейти к содержимому",
+    "mainNav": "Основное меню",
+    "openMenu": "Открыть меню",
+    "closeMenu": "Закрыть меню",
+    "language": "Язык",
+    "home": "AngryKitten, главная",
+    "footerNav": "Нижнее меню",
+    "opensInNewTab": "откроется в новой вкладке",
+    "breadcrumb": "Навигационная цепочка",
+    "linkSoon": "Ссылка скоро появится"
   },
   "nav": {
-    "work": "Work",
-    "services": "Services",
-    "studio": "Studio",
-    "contact": "Contact",
-    "cta": "Start a project"
+    "work": "Работы",
+    "services": "Услуги",
+    "studio": "Студия",
+    "contact": "Контакты",
+    "cta": "Обсудить проект"
   },
   "footer": {
-    "pitch": "Got an app in mind?",
-    "studio": "Studio",
-    "apps": "Apps",
-    "social": "Social",
+    "pitch": "Задумали приложение?",
+    "studio": "Студия",
+    "apps": "Приложения",
+    "social": "Соцсети",
     "googlePlay": "Google Play",
-    "privacy": "Privacy policies",
-    "press": "Press kit",
+    "privacy": "Политики конфиденциальности",
+    "press": "Для прессы",
     "telegram": "Telegram",
     "instagram": "Instagram",
     "linkedin": "LinkedIn",
-    "copyright": "© {year} AngryKitten · Independent app studio · Tashkent, Uzbekistan"
+    "copyright": "© {year} AngryKitten · Независимая студия приложений · Ташкент, Узбекистан"
   },
   "notFound": {
-    "eyebrow": "Error 404 · Page not found",
-    "title": "The kitten knocked this page off the table.",
-    "body": "The link may be old, or the page moved. Nothing's broken on your side. Let's get you somewhere useful.",
-    "bodyShort": "The link may be old, or the page moved. Let's get you somewhere useful.",
-    "home": "Back to home",
-    "apps": "See our apps",
-    "orTry": "Or try:",
-    "meow": "Meow?",
-    "notMyFault": "Not my fault",
-    "artAlt": "The angry kitten sits on a table after knocking app icons onto the floor."
+    "eyebrow": "Ошибка 404 · Страница не найдена",
+    "title": "Котёнок смахнул эту страницу со стола.",
+    "body": "Возможно, ссылка устарела или страница переехала. С вашей стороны всё в порядке. Давайте найдём что-нибудь полезное.",
+    "bodyShort": "Возможно, ссылка устарела или страница переехала. Давайте найдём что-нибудь полезное.",
+    "home": "На главную",
+    "apps": "Наши приложения",
+    "orTry": "Или загляните сюда:",
+    "meow": "Мяу?",
+    "notMyFault": "Это не я",
+    "artAlt": "Сердитый котёнок сидит на столе, смахнув иконки приложений на пол."
   },
   "common": {
-    "game": "Game",
-    "app": "App",
-    "comingSoon": "Coming soon",
-    "comingSoonBody": "Something new is in the oven. Follow along on Google Play.",
-    "viewProject": "View project",
-    "readCaseStudy": "Read case study",
-    "viewOnPlay": "View on Google Play",
+    "game": "Игра",
+    "app": "Приложение",
+    "comingSoon": "Скоро",
+    "comingSoonBody": "Готовим кое-что новое. Следите за нами в Google Play.",
+    "viewProject": "Смотреть проект",
+    "readCaseStudy": "Читать кейс",
+    "viewOnPlay": "Открыть в Google Play",
     "googlePlay": "Google Play",
-    "live": "Live",
-    "liveOnPlay": "Live on Google Play",
+    "live": "В сторе",
+    "liveOnPlay": "Уже в Google Play",
     "android": "Android",
-    "featured": "Featured",
-    "platform": "Platform",
-    "built": "Built",
-    "status": "Status",
-    "screenshotOf": "{app} screenshot {n}",
-    "iconOf": "{app} app icon"
+    "featured": "Избранное",
+    "platform": "Платформа",
+    "built": "Сделано",
+    "status": "Статус",
+    "screenshotOf": "{app}: скриншот {n}",
+    "iconOf": "Иконка приложения {app}"
   },
   "home": {
     "meta": {
-      "title": "AngryKitten · Android apps and games with claws",
-      "description": "Independent app studio from Tashkent. We design, build and launch Android apps, games and websites. 12 apps live on Google Play."
+      "title": "AngryKitten · Android-приложения и игры с когтями",
+      "description": "Независимая студия приложений из Ташкента. Придумываем, разрабатываем и запускаем Android-приложения, игры и сайты. 12 приложений уже в Google Play."
     },
     "mood": {
-      "group": "Choose what you came for",
-      "play": "Play mode",
-      "work": "Work mode"
+      "group": "Выберите, зачем пришли",
+      "play": "Поиграть",
+      "work": "По делу"
     },
     "hero": {
       "play": {
-        "line1": "Apps and games",
-        "line2": "with claws.",
-        "body": "Android apps and games from Tashkent.",
-        "secondary": "See our work"
+        "line1": "Приложения и игры",
+        "line2": "с когтями.",
+        "body": "Android-приложения и игры из Ташкента.",
+        "secondary": "Наши работы"
       },
       "work": {
-        "line1": "Apps that",
-        "line2": "do the job.",
-        "body": "We design, build and launch Android apps for clients, from first sketch to Google Play.",
-        "secondary": "See client work"
+        "line1": "Приложения,",
+        "line2": "которые работают.",
+        "body": "Делаем Android-приложения для клиентов под ключ: от первого наброска до Google Play.",
+        "secondary": "Клиентские проекты"
       },
-      "primary": "Start a project",
-      "phonesAlt": "Screens from {apps}",
-      "badgeLive": "Live"
+      "primary": "Обсудить проект",
+      "phonesAlt": "Экраны из {apps}",
+      "badgeLive": "В сторе"
     },
     "ticker": {
-      "label": "Studio highlights",
+      "label": "Главное о студии",
       "items": [
-        "New: Cipher is out",
-        "12 apps live",
-        "Offline-first",
+        "Новинка: вышел Cipher",
+        "12 приложений в сторе",
+        "Работают без интернета",
         "EN · UZ · RU",
-        "Private by default",
-        "Made in Tashkent",
-        "3 more coming"
+        "Приватность по умолчанию",
+        "Сделано в Ташкенте",
+        "Ещё 3 на подходе"
       ]
     },
     "shelf": {
-      "eyebrow": "Shipped by the kitten · {total} apps",
-      "meta": "{live} live · {coming} coming soon",
-      "label": "All our apps"
+      "eyebrow": "Сделано котёнком · приложений: {total}",
+      "meta": "{live} в сторе · {coming} скоро",
+      "label": "Все наши приложения"
     },
     "work": {
-      "eyebrow": "Selected work",
-      "title": "Real products, **real users.**",
-      "body": "Marketplaces, money, sign-in, chat and offline storage. The things clients actually hire a studio for.",
-      "all": "View all {total} projects"
+      "eyebrow": "Избранные работы",
+      "title": "Настоящие продукты, **живые пользователи.**",
+      "body": "Маркетплейсы, финансы, авторизация, чаты и офлайн-хранилище. Всё то, ради чего клиенты на самом деле нанимают студию.",
+      "all": "Все проекты ({total})"
     },
     "games": {
-      "eyebrow": "Games lab",
-      "title": "Games that **bite back.**",
-      "body": "Nine casual and arcade games, built in-house to sharpen the craft we bring to every client project.",
-      "all": "All games",
-      "also": "Also in the litter:"
+      "eyebrow": "Игровая лаборатория",
+      "title": "Игры, которые **кусаются.**",
+      "body": "Девять казуальных и аркадных игр, сделанных своими силами, чтобы оттачивать мастерство для каждого клиентского проекта.",
+      "all": "Все игры",
+      "also": "Ещё из нашего выводка:"
     },
     "services": {
-      "eyebrow": "Services",
-      "title": "What we can **build** for you.",
-      "body": "Bring an idea, a sketch or a half-built app. We'll take it from there.",
-      "all": "All services",
-      "notSureTitle": "Not sure yet?",
-      "notSureBody": "Tell us the problem. We'll suggest the right mix.",
-      "notSureCta": "Talk to us"
+      "eyebrow": "Услуги",
+      "title": "Что мы можем **сделать** для вас.",
+      "body": "Приходите с идеей, наброском или недоделанным приложением. Дальше — наша забота.",
+      "all": "Все услуги",
+      "notSureTitle": "Пока не уверены?",
+      "notSureBody": "Расскажите о задаче, а мы подскажем, что подойдёт.",
+      "notSureCta": "Написать нам"
     },
     "why": {
-      "eyebrow": "Why AngryKitten",
-      "title": "Small studio. **Sharp claws.**",
-      "body": "We're small on purpose. You talk to the people who design and build your app, not to an account manager.",
+      "eyebrow": "Почему AngryKitten",
+      "title": "Маленькая студия. **Острые когти.**",
+      "body": "Мы маленькие намеренно. Вы общаетесь напрямую с теми, кто проектирует и делает ваше приложение, а не с менеджером.",
       "items": [
         {
-          "title": "Offline-first",
-          "body": "Most of our apps work without internet. Yours will feel fast on any connection."
+          "title": "Работает офлайн",
+          "body": "Большинство наших приложений работают без интернета. Ваше будет летать при любом соединении."
         },
         {
-          "title": "Private by default",
-          "body": "Several of our apps ship with no ads, no accounts and no tracking. We build only what you need."
+          "title": "Приватность по умолчанию",
+          "body": "Многие наши приложения выходят без рекламы, без аккаунтов и без слежки. Делаем только то, что вам действительно нужно."
         },
         {
-          "title": "Speaks your users' language",
-          "body": "English, Uzbek and Russian built in from day one, not bolted on later."
+          "title": "На языке ваших пользователей",
+          "body": "Английский, узбекский и русский закладываем с первого дня, а не прикручиваем потом."
         },
         {
-          "title": "Polished to the pixel",
-          "body": "Dark mode, haptics, achievements: the small details that make people stay."
+          "title": "Вылизано до пикселя",
+          "body": "Тёмная тема, вибрация, достижения: мелочи, ради которых люди остаются."
         }
       ]
     },
     "process": {
-      "eyebrow": "How we work",
-      "title": "Sniff. Stalk. **Pounce.** Purr.",
-      "body": "Four clear stages, one shared board, and a working build in your hands as early as possible.",
+      "eyebrow": "Как мы работаем",
+      "title": "Принюхаться. Подкрасться. **Прыгнуть.** Мурлыкать.",
+      "body": "Четыре понятных этапа, общая доска и рабочая сборка у вас в руках как можно раньше.",
       "steps": [
         {
-          "title": "Sniff",
-          "timing": "Discovery",
-          "body": "We dig into your idea, your users and your goals, and agree on what to build first."
+          "title": "Принюхаться",
+          "timing": "Исследование",
+          "body": "Разбираемся в идее, пользователях и целях и вместе решаем, что делать в первую очередь."
         },
         {
-          "title": "Stalk",
-          "timing": "Design",
-          "body": "User flows, then high-fidelity screens you can click through before any code."
+          "title": "Подкрасться",
+          "timing": "Дизайн",
+          "body": "Сначала сценарии, затем детальные экраны, которые можно прокликать ещё до кода."
         },
         {
-          "title": "Pounce",
-          "timing": "Build",
-          "body": "Native Android development in short cycles, with builds you can test on your own phone."
+          "title": "Прыгнуть",
+          "timing": "Разработка",
+          "body": "Нативная Android-разработка короткими циклами, со сборками, которые вы тестируете на своём телефоне."
         },
         {
-          "title": "Purr",
-          "timing": "Launch and care",
-          "body": "Store listing, release on Google Play, then updates and support when you need them."
+          "title": "Мурлыкать",
+          "timing": "Запуск и поддержка",
+          "body": "Страница в сторе, релиз в Google Play, а дальше обновления и поддержка, когда понадобятся."
         }
       ]
     },
     "team": {
-      "eyebrow": "The litter",
-      "title": "The people behind the **claws.**",
-      "body": "A small team on purpose. You talk to the people who design and build your app.",
-      "all": "Meet the studio"
+      "eyebrow": "Наш выводок",
+      "title": "Люди, у которых **когти.**",
+      "body": "Небольшая команда — и это осознанно. Вы общаетесь с теми, кто проектирует и делает ваше приложение.",
+      "all": "Знакомьтесь, студия"
     },
     "cta": {
-      "line1": "Have an idea?",
-      "line2": "Let's pounce.",
-      "body": "Tell us what you're building. We reply within {replyTime}, usually with good questions.",
-      "primary": "Start a project"
+      "line1": "Есть идея?",
+      "line2": "Давайте прыгнем.",
+      "body": "Расскажите, что вы задумали. Ответим в течение {replyTime}, обычно с хорошими вопросами.",
+      "primary": "Обсудить проект"
     },
     "testimonial": {
-      "quote": "[Client quote placeholder] Replace with a real quote from a client or a user review. Short and specific beats long and glowing.",
-      "name": "[Name Surname]",
-      "role": "[Role, Company]"
+      "quote": "[Место для отзыва клиента] Замените на настоящий отзыв клиента или пользователя. Коротко и конкретно лучше, чем длинно и восторженно.",
+      "name": "[Имя Фамилия]",
+      "role": "[Должность, компания]"
     },
     "contact": {
-      "eyebrow": "Contact",
-      "title": "Say hi to the **kitten.**",
-      "body": "Pick whatever's easiest. We read everything and reply within {replyTime}.",
-      "mobileCta": "Send a quick message"
+      "eyebrow": "Контакты",
+      "title": "Скажите «мяу» **котёнку.**",
+      "body": "Выбирайте любой удобный способ. Мы читаем всё и отвечаем в течение {replyTime}.",
+      "mobileCta": "Написать сообщение"
     }
   },
   "contactMethods": {
-    "email": "Email",
+    "email": "Почта",
     "telegram": "Telegram",
-    "phone": "Phone",
-    "studio": "Studio"
+    "phone": "Телефон",
+    "studio": "Студия"
   },
   "form": {
-    "quickTitle": "Quick message",
-    "typeLabel": "What are we building?",
+    "quickTitle": "Быстрое сообщение",
+    "typeLabel": "Что будем делать?",
     "types": {
-      "mobile": "Mobile app",
-      "game": "Game",
-      "website": "Website",
-      "design": "UI/UX design",
-      "update": "Update an existing app",
-      "notSure": "Not sure yet"
+      "mobile": "Мобильное приложение",
+      "game": "Игру",
+      "website": "Сайт",
+      "design": "UI/UX-дизайн",
+      "update": "Доработку приложения",
+      "notSure": "Пока не знаю"
     },
-    "budgetLabel": "Rough budget (optional)",
+    "budgetLabel": "Примерный бюджет (необязательно)",
     "budgets": {
       "small": "[< $5k]",
       "medium": "[$5–15k]",
       "large": "[$15–40k]",
       "xl": "[$40k+]",
-      "unknown": "Not sure"
+      "unknown": "Не знаю"
     },
-    "name": "Your name",
-    "namePlaceholder": "Akbar",
-    "contactField": "Email or Telegram",
+    "name": "Ваше имя",
+    "namePlaceholder": "Акбар",
+    "contactField": "Email или Telegram",
     "contactPlaceholder": "you@company.com",
-    "company": "Company",
-    "optional": "(optional)",
-    "message": "Message",
-    "messagePlaceholder": "A few sentences about your idea",
-    "send": "Send to the kitten",
-    "sending": "Sending…",
+    "company": "Компания",
+    "optional": "(необязательно)",
+    "message": "Сообщение",
+    "messagePlaceholder": "Пара предложений о вашей идее",
+    "send": "Отправить котёнку",
+    "sending": "Отправляем…",
     "errors": {
-      "name": "Please tell us your name.",
-      "contact": "Add an email or a Telegram handle so we can reply.",
-      "message": "A sentence or two helps us reply with good questions.",
-      "generic": "Something went wrong. Please try again, or email us directly."
+      "name": "Подскажите, как вас зовут.",
+      "contact": "Укажите email или ник в Telegram, чтобы мы могли ответить.",
+      "message": "Пара предложений поможет нам ответить с хорошими вопросами.",
+      "generic": "Что-то пошло не так. Попробуйте ещё раз или напишите нам на почту."
     },
-    "successTitle": "The kitten got your message.",
-    "successBody": "We'll reply within {replyTime}. Meanwhile, the kitten is pretending not to care.",
-    "sendAnother": "Send another message",
-    "fullTitle": "Start a project",
-    "messageFull": "Tell us about it",
-    "messageFullPlaceholder": "What should the app do, who is it for, and is there a deadline?",
-    "privacyNote": "We only use your details to reply to you. No newsletters, no sharing.",
-    "companyPlaceholder": "Company or project name"
+    "successTitle": "Котёнок получил ваше сообщение.",
+    "successBody": "Ответим в течение {replyTime}. А пока котёнок делает вид, что ему всё равно.",
+    "sendAnother": "Отправить ещё одно",
+    "fullTitle": "Обсудить проект",
+    "messageFull": "Расскажите подробнее",
+    "messageFullPlaceholder": "Что должно делать приложение, для кого оно и есть ли дедлайн?",
+    "privacyNote": "Ваши данные нужны только для ответа. Никаких рассылок и передачи третьим лицам.",
+    "companyPlaceholder": "Компания или название проекта"
   },
   "work": {
     "meta": {
-      "title": "Work · 15 Android apps and games · AngryKitten",
-      "description": "Everything AngryKitten has shipped to Google Play: real-world apps like UyBek, Pulchi and Nerva, plus nine casual and arcade games."
+      "title": "Работы · 15 Android-приложений и игр · AngryKitten",
+      "description": "Всё, что AngryKitten выпустил в Google Play: прикладные приложения вроде UyBek, Pulchi и Nerva и девять казуальных и аркадных игр."
     },
-    "eyebrow": "Work · {total} projects",
-    "title": "Fifteen apps. One very **picky** kitten.",
-    "body": "Everything we've shipped to Google Play, plus three that are still in the oven. Real-world products first, games after.",
-    "pillApps": "Apps · {n}",
-    "pillGames": "Games · {n}",
-    "hoverHint": "View case study →",
-    "filtersLabel": "Filter projects",
+    "eyebrow": "Работы · проектов: {total}",
+    "title": "Пятнадцать приложений. Один очень **придирчивый** котёнок.",
+    "body": "Всё, что мы выпустили в Google Play, плюс три проекта, которые ещё в духовке. Сначала прикладные продукты, потом игры.",
+    "pillApps": "Приложения · {n}",
+    "pillGames": "Игры · {n}",
+    "hoverHint": "Смотреть кейс →",
+    "filtersLabel": "Фильтр проектов",
     "filters": {
-      "all": "All",
-      "apps": "Apps",
-      "games": "Games",
-      "arcade": "Arcade",
-      "puzzle": "Puzzle and word",
-      "party": "Party and board",
-      "soon": "Coming soon"
+      "all": "Все",
+      "apps": "Приложения",
+      "games": "Игры",
+      "arcade": "Аркады",
+      "puzzle": "Головоломки и слова",
+      "party": "Компанейские и настольные",
+      "soon": "Скоро"
     },
-    "resultsLive": "Showing {n} projects",
-    "cta": "Your app could be number **sixteen.**",
-    "ctaButton": "Start a project",
-    "iconsLabel": "All live apps"
+    "resultsLive": "Показано проектов: {n}",
+    "cta": "Ваше приложение может стать **шестнадцатым.**",
+    "ctaButton": "Обсудить проект",
+    "iconsLabel": "Все приложения в сторе"
   },
   "caseStudy": {
-    "breadcrumb": "Work",
-    "getOnPlay": "Get it on Google Play",
-    "nextProject": "Next project",
+    "breadcrumb": "Работы",
+    "getOnPlay": "Скачать в Google Play",
+    "nextProject": "Следующий проект",
     "facts": {
-      "category": "Category",
-      "platform": "Platform",
-      "role": "Our role",
-      "features": "Key features",
-      "status": "Status",
-      "languages": "Languages",
-      "updated": "Updated"
+      "category": "Категория",
+      "platform": "Платформа",
+      "role": "Наша роль",
+      "features": "Ключевые функции",
+      "status": "Статус",
+      "languages": "Языки",
+      "updated": "Обновлено"
     },
-    "defaultRole": "Design · Build · Launch",
-    "goalLabel": "01 · The goal",
-    "builtLabel": "02 · What we built",
-    "outcomeLabel": "03 · The outcome",
-    "aboutLabel": "01 · About the app",
-    "aboutTitle": "What **{app}** does.",
-    "screensLabel": "02 · Screens",
-    "screensTitle": "A closer **look.**",
-    "outcomeTitle": "Live on **Google Play.**",
-    "statsNote": "Placeholders until real numbers are confirmed. Three honest metrics beat ten vague ones.",
+    "defaultRole": "Дизайн · Разработка · Запуск",
+    "goalLabel": "01 · Задача",
+    "builtLabel": "02 · Что мы сделали",
+    "outcomeLabel": "03 · Результат",
+    "aboutLabel": "01 · О приложении",
+    "aboutTitle": "Что умеет **{app}**.",
+    "screensLabel": "02 · Экраны",
+    "screensTitle": "Посмотрим **поближе.**",
+    "outcomeTitle": "Уже в **Google Play.**",
+    "statsNote": "Это заглушки, пока не подтверждены реальные цифры. Три честные метрики лучше десяти размытых.",
     "statLabels": {
-      "installs": "installs on Google Play",
-      "rating": "average rating",
-      "languages": "languages",
-      "timeline": "from kickoff to launch"
+      "installs": "установок в Google Play",
+      "rating": "средний рейтинг",
+      "languages": "языка",
+      "timeline": "от старта до запуска"
     },
-    "carouselLabel": "{app} screenshots",
-    "prev": "Previous screenshot",
-    "next": "Next screenshot",
-    "goTo": "Show screenshot {n}",
-    "fromPlay": "From the Google Play listing",
-    "readMore": "Read the full description",
-    "readLess": "Show less",
+    "carouselLabel": "Скриншоты {app}",
+    "prev": "Предыдущий скриншот",
+    "next": "Следующий скриншот",
+    "goTo": "Показать скриншот {n}",
+    "fromPlay": "Из описания в Google Play",
+    "readMore": "Читать описание целиком",
+    "readLess": "Свернуть",
     "metaTitle": "{app} · {meta} · AngryKitten",
-    "privacy": "Privacy policy"
+    "privacy": "Политика конфиденциальности"
   },
   "servicesPage": {
     "meta": {
-      "title": "Services · Android apps, games, UI/UX and websites · AngryKitten",
-      "description": "From first sketch to Google Play: native Android apps, casual games, UI/UX design, store launch and care, plus fast websites and web apps."
+      "title": "Услуги · Android-приложения, игры, UI/UX и сайты · AngryKitten",
+      "description": "От первого наброска до Google Play: нативные Android-приложения, казуальные игры, UI/UX-дизайн, запуск в сторе и поддержка, а также быстрые сайты и веб-приложения."
     },
-    "eyebrow": "Services",
-    "title": "From first sketch to **Google Play.**",
-    "body": "We cover the whole journey, or just the part you're stuck on. Same small team from kickoff to launch.",
-    "cta": "Start a project",
-    "stickersLabel": "Jump to a service",
+    "eyebrow": "Услуги",
+    "title": "От первого наброска до **Google Play.**",
+    "body": "Берём на себя весь путь или только тот участок, где вы застряли. Одна и та же небольшая команда от старта до запуска.",
+    "cta": "Обсудить проект",
+    "stickersLabel": "Перейти к услуге",
     "builder": {
-      "eyebrow": "Build your app",
-      "title": "What do you need?",
+      "eyebrow": "Соберите своё приложение",
+      "title": "Что вам нужно?",
       "options": {
-        "mobile": "Mobile app",
-        "game": "Game",
-        "design": "UI/UX design",
-        "website": "Website",
-        "launch": "Launch"
+        "mobile": "Приложение",
+        "game": "Игра",
+        "design": "UI/UX-дизайн",
+        "website": "Сайт",
+        "launch": "Запуск"
       },
       "toggles": {
-        "offline": "Offline-first",
+        "offline": "Работа офлайн",
         "languages": "EN · UZ · RU",
-        "dark": "Dark mode"
+        "dark": "Тёмная тема"
       },
-      "button": "Get a proposal",
-      "summary": "Your app: {items}",
-      "nothing": "Pick at least one thing to build.",
-      "messageIntro": "I'd like a proposal for:"
+      "button": "Получить предложение",
+      "summary": "Ваше приложение: {items}",
+      "nothing": "Выберите хотя бы что-то одно.",
+      "messageIntro": "Хочу получить предложение на:"
     },
-    "whatYouGet": "What you get",
-    "goodFor": "Good for",
-    "seeItIn": "See it in",
-    "noExamples": "Examples coming soon",
+    "whatYouGet": "Что вы получите",
+    "goodFor": "Кому подходит",
+    "seeItIn": "Примеры",
+    "noExamples": "Примеры скоро появятся",
     "ways": {
-      "eyebrow": "Ways to work together",
-      "title": "Pick the shape that **fits.**",
+      "eyebrow": "Форматы работы",
+      "title": "Выберите формат, который **подходит.**",
       "items": [
         {
-          "tag": "1–2 weeks",
-          "title": "Design sprint",
-          "body": "Turn a fuzzy idea into clickable screens and a clear plan you can show investors or your team.",
-          "price": "[Timeline and pricing: add yours]"
+          "tag": "1–2 недели",
+          "title": "Дизайн-спринт",
+          "body": "Превращаем размытую идею в кликабельные экраны и понятный план, который не стыдно показать инвесторам или команде.",
+          "price": "[Сроки и цены: добавьте свои]"
         },
         {
-          "tag": "Most popular",
-          "title": "Fixed-scope project",
-          "body": "One agreed scope, one timeline, one price. Ideal for an MVP or a v1 on Google Play.",
-          "price": "[Timeline and pricing: add yours]"
+          "tag": "Чаще всего",
+          "title": "Проект с фиксированным объёмом",
+          "body": "Один согласованный объём, один срок, одна цена. Идеально для MVP или первой версии в Google Play.",
+          "price": "[Сроки и цены: добавьте свои]"
         },
         {
-          "tag": "Monthly",
-          "title": "Ongoing partnership",
-          "body": "A small dedicated team for new features, updates and store releases, month after month.",
-          "price": "[Timeline and pricing: add yours]"
+          "tag": "Помесячно",
+          "title": "Постоянное партнёрство",
+          "body": "Небольшая выделенная команда для новых функций, обновлений и релизов в сторе, месяц за месяцем.",
+          "price": "[Сроки и цены: добавьте свои]"
         }
       ]
     },
     "faq": {
       "eyebrow": "FAQ",
-      "title": "Questions clients **usually ask.**"
+      "title": "О чём клиенты **обычно спрашивают.**"
     }
   },
   "studio": {
     "meta": {
-      "title": "Studio · Small studio, short fuse for bad apps · AngryKitten",
-      "description": "AngryKitten is an independent Android studio in Tashkent. We make our own apps and games and build apps for clients with the same care."
+      "title": "Студия · Маленькая студия, нулевая терпимость к плохим приложениям · AngryKitten",
+      "description": "AngryKitten — независимая Android-студия в Ташкенте. Мы делаем собственные приложения и игры и с той же заботой разрабатываем приложения для клиентов."
     },
-    "eyebrow": "Studio",
-    "title": "Small studio. Short fuse for **bad apps.**",
-    "body": "AngryKitten is an independent Android studio in Tashkent. We make our own apps and games, and we build apps for clients with the same care.",
+    "eyebrow": "Студия",
+    "title": "Маленькая студия. Нулевая терпимость к **плохим приложениям.**",
+    "body": "AngryKitten — независимая Android-студия в Ташкенте. Мы делаем собственные приложения и игры и с той же заботой разрабатываем приложения для клиентов.",
     "facts": {
-      "live": "{n} apps live",
-      "games": "{n} games",
-      "city": "Tashkent, UZ",
+      "live": "Приложений в сторе: {n}",
+      "games": "Игр: {n}",
+      "city": "Ташкент, UZ",
       "languages": "EN · UZ · RU",
-      "bubble": "We don't ship boring."
+      "bubble": "Скучное не выпускаем."
     },
     "stats": {
-      "live": "apps and games live on Google Play",
-      "games": "games built in-house",
-      "languages": "languages: EN · UZ · RU",
-      "coming": "new apps in the oven"
+      "live": "приложений и игр в Google Play",
+      "games": "игр сделано своими силами",
+      "languages": "языка: EN · UZ · RU",
+      "coming": "новых приложений в духовке"
     },
     "story": {
-      "eyebrow": "Our story",
-      "title": "Why the kitten is **angry.**",
+      "eyebrow": "Наша история",
+      "title": "Почему котёнок **сердится.**",
       "paragraphs": [
-        "[Founder story placeholder] How AngryKitten started, who started it and why. Two or three short paragraphs, written in your own voice.",
-        "A suggestion for the angle: we got tired of apps that are slow, nosy and full of ads. So we started making the ones we wanted to use ourselves: offline-first, private by default and polished down to the haptics. That's the kitten's temper, and it's what we bring to every client project."
+        "[Место для истории основателя] Как появился AngryKitten, кто его основал и зачем. Два-три коротких абзаца, написанных вашим голосом.",
+        "Подсказка, с какой стороны зайти: нам надоели медленные, любопытные и забитые рекламой приложения. Поэтому мы начали делать такие, какими хотели бы пользоваться сами: работающие офлайн, приватные по умолчанию и вылизанные вплоть до вибрации. Вот откуда характер котёнка — и именно его мы привносим в каждый клиентский проект."
       ]
     },
     "team": {
-      "eyebrow": "The litter",
-      "title": "The people behind the **claws.**"
+      "eyebrow": "Наш выводок",
+      "title": "Люди, у которых **когти.**"
     },
     "values": {
-      "eyebrow": "How we think",
-      "title": "Three things we **won't compromise** on.",
+      "eyebrow": "Наши принципы",
+      "title": "Три вещи, в которых мы **не идём на компромисс.**",
       "items": [
         {
-          "title": "Respect the user",
-          "body": "No dark patterns, no needless permissions, no data we don't need."
+          "title": "Уважать пользователя",
+          "body": "Никаких тёмных паттернов, лишних разрешений и ненужных данных."
         },
         {
-          "title": "Fast is a feature",
-          "body": "Offline-first and lightweight, so apps feel instant on any phone."
+          "title": "Скорость — это функция",
+          "body": "Работа офлайн и лёгкий вес, чтобы приложение откликалось мгновенно на любом телефоне."
         },
         {
-          "title": "Details are the product",
-          "body": "Haptics, empty states, dark mode. The small things are why people stay."
+          "title": "Детали и есть продукт",
+          "body": "Вибрация, пустые экраны, тёмная тема. Именно из-за мелочей люди остаются."
         }
       ]
     },
     "careers": {
-      "title": "Want to join the litter?",
-      "body": "We're always happy to hear from Android developers and designers in Tashkent.",
-      "cta": "Say hello"
+      "title": "Хотите в наш выводок?",
+      "body": "Мы всегда рады Android-разработчикам и дизайнерам из Ташкента.",
+      "cta": "Написать нам"
     }
   },
   "contactPage": {
     "meta": {
-      "title": "Contact · Start a project with AngryKitten",
-      "description": "Tell us about your app, game or website. A few sentences is plenty; we reply within [two working days]."
+      "title": "Контакты · Начните проект с AngryKitten",
+      "description": "Расскажите о своём приложении, игре или сайте. Пары предложений достаточно — ответим в течение [двух рабочих дней]."
     },
-    "eyebrow": "Contact",
-    "title": "Let's build something **people keep.**",
-    "body": "Tell us a little about your idea. No long brief needed, a few sentences is plenty.",
-    "cta": "Fill in the form",
+    "eyebrow": "Контакты",
+    "title": "Давайте сделаем то, с чем **не захочется расставаться.**",
+    "body": "Расскажите немного о своей идее. Длинное ТЗ не нужно, пары предложений вполне хватит.",
+    "cta": "Заполнить форму",
     "details": {
-      "email": "Email",
+      "email": "Почта",
       "telegram": "Telegram",
-      "phone": "Phone",
-      "studio": "Studio",
-      "languages": "Languages",
+      "phone": "Телефон",
+      "studio": "Студия",
+      "languages": "Языки",
       "languagesValue": "English · Oʻzbekcha · Русский",
-      "reply": "Reply time"
+      "reply": "Время ответа",
+      "replyValue": "В течение {replyTime}"
     },
     "chat": {
-      "label": "Chat with the kitten",
-      "name": "The kitten",
-      "status": "Online · replies within {replyTime}",
-      "hello": "Hi! What are we building?",
+      "label": "Чат с котёнком",
+      "name": "Котёнок",
+      "status": "В сети · отвечает в течение {replyTime}",
+      "hello": "Привет! Что будем делать?",
       "chips": [
         {
-          "label": "Mobile app",
+          "label": "Приложение",
           "type": "mobile"
         },
         {
-          "label": "Game",
+          "label": "Игру",
           "type": "game"
         },
         {
-          "label": "Redesign",
+          "label": "Редизайн",
           "type": "update"
         },
         {
-          "label": "Not sure yet",
+          "label": "Пока не знаю",
           "type": "notSure"
         }
       ],
-      "reply": "Purr-fect. When would you like to launch?",
-      "replyTyped": "Got it. Let's put that in the form.",
-      "placeholder": "Type your idea…",
-      "send": "Send to the form",
-      "typing": "The kitten is typing"
+      "reply": "Мур-р-рекрасно. Когда хотите запуститься?",
+      "replyTyped": "Понял. Давайте перенесём это в форму.",
+      "placeholder": "Опишите идею…",
+      "send": "Перенести в форму",
+      "typing": "Котёнок печатает"
     },
-    "formEyebrow": "Start a project",
-    "formTitle": "Tell us about it. Takes **two minutes.**",
+    "formEyebrow": "Обсудить проект",
+    "formTitle": "Расскажите о проекте. Это займёт **пару минут.**",
     "next": {
-      "title": "What happens next",
+      "title": "Что будет дальше",
       "steps": [
-        "We read your note and reply with a few questions.",
-        "A short call to understand the goal, users and timing.",
-        "A clear proposal: scope, timeline and price."
+        "Читаем ваше сообщение и отвечаем парой вопросов.",
+        "Короткий созвон, чтобы понять цель, аудиторию и сроки.",
+        "Понятное предложение: объём, сроки и цена."
       ]
     }
   },
   "press": {
     "meta": {
-      "title": "Press kit · AngryKitten",
-      "description": "Logos, facts, colours, app icons and screenshots. Free to use in articles, reviews and videos about AngryKitten."
+      "title": "Для прессы · AngryKitten",
+      "description": "Логотипы, факты, цвета, иконки и скриншоты приложений. Можно свободно использовать в статьях, обзорах и видео об AngryKitten."
     },
-    "eyebrow": "Press kit",
-    "title": "Everything you need to write about **the kitten.**",
-    "body": "Logos, facts, colours, app icons and screenshots. Free to use in articles, reviews and videos about AngryKitten.",
-    "downloadAll": "Download everything · ZIP",
-    "pressContact": "Press contact",
-    "updated": "Updated {date} · {size} · PNG, SVG, JPG",
+    "eyebrow": "Для прессы",
+    "title": "Всё, чтобы написать **о котёнке.**",
+    "body": "Логотипы, факты, цвета, иконки и скриншоты приложений. Можно свободно использовать в статьях, обзорах и видео об AngryKitten.",
+    "downloadAll": "Скачать всё · ZIP",
+    "pressContact": "Контакт для прессы",
+    "updated": "Обновлено {date} · {size} · PNG, SVG, JPG",
     "art": {
-      "colours": "Brand colours",
-      "apps": "{icons} app icons · {shots} screenshots",
-      "free": "Free to use ✓"
+      "colours": "Фирменные цвета",
+      "apps": "Иконки: {icons} · Скриншоты: {shots}",
+      "free": "Бесплатно ✓"
     },
-    "factsEyebrow": "Fact sheet",
-    "factsTitle": "AngryKitten **at a glance.**",
-    "shortLabel": "Short version",
-    "longLabel": "Long version",
-    "shortVersion": "Independent app studio from Tashkent making playful Android games and genuinely useful apps.",
-    "longVersion": "AngryKitten is an independent app studio based in Tashkent, Uzbekistan. The team designs and builds Android games and everyday apps, from word and logic games like UzWordle, Catris and SudoKitten to tools like Pulchi, Nerva and UyBek. Alongside its own catalogue of 12 apps on Google Play, with 3 more on the way, AngryKitten builds mobile apps, games and websites for other companies.",
-    "copyShort": "Copy short",
-    "copyLong": "Copy long",
-    "copied": "Copied to clipboard",
-    "copyFailed": "Couldn't copy. Select the text instead.",
+    "factsEyebrow": "Факты",
+    "factsTitle": "AngryKitten **в двух словах.**",
+    "shortLabel": "Коротко",
+    "longLabel": "Подробно",
+    "shortVersion": "Независимая студия из Ташкента, которая делает задорные Android-игры и по-настоящему полезные приложения.",
+    "longVersion": "AngryKitten — независимая студия приложений из Ташкента, Узбекистан. Команда проектирует и разрабатывает Android-игры и приложения на каждый день: от словесных и логических игр вроде UzWordle, Catris и SudoKitten до инструментов вроде Pulchi, Nerva и UyBek. Помимо собственного каталога из 12 приложений в Google Play (и ещё 3 на подходе), AngryKitten разрабатывает мобильные приложения, игры и сайты для других компаний.",
+    "copyShort": "Копировать коротко",
+    "copyLong": "Копировать подробно",
+    "copied": "Скопировано",
+    "copyFailed": "Не удалось скопировать. Выделите текст вручную.",
     "facts": [
       {
-        "label": "Studio",
+        "label": "Студия",
         "value": "AngryKitten"
       },
       {
-        "label": "Based in",
-        "value": "Tashkent, Uzbekistan"
+        "label": "Где",
+        "value": "Ташкент, Узбекистан"
       },
       {
-        "label": "Founded",
-        "value": "[Year]"
+        "label": "Основана",
+        "value": "[Год]"
       },
       {
-        "label": "Team",
-        "value": "[Number] people"
+        "label": "Команда",
+        "value": "[Число] человек"
       },
       {
-        "label": "Apps on Google Play",
-        "value": "{live} live · {coming} coming"
+        "label": "Приложения в Google Play",
+        "value": "{live} в сторе · {coming} скоро"
       },
       {
-        "label": "Downloads",
-        "value": "[Total installs]"
+        "label": "Загрузки",
+        "value": "[Всего установок]"
       },
       {
-        "label": "What we make",
-        "value": "Games, apps, websites"
+        "label": "Что делаем",
+        "value": "Игры, приложения, сайты"
       },
       {
-        "label": "Languages",
+        "label": "Языки",
         "value": "English · Oʻzbekcha · Русский"
       },
       {
-        "label": "Website",
+        "label": "Сайт",
         "value": "angrykitten.uz"
       },
       {
-        "label": "Press contact",
+        "label": "Контакт для прессы",
         "value": "{email}"
       }
     ],
-    "logosEyebrow": "Logos",
-    "logosTitle": "The kitten, in **every flavour.**",
-    "logosBody": "Use the full logo where there's room, and the mark on its own for small spaces and avatars.",
-    "logosZip": "All logos · ZIP",
+    "logosEyebrow": "Логотипы",
+    "logosTitle": "Котёнок **на любой вкус.**",
+    "logosBody": "Используйте полный логотип, где хватает места, а отдельный знак — для маленьких площадок и аватарок.",
+    "logosZip": "Все логотипы · ZIP",
     "logoCards": [
       {
-        "name": "Full logo",
+        "name": "Полный логотип",
         "png": "angrykitten-logo.png",
         "svg": "angrykitten-logo.svg",
         "tone": "paper"
       },
       {
-        "name": "Full logo, light",
+        "name": "Полный логотип, светлый",
         "png": "angrykitten-logo-light.png",
         "svg": "angrykitten-logo-light.svg",
         "tone": "ink"
       },
       {
-        "name": "Mark on light",
+        "name": "Знак на светлом",
         "png": "mark-on-light.png",
         "tone": "paper"
       },
       {
-        "name": "Mark on orange",
+        "name": "Знак на оранжевом",
         "png": "mark-on-orange.png",
         "tone": "tabby"
       },
       {
-        "name": "Mark on dark",
+        "name": "Знак на тёмном",
         "png": "mark-on-dark.png",
         "tone": "night"
       }
     ],
-    "do": "Do",
-    "doBody": "Give the kitten room to breathe. Keep at least half his head width of clear space around him.",
-    "dont": "Don't",
-    "dontBody": "Stretch, recolour, rotate or add effects. And never make him smile. He's angry for a reason.",
-    "coloursEyebrow": "Colours and type",
-    "coloursTitle": "**Tabby orange** does the talking.",
-    "copyHex": "Copy {hex}",
+    "do": "Можно",
+    "doBody": "Дайте котёнку свободно дышать. Оставляйте вокруг него пустое поле не меньше половины ширины его головы.",
+    "dont": "Нельзя",
+    "dontBody": "Растягивать, перекрашивать, поворачивать и добавлять эффекты. И никогда не заставляйте его улыбаться. Он сердится не просто так.",
+    "coloursEyebrow": "Цвета и шрифты",
+    "coloursTitle": "Главный голос — **рыжий Tabby.**",
+    "copyHex": "Копировать {hex}",
     "swatches": [
       {
         "name": "Tabby",
         "hex": "#FF5A1F",
-        "use": "Primary accent"
+        "use": "Основной акцент"
       },
       {
         "name": "Ink",
         "hex": "#17110C",
-        "use": "Text and outlines"
+        "use": "Текст и контуры"
       },
       {
         "name": "Warm Ivory",
         "hex": "#FAF7F2",
-        "use": "Backgrounds"
+        "use": "Фоны"
       },
       {
         "name": "Plum Night",
         "hex": "#2B1640",
-        "use": "Dark sections"
+        "use": "Тёмные секции"
       },
       {
         "name": "Gold",
         "hex": "#FFD43B",
-        "use": "Highlights"
+        "use": "Акценты"
       }
     ],
     "type": [
       {
-        "role": "Headlines and display",
+        "role": "Заголовки и акцентный текст",
         "name": "Bricolage Grotesque",
-        "note": "Free on Google Fonts",
+        "note": "Бесплатно в Google Fonts",
         "font": "display"
       },
       {
-        "role": "Body text and UI",
+        "role": "Основной текст и интерфейс",
         "name": "DM Sans",
-        "note": "Free on Google Fonts",
+        "note": "Бесплатно в Google Fonts",
         "font": "sans"
       }
     ],
-    "appsEyebrow": "App assets",
-    "appsTitle": "Our apps, **ready to drop in.**",
-    "appsBody": "Icons, store banners and screenshots for every app. Apps 13 to 15 are added at launch.",
-    "appsZip": "All app assets · ZIP",
-    "appContents": "Icon · Banner · 3 shots",
-    "appDownload": "Download",
-    "appDownloadLabel": "Download {app} assets ({size})",
-    "contactTitle": "Writing about us? Talk to the kitten.",
-    "contactBody": "Interviews, review codes, early builds or anything missing here. We reply to press within {pressReply}."
+    "appsEyebrow": "Материалы приложений",
+    "appsTitle": "Наши приложения, **бери и вставляй.**",
+    "appsBody": "Иконки, баннеры для стора и скриншоты для каждого приложения. Приложения 13–15 добавим к запуску.",
+    "appsZip": "Все материалы · ZIP",
+    "appContents": "Иконка · Баннер · 3 скриншота",
+    "appDownload": "Скачать",
+    "appDownloadLabel": "Скачать материалы {app} ({size})",
+    "contactTitle": "Пишете о нас? Поговорите с котёнком.",
+    "contactBody": "Интервью, промокоды для обзоров, ранние сборки или что-то, чего здесь нет. Прессе отвечаем в течение {pressReply}."
   },
   "privacy": {
     "meta": {
-      "title": "Privacy policies · AngryKitten",
-      "description": "Privacy policies for every AngryKitten app on Google Play."
+      "title": "Политики конфиденциальности · AngryKitten",
+      "description": "Политики конфиденциальности всех приложений AngryKitten в Google Play."
     },
-    "eyebrow": "Legal",
-    "title": "Privacy **policies.**",
-    "body": "One policy per app. Questions about your data? Email {email}.",
-    "pageTitle": "{app} privacy policy · AngryKitten",
-    "pageDescription": "How {app} handles your data.",
-    "effective": "Effective {date}",
-    "source": "Originally published at {source}",
-    "back": "All privacy policies",
-    "appPage": "About {app}",
-    "languageNote": "This policy is available in English."
+    "eyebrow": "Правовая информация",
+    "title": "Политики **конфиденциальности.**",
+    "body": "Для каждого приложения своя политика. Вопросы о ваших данных? Пишите на {email}.",
+    "pageTitle": "Политика конфиденциальности {app} · AngryKitten",
+    "pageDescription": "Как {app} обращается с вашими данными.",
+    "effective": "Действует с {date}",
+    "source": "Впервые опубликовано на {source}",
+    "back": "Все политики конфиденциальности",
+    "appPage": "О приложении {app}",
+    "languageNote": "Эта политика доступна на английском языке."
   }
 }

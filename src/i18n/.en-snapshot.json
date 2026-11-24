@@ -14,7 +14,9 @@
     "language": "Language",
     "home": "AngryKitten home",
     "footerNav": "Footer",
-    "opensInNewTab": "opens in a new tab"
+    "opensInNewTab": "opens in a new tab",
+    "breadcrumb": "Breadcrumb",
+    "linkSoon": "Link coming soon"
   },
   "nav": {
     "work": "Work",
@@ -458,7 +460,8 @@
       "studio": "Studio",
       "languages": "Languages",
       "languagesValue": "English · Oʻzbekcha · Русский",
-      "reply": "Reply time"
+      "reply": "Reply time",
+      "replyValue": "Within {replyTime}"
     },
     "chat": {
       "label": "Chat with the kitten",

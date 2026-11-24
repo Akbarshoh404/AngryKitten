@@ -16,7 +16,14 @@ text:
     oneLiner: 'Wordle in Uzbek, with Classic and Time Attack modes.'
     meta: 'Word · Android'
     description: 'Uzbek Wordle game with Classic and Time Attack modes — guess the 5-letter word'
-  # uz / ru: TODO translate (falls back to English until added)
+  uz:
+    oneLiner: 'Oʻzbekcha Wordle: «Klassik» va «Vaqtga qarshi» rejimlari bilan.'
+    meta: 'Soʻz oʻyini · Android'
+    description: '«Klassik» va «Vaqtga qarshi» rejimli oʻzbekcha Wordle — 5 harfli soʻzni toping.'
+  ru:
+    oneLiner: 'Wordle на узбекском, с режимами «Классика» и «На время».'
+    meta: 'Слова · Android'
+    description: 'Узбекский Wordle с режимами «Классика» и «На время» — угадайте слово из 5 букв.'
 ---
 
 <!-- Google Play "About this app" text, copied from the listing. Edit freely. -->

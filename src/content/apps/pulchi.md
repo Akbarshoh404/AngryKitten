@@ -15,7 +15,14 @@ text:
     oneLiner: 'A dark-first budget tracker that keeps all your data on your phone.'
     meta: 'Finance · Android'
     description: 'Private offline budget tracker for expenses, income, wallets & goals.'
-  # uz / ru: TODO translate (falls back to English until added)
+  uz:
+    oneLiner: 'Barcha maʼlumotlarni telefoningizda saqlaydigan qorongʻi uslubdagi byudjet hisobchisi.'
+    meta: 'Moliya · Android'
+    description: 'Xarajatlar, daromadlar, hamyonlar va maqsadlar uchun maxfiy oflayn byudjet hisobchisi.'
+  ru:
+    oneLiner: 'Учёт бюджета в тёмной теме, который хранит все данные на вашем телефоне.'
+    meta: 'Финансы · Android'
+    description: 'Приватный офлайн-учёт расходов, доходов, кошельков и целей.'
 ---
 
 <!-- Google Play "About this app" text, copied from the listing. Edit freely. -->

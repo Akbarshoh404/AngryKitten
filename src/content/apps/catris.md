@@ -17,7 +17,14 @@ text:
     oneLiner: 'A neon retro block puzzle with synthesized sound and haptics.'
     meta: 'Arcade · Android'
     description: 'Neon retro block puzzle game with smooth controls and arcade vibes.'
-  # uz / ru: TODO translate (falls back to English until added)
+  uz:
+    oneLiner: 'Sintez ovozlar va tebranishli neon-retro blokli boshqotirma.'
+    meta: 'Arkada · Android'
+    description: 'Silliq boshqaruv va arkada ruhidagi neon-retro blokli boshqotirma.'
+  ru:
+    oneLiner: 'Неоновая ретроголоволомка с блоками, синтезированным звуком и вибрацией.'
+    meta: 'Аркада · Android'
+    description: 'Неоновая ретроголоволомка с блоками, плавным управлением и аркадным духом.'
 ---
 
 <!-- Google Play "About this app" text, copied from the listing. Edit freely. -->

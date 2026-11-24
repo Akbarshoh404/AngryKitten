@@ -15,7 +15,14 @@ text:
     oneLiner: 'Seven quick tests for reaction, memory and focus, with streaks and ranks.'
     meta: 'Brain training · Android'
     description: 'Train reaction, memory, focus and typing. Track progress and climb ranks.'
-  # uz / ru: TODO translate (falls back to English until added)
+  uz:
+    oneLiner: 'Reaksiya, xotira va diqqat uchun yettita tezkor test — seriyalar va unvonlar bilan.'
+    meta: 'Miya mashqi · Android'
+    description: 'Reaksiya, xotira, diqqat va tez yozishni mashq qiling. Natijani kuzating va reytingda koʻtariling.'
+  ru:
+    oneLiner: 'Семь быстрых тестов на реакцию, память и внимание — с сериями и рангами.'
+    meta: 'Тренировка мозга · Android'
+    description: 'Тренируйте реакцию, память, внимание и скорость печати. Следите за прогрессом и растите в рангах.'
 ---
 
 <!-- Google Play "About this app" text, copied from the listing. Edit freely. -->

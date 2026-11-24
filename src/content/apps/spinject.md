@@ -17,7 +17,14 @@ text:
     oneLiner: 'Orbit a hostile planet. One tap, endless waves, four power-ups.'
     meta: 'Arcade · Android'
     description: 'Orbit a living planet. Dodge its wrath. Collect what it guards'
-  # uz / ru: TODO translate (falls back to English until added)
+  uz:
+    oneLiner: 'Dushman sayyora atrofida aylaning. Bitta bosish, cheksiz toʻlqinlar, toʻrtta bonus.'
+    meta: 'Arkada · Android'
+    description: 'Tirik sayyora atrofida aylaning. Uning gʻazabidan qoching. U qoʻriqlayotgan narsani yigʻing.'
+  ru:
+    oneLiner: 'Кружите вокруг враждебной планеты. Одно касание, бесконечные волны, четыре бонуса.'
+    meta: 'Аркада · Android'
+    description: 'Кружите вокруг живой планеты. Уворачивайтесь от её гнева. Собирайте то, что она охраняет.'
 ---
 
 <!-- Google Play "About this app" text, copied from the listing. Edit freely. -->

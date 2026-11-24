@@ -3,3 +3,9 @@ text:
   en:
     question: Can you work with our existing designs or code?
     answer: '[Answer needed: working with existing designs or code.]'
+  uz:
+    question: 'Mavjud dizayn yoki kodimiz bilan ishlay olasizmi?'
+    answer: '[Javob kerak: mavjud dizayn yoki kod bilan ishlash.]'
+  ru:
+    question: 'Можете ли вы работать с нашим готовым дизайном или кодом?'
+    answer: '[Нужен ответ: работа с готовым дизайном или кодом.]'

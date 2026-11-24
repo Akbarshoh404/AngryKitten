@@ -19,3 +19,35 @@ text:
       - Web apps and admin panels
       - Responsive, fast, SEO-ready
     goodFor: Businesses that need a fast, modern web presence
+  uz:
+    title: 'Veb-saytlar va veb-ilovalar'
+    shortTitle: 'Veb-saytlar'
+    pitch: 'Tez yuklanadigan, qidiruvda yuqori turadigan va har qanday ekranda ishlaydigan chiroyli saytlar va veb-ilovalar.'
+    cardPitch: 'Har qanday ekranda ishlaydigan tezkor studiya saytlari, lendinglar va veb-panellar.'
+    deliverables:
+      - 'Studiya va kompaniya saytlari'
+      - 'Ilovalar va relizlar uchun lendinglar'
+      - 'Veb-ilovalar va admin panellar'
+      - 'EN · UZ · RU, moslashuvchan, SEOga tayyor'
+      - 'Hosting, domenlar va yordam'
+    cardDeliverables:
+      - 'Lendinglar va kompaniya saytlari'
+      - 'Veb-ilovalar va admin panellar'
+      - 'Moslashuvchan, tez, SEOga tayyor'
+    goodFor: 'Tez va zamonaviy veb-saytga muhtoj bizneslar'
+  ru:
+    title: 'Сайты и веб-приложения'
+    shortTitle: 'Сайты'
+    pitch: 'Быстрые и красивые сайты и веб-приложения, которые мгновенно грузятся, хорошо ранжируются и работают на любом экране.'
+    cardPitch: 'Быстрые сайты студий, лендинги и веб-дашборды, которые работают на любом экране.'
+    deliverables:
+      - 'Сайты студий и компаний'
+      - 'Лендинги для приложений и запусков'
+      - 'Веб-приложения и админ-панели'
+      - 'EN · UZ · RU, адаптивность, готовность к SEO'
+      - 'Хостинг, домены и поддержка'
+    cardDeliverables:
+      - 'Лендинги и сайты компаний'
+      - 'Веб-приложения и админ-панели'
+      - 'Адаптивно, быстро, готово к SEO'
+    goodFor: 'Бизнесу, которому нужен быстрый современный сайт'

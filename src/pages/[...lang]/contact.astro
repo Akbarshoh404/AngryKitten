@@ -6,6 +6,7 @@ import Button from '../../components/ui/Button.astro';
 import ChatHero from '../../components/islands/ChatHero';
 import ContactFormIsland from '../../components/sections/ContactFormIsland.astro';
 import site from '../../content/site.json';
+import { siteText } from '../../lib/site';
 import { highlight } from '../../lib/text';
 import { fill, getDict, localeStaticPaths, type Locale } from '../../i18n/utils';
 import mark from '../../assets/brand/mark.png';
@@ -30,16 +31,16 @@ const details: { label: string; value: string; href?: string }[] = [
     value: site.phone,
     href: placeholder(site.phone) ? undefined : `tel:${site.phone.replace(/[^\d+]/g, '')}`,
   },
-  { label: d.details.studio, value: site.address },
+  { label: d.details.studio, value: siteText(locale).address },
   { label: d.details.languages, value: d.details.languagesValue },
-  { label: d.details.reply, value: site.replyTime },
+  { label: d.details.reply, value: fill(d.details.replyValue, { replyTime: siteText(locale).replyTime }) },
 ];
 ---
 
 <PageLayout
   locale={locale}
   title={d.meta.title}
-  description={fill(d.meta.description, { replyTime: site.replyTime })}
+  description={fill(d.meta.description, { replyTime: siteText(locale).replyTime })}
   ogImage="/og/contact.png"
   theme="tangerine"
 >
@@ -72,7 +73,7 @@ const details: { label: string; value: string; href?: string }[] = [
       </div>
       <ChatHero
         client:visible
-        labels={{ ...d.chat, status: fill(d.chat.status, { replyTime: site.replyTime }) }}
+        labels={{ ...d.chat, status: fill(d.chat.status, { replyTime: siteText(locale).replyTime }) }}
         avatar={avatar}
         sticker={stickerSrc}
         formId="start"

@@ -16,7 +16,14 @@ text:
     oneLiner: 'Find the spy. 3–10 players over local Wi-Fi, no internet needed.'
     meta: 'Party game · Android'
     description: 'Spy party game for friends. Local Wi-Fi or pass-the-phone. No internet needed.'
-  # uz / ru: TODO translate (falls back to English until added)
+  uz:
+    oneLiner: 'Josusni toping. Mahalliy Wi-Fi orqali 3–10 oʻyinchi, internet shart emas.'
+    meta: 'Davra oʻyini · Android'
+    description: 'Doʻstlar uchun josus oʻyini. Mahalliy Wi-Fi yoki telefonni qoʻldan-qoʻlga uzatib. Internet shart emas.'
+  ru:
+    oneLiner: 'Найдите шпиона. От 3 до 10 игроков по локальному Wi-Fi, без интернета.'
+    meta: 'Игра для компании · Android'
+    description: 'Шпионская игра для друзей. Локальный Wi-Fi или один телефон по кругу. Интернет не нужен.'
 ---
 
 <!-- Google Play "About this app" text, copied from the listing. Edit freely. -->

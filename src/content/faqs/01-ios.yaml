@@ -3,3 +3,9 @@ text:
   en:
     question: Do you build for iOS too?
     answer: '[Answer: confirm your iOS offer.] Today all our shipped apps are native Android.'
+  uz:
+    question: 'iOS uchun ham ilova qilasizmi?'
+    answer: '[Javob: iOS boʻyicha taklifingizni tasdiqlang.] Hozircha chiqarilgan barcha ilovalarimiz native Android.'
+  ru:
+    question: 'Вы делаете приложения и для iOS?'
+    answer: '[Ответ: подтвердите предложение по iOS.] Пока все наши выпущенные приложения — нативные Android.'
