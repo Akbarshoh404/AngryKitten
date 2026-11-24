@@ -1,11 +1,15 @@
 ---
-/** Ticker — Figma 20:753. Ink strip with a scrolling marquee; pauses on hover; static with reduced motion. */
+/**
+ * Ticker — Figma 20:753. Ink strip with a scrolling marquee. Pauses on hover, on keyboard focus and
+ * with its pause button (WCAG 2.2.2); static with reduced motion.
+ */
 import Star from '../../../assets/illustrations/star.svg';
-import { getDict, type Locale } from '../../../i18n/utils';
+import { getDict, useTranslations, type Locale } from '../../../i18n/utils';
 
 type Props = { locale: Locale };
 const { locale } = Astro.props;
 const { items, label } = getDict(locale).home.ticker;
+const t = useTranslations(locale);
 ---
 
 <section class="ak-ticker" aria-label={label}>
@@ -21,12 +25,44 @@ const { items, label } = getDict(locale).home.ticker;
       </ul>
     ))}
   </div>
+  <button
+    type="button"
+    class="ak-ticker__toggle"
+    aria-pressed="false"
+    aria-label={t('a11y.pauseMotion')}
+    data-pause={t('a11y.pauseMotion')}
+    data-play={t('a11y.playMotion')}
+  >
+    <svg class="ak-ticker__icon-pause" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+      <rect x="2" y="1" width="3.5" height="12" rx="1" fill="currentColor"></rect>
+      <rect x="8.5" y="1" width="3.5" height="12" rx="1" fill="currentColor"></rect>
+    </svg>
+    <svg class="ak-ticker__icon-play" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+      <path
+        d="M3 1.6v10.8a.6.6 0 0 0 .9.5l8.6-5.4a.6.6 0 0 0 0-1L3.9 1.1a.6.6 0 0 0-.9.5Z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </button>
 </section>
+
+<script>
+  for (const btn of document.querySelectorAll<HTMLButtonElement>('.ak-ticker__toggle')) {
+    btn.addEventListener('click', () => {
+      const paused = btn.getAttribute('aria-pressed') !== 'true';
+      btn.setAttribute('aria-pressed', String(paused));
+      btn.setAttribute('aria-label', (paused ? btn.dataset.play : btn.dataset.pause) ?? '');
+      btn.closest('.ak-ticker')?.classList.toggle('is-paused', paused);
+    });
+  }
+</script>
 
 <style>
   @layer components {
     .ak-ticker {
+      position: relative;
       overflow: hidden;
+      contain: paint;
       background: var(--color-ink);
       color: var(--color-paper);
     }
@@ -36,8 +72,44 @@ const { items, label } = getDict(locale).home.ticker;
       animation: var(--animate-marquee);
       --marquee-duration: 38s;
     }
-    .ak-ticker:hover .ak-ticker__track {
+    .ak-ticker:hover .ak-ticker__track,
+    .ak-ticker:focus-within .ak-ticker__track,
+    .ak-ticker.is-paused .ak-ticker__track {
       animation-play-state: paused;
+    }
+    .ak-ticker__toggle {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border: 2px solid var(--color-paper);
+      border-radius: var(--radius-pill);
+      background: var(--color-ink);
+      color: var(--color-paper);
+      translate: 0 -50%;
+      cursor: pointer;
+      transition:
+        background-color 150ms var(--ease-out),
+        color 150ms var(--ease-out);
+    }
+    .ak-ticker__toggle:focus-visible {
+      outline-color: var(--color-gold);
+    }
+    @media (hover: hover) {
+      .ak-ticker__toggle:hover {
+        background: var(--color-paper);
+        color: var(--color-ink);
+      }
+    }
+    .ak-ticker__icon-play,
+    .ak-ticker.is-paused .ak-ticker__icon-pause {
+      display: none;
+    }
+    .ak-ticker.is-paused .ak-ticker__icon-play {
+      display: block;
     }
     .ak-ticker__list {
       display: flex;
@@ -72,6 +144,9 @@ const { items, label } = getDict(locale).home.ticker;
       .ak-ticker__list {
         flex-wrap: wrap;
         row-gap: 8px;
+      }
+      .ak-ticker__toggle {
+        display: none;
       }
     }
   }

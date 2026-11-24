@@ -118,10 +118,17 @@ const year = new Date().getFullYear();
       letter-spacing: -0.015em;
       font-size: clamp(1.5rem, 1.25rem + 1.1vw, 2.5rem);
     }
-    .ak-footer__email:hover {
+    .ak-footer__email:focus-visible {
       text-decoration: underline;
       text-decoration-thickness: 3px;
       text-underline-offset: 6px;
+    }
+    @media (hover: hover) {
+      .ak-footer__email:hover {
+        text-decoration: underline;
+        text-decoration-thickness: 3px;
+        text-underline-offset: 6px;
+      }
     }
     .ak-footer__cols {
       display: flex;
@@ -145,10 +152,13 @@ const year = new Date().getFullYear();
       text-decoration: none;
       /* Long Russian/Uzbek words ("конфиденциальности") hyphenate instead of overflowing. */
       hyphens: auto;
-      overflow-wrap: break-word;
+      /* "anywhere" also lowers the min-content width, so the grid column can actually shrink. */
+      overflow-wrap: anywhere;
     }
-    .ak-footer__col a:hover {
-      color: var(--text-accent);
+    @media (hover: hover) {
+      .ak-footer__col a:hover {
+        color: var(--text-accent);
+      }
     }
     .ak-footer__pending {
       opacity: 0.6;

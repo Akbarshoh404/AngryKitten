@@ -26,7 +26,8 @@ const { text, label, copied, failed, class: className, variant = 'pill' } = Astr
 </button>
 
 <script>
-  function toast(message: string) {
+  // Live regions must exist before they change, or the first announcement is often dropped.
+  function region() {
     let el = document.getElementById('ak-toast');
     if (!el) {
       el = document.createElement('div');
@@ -36,6 +37,11 @@ const { text, label, copied, failed, class: className, variant = 'pill' } = Astr
       el.setAttribute('aria-live', 'polite');
       document.body.appendChild(el);
     }
+    return el;
+  }
+  region();
+  function toast(message: string) {
+    const el = region();
     el.textContent = message;
     el.classList.remove('is-visible');
     void el.offsetWidth;

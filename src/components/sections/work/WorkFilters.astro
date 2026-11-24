@@ -1,0 +1,130 @@
+---
+/**
+ * Work filters — Figma 10:241. Chips with counts; the grid re-flows with a short fade/slide
+ * (FLIP on the server-rendered cards) and an ink pill glides to the active chip.
+ * The filter lives in the URL (?type=games) and, with no URL filter, follows the Home mood
+ * (Play → Games, Work → Apps).
+ *
+ * Plain script, no framework: this used to be a React island that shipped ~100 KB of JS only
+ * to toggle `hidden` on cards that are already in the page.
+ */
+export type FilterKey = 'all' | 'apps' | 'games' | 'arcade' | 'puzzle' | 'party' | 'soon';
+
+type Props = {
+  filters: { key: FilterKey; label: string; count: number }[];
+  gridId: string;
+  label: string;
+  resultsTemplate: string;
+};
+const { filters, gridId, label, resultsTemplate } = Astro.props;
+---
+
+<ak-work-filters class="ak-filters" data-grid={gridId} data-results={resultsTemplate}>
+  <div class="ak-filters__chips" role="group" aria-label={label}>
+    <span class="ak-filters__pill" aria-hidden="true"></span>
+    {filters.map((f) => (
+      <button
+        type="button"
+        class="ak-chip ak-chip--pill"
+        data-key={f.key}
+        aria-pressed={f.key === 'all' ? 'true' : 'false'}
+        aria-controls={gridId}
+      >
+        <span class="ak-chip__label">{f.label}</span>
+        <span class="ak-chip__count">{f.count}</span>
+      </button>
+    ))}
+  </div>
+  <p class="sr-only" role="status" aria-live="polite"></p>
+</ak-work-filters>
+
+<script>
+  const MOOD_TO_FILTER: Record<string, string> = { play: 'games', work: 'apps' };
+  const EASE = 'cubic-bezier(0.23, 1, 0.32, 1)';
+
+  class WorkFilters extends HTMLElement {
+    connectedCallback() {
+      const chips = [...this.querySelectorAll<HTMLButtonElement>('button[data-key]')];
+      const pill = this.querySelector<HTMLElement>('.ak-filters__pill')!;
+      const status = this.querySelector<HTMLElement>('[role="status"]')!;
+      const grid = document.getElementById(this.dataset.grid!);
+      if (!grid || !chips.length) return;
+      const items = [...grid.querySelectorAll<HTMLElement>('[data-kinds]')];
+      const keys = chips.map((c) => c.dataset.key!);
+      const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const movePill = (chip: HTMLElement, instant: boolean) => {
+        pill.style.transition = instant || reduce() ? 'none' : '';
+        pill.style.setProperty('--x', `${chip.offsetLeft}px`);
+        pill.style.setProperty('--y', `${chip.offsetTop}px`);
+        pill.style.setProperty('--w', `${chip.offsetWidth}px`);
+        pill.style.setProperty('--h', `${chip.offsetHeight}px`);
+        pill.dataset.ready = '';
+      };
+
+      const apply = (key: string, animate: boolean) => {
+        const chip = chips.find((c) => c.dataset.key === key) ?? chips[0]!;
+        for (const c of chips) c.setAttribute('aria-pressed', String(c === chip));
+        movePill(chip, !animate);
+
+        const before = animate ? new Map(items.map((el) => [el, el.getBoundingClientRect()])) : null;
+        const wasHidden = new Map(items.map((el) => [el, el.hidden]));
+        let shown = 0;
+        for (const el of items) {
+          el.hidden = !el.dataset.kinds!.split(' ').includes(key);
+          if (!el.hidden) shown++;
+        }
+
+        if (before && !reduce()) {
+          for (const el of items) {
+            if (el.hidden) continue;
+            if (wasHidden.get(el)) {
+              el.animate(
+                [
+                  { opacity: 0, transform: 'translateY(16px) scale(0.98)' },
+                  { opacity: 1, transform: 'none' },
+                ],
+                { duration: 280, easing: EASE },
+              );
+            } else {
+              const a = before.get(el)!;
+              const b = el.getBoundingClientRect();
+              const dx = a.left - b.left;
+              const dy = a.top - b.top;
+              if (dx || dy) {
+                el.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], {
+                  duration: 280,
+                  easing: EASE,
+                });
+              }
+            }
+          }
+        }
+
+        // Keep the URL shareable without adding history entries.
+        const url = new URL(location.href);
+        if (key === 'all') url.searchParams.delete('type');
+        else url.searchParams.set('type', key);
+        history.replaceState(history.state, '', url);
+        if (animate) status.textContent = this.dataset.results!.replace('{n}', String(shown));
+      };
+
+      // Initial filter: ?type=… or the saved Home mood.
+      const param = new URLSearchParams(location.search).get('type');
+      const mood = localStorage.getItem('ak-mood');
+      const initial = param && keys.includes(param) ? param : (mood && MOOD_TO_FILTER[mood]) || 'all';
+      apply(keys.includes(initial) ? initial : 'all', false);
+
+      this.addEventListener('click', (e) => {
+        const chip = (e.target as Element).closest<HTMLButtonElement>('button[data-key]');
+        if (chip && chip.getAttribute('aria-pressed') !== 'true') apply(chip.dataset.key!, true);
+      });
+      // Chip widths change when fonts load or the viewport changes; keep the pill on its chip.
+      new ResizeObserver(() => {
+        const active = chips.find((c) => c.getAttribute('aria-pressed') === 'true');
+        if (active) movePill(active, true);
+      }).observe(this);
+    }
+  }
+  customElements.define('ak-work-filters', WorkFilters);
+</script>

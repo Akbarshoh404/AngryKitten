@@ -16,7 +16,9 @@
     "footerNav": "Footer",
     "opensInNewTab": "opens in a new tab",
     "breadcrumb": "Breadcrumb",
-    "linkSoon": "Link coming soon"
+    "linkSoon": "Link coming soon",
+    "pauseMotion": "Pause scrolling text",
+    "playMotion": "Play scrolling text"
   },
   "nav": {
     "work": "Work",
@@ -83,7 +85,7 @@
       "play": {
         "line1": "Apps and games",
         "line2": "with claws.",
-        "body": "Android apps and games from Tashkent.",
+        "body": "An independent Tashkent studio making Android apps and games: our own, and yours.",
         "secondary": "See our work"
       },
       "work": {
@@ -326,7 +328,7 @@
   },
   "servicesPage": {
     "meta": {
-      "title": "Services · Android apps, games, UI/UX and websites · AngryKitten",
+      "title": "Services · Apps, games, UI/UX, websites · AngryKitten",
       "description": "From first sketch to Google Play: native Android apps, casual games, UI/UX design, store launch and care, plus fast websites and web apps."
     },
     "eyebrow": "Services",
@@ -389,7 +391,7 @@
   },
   "studio": {
     "meta": {
-      "title": "Studio · Small studio, short fuse for bad apps · AngryKitten",
+      "title": "Studio · A small Tashkent app studio · AngryKitten",
       "description": "AngryKitten is an independent Android studio in Tashkent. We make our own apps and games and build apps for clients with the same care."
     },
     "eyebrow": "Studio",
@@ -665,13 +667,13 @@
   "privacy": {
     "meta": {
       "title": "Privacy policies · AngryKitten",
-      "description": "Privacy policies for every AngryKitten app on Google Play."
+      "description": "Privacy policies for every AngryKitten app on Google Play, in one place. Each policy is in English."
     },
     "eyebrow": "Legal",
     "title": "Privacy **policies.**",
     "body": "One policy per app. Questions about your data? Email {email}.",
     "pageTitle": "{app} privacy policy · AngryKitten",
-    "pageDescription": "How {app} handles your data.",
+    "pageDescription": "How {app} handles your data, and how to reach the AngryKitten team with any privacy question.",
     "effective": "Effective {date}",
     "source": "Originally published at {source}",
     "back": "All privacy policies",

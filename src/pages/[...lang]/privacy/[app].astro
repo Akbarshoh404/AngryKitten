@@ -3,6 +3,7 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import PageLayout from '../../../layouts/PageLayout.astro';
 import LegalHeader from '../../../components/sections/LegalHeader.astro';
+import { formatDate } from '../../../lib/date';
 import { fill, getDict, locales, localizePath, defaultLocale, type Locale } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
@@ -28,10 +29,12 @@ const { Content } = await render(policy);
   description={fill(d.pageDescription, { app: app.data.name })}
   ogImage="/og/privacy.png"
 >
-  <LegalHeader eyebrow={d.eyebrow} titleHtml={policy.data.title}>
+  <LegalHeader eyebrow={d.eyebrow} titleHtml={policy.data.title} titleLang="en">
     <p class="text-meta text-fg-2 flex flex-wrap gap-x-4 gap-y-1">
-      {policy.data.effectiveDate && <span>{fill(d.effective, { date: policy.data.effectiveDate })}</span>}
-      {locale !== 'en' && <span lang="en">{d.languageNote}</span>}
+      {policy.data.effectiveDate && (
+        <span>{fill(d.effective, { date: formatDate(policy.data.effectiveDate, locale) })}</span>
+      )}
+      {locale !== 'en' && <span>{d.languageNote}</span>}
     </p>
   </LegalHeader>
   <article class="section-y">

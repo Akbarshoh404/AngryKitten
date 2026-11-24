@@ -2,7 +2,7 @@
 /** Work — Figma 10:218 (desktop) / 16:112 (mobile). */
 import PageLayout from '../../../layouts/PageLayout.astro';
 import WorkHero from '../../../components/sections/work/WorkHero.astro';
-import WorkFilters, { type FilterKey } from '../../../components/islands/WorkFilters';
+import WorkFilters, { type FilterKey } from '../../../components/sections/work/WorkFilters.astro';
 import AppCard from '../../../components/cards/AppCard.astro';
 import Button from '../../../components/ui/Button.astro';
 import { getApps, type App } from '../../../lib/content';
@@ -40,7 +40,6 @@ const filters = order
   <section class="section-y pt-12!" aria-label={d.filtersLabel}>
     <div class="container-page flex flex-col gap-10">
       <WorkFilters
-        client:load
         filters={filters}
         gridId="work-grid"
         label={d.filtersLabel}

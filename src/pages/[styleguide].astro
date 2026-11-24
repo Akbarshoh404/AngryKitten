@@ -27,8 +27,9 @@ import { getEntry } from 'astro:content';
 import { appAssets } from '../lib/appAssets';
 import { getServices, getTeam, localized } from '../lib/content';
 
+// Dev-only: production builds skip the styleguide entirely.
 export function getStaticPaths() {
-  return [{ params: { styleguide: '_styleguide' } }];
+  return import.meta.env.DEV ? [{ params: { styleguide: '_styleguide' } }] : [];
 }
 
 const uybek = (await getEntry('apps', 'uybek'))!;

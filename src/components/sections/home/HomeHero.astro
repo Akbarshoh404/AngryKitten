@@ -179,6 +179,7 @@ const data = await Promise.all(
     const toggle = hero.querySelector<HTMLElement>('[data-mood-toggle]')!;
     const art = hero.querySelector<HTMLElement>('[data-hero-art]')!;
 
+    let timers: number[] = [];
     const setMood = (next: 'play' | 'work') => {
       const current = hero.dataset.mood;
       if (current === next) return;
@@ -200,20 +201,30 @@ const data = await Promise.all(
         incoming.forEach((el) => (el.hidden = false));
         return;
       }
-      // Outgoing: fade/slide away, then hide. Incoming: start offset, then spring into place.
+      // Outgoing fades/slides away, incoming follows close behind. Timers from a previous click are
+      // cancelled first, so rapid toggling never leaves both sets visible.
+      timers.forEach(clearTimeout);
+      timers = [];
+      hero.querySelectorAll<HTMLElement>('.is-leaving, .is-entering').forEach((el) => {
+        el.classList.remove('is-leaving', 'is-entering');
+      });
       outgoing.forEach((el) => {
         el.classList.add('is-leaving');
-        window.setTimeout(() => {
-          el.hidden = true;
-          el.classList.remove('is-leaving');
-        }, 260);
+        timers.push(
+          window.setTimeout(() => {
+            el.hidden = true;
+            el.classList.remove('is-leaving');
+          }, 200),
+        );
       });
       incoming.forEach((el) => {
         el.classList.add('is-entering');
-        window.setTimeout(() => {
-          el.hidden = false;
-          requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('is-entering')));
-        }, 240);
+        timers.push(
+          window.setTimeout(() => {
+            el.hidden = false;
+            requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('is-entering')));
+          }, 160),
+        );
       });
     };
 

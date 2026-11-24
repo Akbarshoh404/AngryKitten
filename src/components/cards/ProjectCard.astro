@@ -82,8 +82,9 @@ const linkAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : 
       background: var(--bg-surface);
       box-shadow: var(--shadow-sticker);
       transition:
-        transform 250ms var(--ease-spring),
-        box-shadow 250ms var(--ease-out);
+        translate var(--dur-base) var(--ease-out),
+        transform var(--dur-base) var(--ease-out),
+        box-shadow var(--dur-base) var(--ease-out);
     }
     .ak-pcard__media {
       aspect-ratio: 400 / 196;
@@ -166,7 +167,7 @@ const linkAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : 
     .ak-pcard.is-hover,
     .ak-pcard:has(.ak-pcard__link:focus-visible) {
       --lift: -4px;
-      box-shadow: 12px 12px 0 0 var(--color-ink);
+      box-shadow: var(--shadow-sticker-lg);
     }
     .ak-pcard.is-hover .ak-pcard__media img {
       transform: scale(1.04);
@@ -180,7 +181,7 @@ const linkAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : 
     @media (hover: hover) {
       .ak-pcard:hover {
         --lift: -4px;
-        box-shadow: 12px 12px 0 0 var(--color-ink);
+        box-shadow: var(--shadow-sticker-lg);
       }
       .ak-pcard:hover .ak-pcard__media img {
         transform: scale(1.04);

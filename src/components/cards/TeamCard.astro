@@ -77,13 +77,14 @@ const links = [
       background: var(--bg-surface);
       box-shadow: var(--shadow-sticker);
       transition:
-        transform 250ms var(--ease-spring),
-        box-shadow 250ms var(--ease-out);
+        translate var(--dur-base) var(--ease-out),
+        transform var(--dur-base) var(--ease-out),
+        box-shadow var(--dur-base) var(--ease-out);
     }
     @media (hover: hover) {
       .ak-team:hover {
         --lift: -4px;
-        box-shadow: 10px 10px 0 0 var(--color-ink);
+        box-shadow: var(--shadow-sticker-lg);
       }
     }
     .ak-team__photo {

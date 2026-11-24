@@ -96,14 +96,14 @@ function reveal(el: El, preset: Preset, delay = 0) {
   if (preset === 'words') {
     const words = splitWords(el);
     words.forEach((w) =>
-      Object.assign(w.style, { opacity: '0', transform: 'translateY(0.45em) rotate(3deg)' }),
+      Object.assign(w.style, { opacity: '0', transform: 'translateY(0.3em) rotate(2deg)' }),
     );
     inView(
       el,
       () => {
         animate(
           words,
-          { opacity: [0, 1], transform: ['translateY(0.45em) rotate(3deg)', 'translateY(0em) rotate(0deg)'] },
+          { opacity: [0, 1], transform: ['translateY(0.3em) rotate(2deg)', 'translateY(0em) rotate(0deg)'] },
           { ...SPRING, delay: stagger(0.045, { startDelay: delay }) },
         ).then(() => words.forEach(clearInline));
         $$('.ak-hl', el).forEach((hl) => hl.classList.add('is-drawn'));
@@ -117,7 +117,7 @@ function reveal(el: El, preset: Preset, delay = 0) {
   inView(
     preset === 'wipe' ? (el.parentElement ?? el) : el,
     () => {
-      const transition = preset === 'wipe' ? { duration: 0.9, ease: EASE_OUT, delay } : { ...SPRING, delay };
+      const transition = preset === 'wipe' ? { duration: 0.56, ease: EASE_OUT, delay } : { ...SPRING, delay };
       animate(el, TO[preset], transition).then(() => clearInline(el));
     },
     { amount: 0.15, margin: SEEN },
@@ -201,12 +201,15 @@ function setupCountUps() {
   $$('.ak-stat__value').forEach((el) => {
     const target = Number(el.textContent?.trim());
     if (!Number.isFinite(target) || target <= 0 || !notInHero(el)) return;
+    // The animated digits are decoration: assistive tech reads the final value straight away.
+    el.setAttribute('aria-label', String(target));
+    el.style.fontVariantNumeric = 'tabular-nums';
     el.textContent = '0';
     inView(
       el,
       () => {
         animate(0, target, {
-          duration: Math.min(1.6, 0.6 + target * 0.08),
+          duration: Math.min(0.9, 0.5 + target * 0.04),
           ease: EASE_OUT,
           onUpdate: (v) => (el.textContent = String(Math.round(v))),
         });
@@ -254,7 +257,7 @@ function setupScroll() {
   });
   // Footer pitch grows a touch as it arrives.
   $$('.ak-footer__pitch').forEach((p) =>
-    scroll(animate(p, { scale: [0.92, 1], opacity: [0.4, 1] }, { ease: 'linear' }), {
+    scroll(animate(p, { scale: [0.94, 1], opacity: [0.7, 1] }, { ease: 'linear' }), {
       target: p,
       offset: ['start end', 'center center'],
     }),
@@ -293,14 +296,20 @@ function setupMagnetic() {
   $$('.ak-btn:not(.ak-btn--ghost):not(.ak-btn--block), .ak-nav__menu-btn, .ak-carousel__arrow').forEach(
     (btn) => {
       btn.classList.add('ak-magnetic');
+      // Measure once per hover, not on every pointermove (the pull itself moves the button).
+      let r: DOMRect | null = null;
+      btn.addEventListener('pointerenter', () => {
+        r = btn.getBoundingClientRect();
+      });
       btn.addEventListener('pointermove', (e) => {
         if (e.pointerType !== 'mouse') return;
-        const r = btn.getBoundingClientRect();
+        r ??= btn.getBoundingClientRect();
         btn.classList.add('is-pulled');
         btn.style.setProperty('--mx', `${((e.clientX - r.left - r.width / 2) * 0.22).toFixed(1)}px`);
         btn.style.setProperty('--my', `${((e.clientY - r.top - r.height / 2) * 0.3).toFixed(1)}px`);
       });
       btn.addEventListener('pointerleave', () => {
+        r = null;
         btn.classList.remove('is-pulled');
         btn.style.setProperty('--mx', '0px');
         btn.style.setProperty('--my', '0px');
@@ -312,6 +321,7 @@ function setupMagnetic() {
 /** Stickers you can grab and fling; they spring back home. */
 function setupDrag() {
   $$('[data-drag]').forEach((el) => {
+    el.classList.add('is-draggable');
     let startX = 0;
     let startY = 0;
     let dragging = false;
@@ -333,7 +343,8 @@ function setupDrag() {
       if (!dragging) return;
       dragging = false;
       el.classList.remove('is-dragging');
-      animate(el, { x: 0, y: 0, rotate: 0, scale: 1 }, { type: 'spring', stiffness: 320, damping: 14 });
+      // Springs home with a little life, no wobble-fest (damping ratio about 0.7).
+      animate(el, { x: 0, y: 0, rotate: 0, scale: 1 }, { type: 'spring', stiffness: 400, damping: 28 });
     };
     el.addEventListener('pointerup', release);
     el.addEventListener('pointercancel', release);
@@ -344,11 +355,16 @@ function setupDrag() {
 
 function boot() {
   if (reduce.matches) return;
+  // Reduced motion switched on mid-visit: the global CSS rule stills CSS motion; also stop the
+  // scroll-linked and in-flight script animations, which CSS can't reach.
+  reduce.addEventListener('change', () => {
+    if (reduce.matches) document.getAnimations().forEach((a) => a.cancel());
+  });
   setupReveals();
   setupCountUps();
   setupScroll();
-  setupDrag();
   if (finePointer.matches) {
+    setupDrag();
     setupTilt();
     setupMagnetic();
   }

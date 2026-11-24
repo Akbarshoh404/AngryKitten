@@ -189,9 +189,13 @@ const current = stripLocale(Astro.url.pathname);
       line-height: 0.95;
       letter-spacing: -0.025em;
     }
-    .ak-menu__links a[aria-current='page'] .ak-menu__label,
-    .ak-menu__links a:hover .ak-menu__label {
+    .ak-menu__links a[aria-current='page'] .ak-menu__label {
       color: var(--text-accent);
+    }
+    @media (hover: hover) {
+      .ak-menu__links a:hover .ak-menu__label {
+        color: var(--text-accent);
+      }
     }
 
     .ak-menu__bottom {

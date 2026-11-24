@@ -50,10 +50,17 @@ const path = stripLocale(Astro.url.pathname);
       text-decoration: none;
       border-radius: 6px;
     }
-    .ak-lang a:hover {
+    .ak-lang a:focus-visible {
       color: var(--text-primary);
       text-decoration: underline;
       text-underline-offset: 3px;
+    }
+    @media (hover: hover) {
+      .ak-lang a:hover {
+        color: var(--text-primary);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
     }
     .ak-lang a[aria-current='true'] {
       color: var(--text-primary);

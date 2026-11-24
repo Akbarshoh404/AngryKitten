@@ -32,9 +32,13 @@ Other scripts:
 | `npm run og`        | Rebuild Open Graph images (`public/og/`, git-ignored)               |
 | `npm run favicons`  | Regenerate favicons + web manifest from `src/assets/brand/mark.png` |
 | `npm run i18n:sync` | Copy new English UI strings into `uz.json` / `ru.json`              |
+| `npm test`          | Unit tests (`node --test`): locale paths, contact-form validation   |
 | `npm run deploy`    | Build and deploy to Cloudflare                                      |
 
-`press` and `og` run automatically before `dev` and `build`.
+`press` and `og` run automatically before `dev` and `build`. After every build,
+`scripts/build-headers.mjs` adds security headers (CSP, nosniff, frame-ancestors…) to
+`dist/client/_headers`. The CSP hashes the inline scripts Astro emits, so it follows the build;
+if you add a third-party script or embed, allow its host there. `npm run check` also runs the tests.
 
 ## 2. How the project is organised
 
@@ -64,7 +68,7 @@ src/
     [...lang]/          every page is written once and built for /, /uz/ and /ru/
     api/contact.ts      the only server route (contact form → Telegram/email)
     404.astro, uz/404.astro, ru/404.astro
-    [styleguide].astro  /_styleguide: every component and state (not indexed)
+    [styleguide].astro  /_styleguide: every component and state (dev server only)
   styles/
     tokens.css          design tokens from the Figma variables (Light/Dark/Tangerine)
     global.css          text styles, layout utilities, reduced-motion rules
@@ -176,7 +180,11 @@ Without Telegram (or Resend) configured, the form shows a friendly error with th
 so nothing is silently lost.
 
 **Spam protection:** a hidden honeypot field always; Cloudflare Turnstile when both keys are set
-(create a widget in the dashboard → Turnstile, mode "Invisible" or "Managed").
+(create a widget in the dashboard → Turnstile, mode "Invisible" or "Managed"). If the site key is
+built in but the secret is missing, the endpoint refuses submissions (503) rather than skipping
+the check. The endpoint also rejects cross-site posts and non-JSON bodies. For volume limits, add a
+Cloudflare rate-limiting rule for `/api/contact` (Security → WAF → Rate limiting rules, e.g. 5
+requests per minute per IP).
 
 ### Redirect `angry-kitten.uz` → `angrykitten.uz`
 

@@ -17,7 +17,9 @@
     "footerNav": "Pastki menyu",
     "opensInNewTab": "yangi oynada ochiladi",
     "breadcrumb": "Navigatsiya yoʻli",
-    "linkSoon": "Havola tez kunda"
+    "linkSoon": "Havola tez kunda",
+    "pauseMotion": "Harakatlanuvchi matnni toʻxtatish",
+    "playMotion": "Harakatlanuvchi matnni davom ettirish"
   },
   "nav": {
     "work": "Ishlar",
@@ -73,7 +75,7 @@
   "home": {
     "meta": {
       "title": "AngryKitten · Tirnoqli Android ilovalar va oʻyinlar",
-      "description": "Toshkentdagi mustaqil ilovalar studiyasi. Android ilovalar, oʻyinlar va veb-saytlarni loyihalaymiz, yaratamiz va ishga tushiramiz. Google Playʼda 12 ta ilova mavjud."
+      "description": "Toshkentdagi mustaqil ilovalar studiyasi. Android ilovalar, oʻyinlar va saytlarni loyihalaymiz, yaratamiz va chiqaramiz. Google Playʼda 12 ta ilova."
     },
     "mood": {
       "group": "Nima uchun kelganingizni tanlang",
@@ -84,7 +86,7 @@
       "play": {
         "line1": "Tirnoqli ilovalar",
         "line2": "va oʻyinlar.",
-        "body": "Toshkentdan Android ilovalar va oʻyinlar.",
+        "body": "Toshkentdagi mustaqil studiya. Android ilova va oʻyinlar yaratamiz: oʻzimiz uchun ham, siz uchun ham.",
         "secondary": "Ishlarimizni koʻring"
       },
       "work": {
@@ -327,8 +329,8 @@
   },
   "servicesPage": {
     "meta": {
-      "title": "Xizmatlar · Android ilovalar, oʻyinlar, UI/UX va veb-saytlar · AngryKitten",
-      "description": "Ilk eskizdan Google Playʼgacha: native Android ilovalar, kazual oʻyinlar, UI/UX dizayn, doʻkonga chiqarish va qoʻllab-quvvatlash, shuningdek tezkor veb-saytlar va veb-ilovalar."
+      "title": "Xizmatlar · Ilovalar, oʻyinlar, UI/UX, saytlar · AngryKitten",
+      "description": "Ilk eskizdan Google Playʼgacha: native Android ilovalar, kazual oʻyinlar, UI/UX dizayn, doʻkonga chiqarish va tezkor veb-saytlar."
     },
     "eyebrow": "Xizmatlar",
     "title": "Ilk eskizdan **Google Playʼgacha.**",
@@ -390,7 +392,7 @@
   },
   "studio": {
     "meta": {
-      "title": "Studiya · Kichik studiya, yomon ilovalarga toqati yoʻq · AngryKitten",
+      "title": "Studiya · Toshkentdagi kichik studiya · AngryKitten",
       "description": "AngryKitten Toshkentdagi mustaqil Android studiyasi. Oʻz ilova va oʻyinlarimizni yaratamiz, mijozlar uchun ham xuddi shunday eʼtibor bilan ilovalar quramiz."
     },
     "eyebrow": "Studiya",
@@ -666,13 +668,13 @@
   "privacy": {
     "meta": {
       "title": "Maxfiylik siyosatlari · AngryKitten",
-      "description": "Google Playʼdagi har bir AngryKitten ilovasi uchun maxfiylik siyosatlari."
+      "description": "Google Playʼdagi har bir AngryKitten ilovasi uchun maxfiylik siyosatlari bir joyda."
     },
     "eyebrow": "Huquqiy",
     "title": "Maxfiylik **siyosatlari.**",
     "body": "Har bir ilova uchun alohida siyosat. Maʼlumotlaringiz boʻyicha savollar bormi? {email} manziliga yozing.",
     "pageTitle": "{app} maxfiylik siyosati · AngryKitten",
-    "pageDescription": "{app} maʼlumotlaringizni qanday qayta ishlaydi.",
+    "pageDescription": "{app} maʼlumotlaringizni qanday qayta ishlaydi va maxfiylik boʻyicha savollar bilan AngryKitten jamoasiga qanday murojaat qilish mumkin.",
     "effective": "Kuchga kirgan sana: {date}",
     "source": "Asl nusxasi {source} manzilida chop etilgan",
     "back": "Barcha maxfiylik siyosatlari",

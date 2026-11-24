@@ -44,7 +44,7 @@ const stats = [
 >
   <!-- Hero -->
   <section data-theme="tangerine" data-hero class="ak-st-hero">
-    <div class="container-page grid items-center gap-16 lg:grid-cols-[minmax(0,740px)_minmax(0,460px)] lg:justify-between">
+    <div class="container-page grid grid-cols-1 items-center gap-16 lg:grid-cols-[minmax(0,740px)_minmax(0,460px)] lg:justify-between">
       <div class="flex flex-col gap-6">
         <p class="text-eyebrow">{d.eyebrow}</p>
         <h1 class="text-display-xl" set:html={highlight(d.title)} />
@@ -86,7 +86,7 @@ const stats = [
 
   <!-- Story -->
   <section class="section-y" aria-labelledby="story-title">
-    <div class="container-page grid gap-10 lg:grid-cols-[420px_minmax(0,780px)] lg:justify-between">
+    <div class="container-page grid grid-cols-1 gap-10 lg:grid-cols-[420px_minmax(0,780px)] lg:justify-between">
       <SectionHeader id="story-title" eyebrow={d.story.eyebrow} title={d.story.title} />
       <div class="flex flex-col gap-6">
         {d.story.paragraphs.map((p, i) => (
@@ -105,7 +105,7 @@ const stats = [
         <p class="text-eyebrow text-fg-accent">{d.values.eyebrow}</p>
         <h2 id="values-title" class="text-h1" set:html={highlight(d.values.title)} />
       </div>
-      <ol class="grid gap-8 md:grid-cols-3">
+      <ol class="grid grid-cols-1 gap-8 md:grid-cols-3">
         {d.values.items.map((v, i) => (
           <li class="flex flex-col gap-3 border-t-2 border-strong pt-6">
             <p class="text-eyebrow text-fg-accent" aria-hidden="true">

@@ -8,6 +8,7 @@ import SectionHeader from '../../components/ui/SectionHeader.astro';
 import CopyButton from '../../components/ui/CopyButton.astro';
 import ContactMethod from '../../components/cards/ContactMethod.astro';
 import site from '../../content/site.json';
+import { formatMonth } from '../../lib/date';
 import { siteText } from '../../lib/site';
 import manifest from '../../generated/press-manifest.json';
 import { getApps } from '../../lib/content';
@@ -27,10 +28,7 @@ const coming = apps.filter((a) => a.data.status === 'coming');
 
 const mb = (bytes: number) =>
   bytes >= 1e6 ? `${(bytes / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1e3))} KB`;
-const updated = new Date(manifest.generated).toLocaleDateString(locale === 'en' ? 'en-GB' : locale, {
-  month: 'short',
-  year: 'numeric',
-});
+const updated = formatMonth(manifest.generated, locale);
 const facts = d.facts.map((f) => ({
   label: f.label,
   value: fill(f.value, { live: live.length, coming: coming.length, email: site.email }),
@@ -59,7 +57,7 @@ const tg =
 >
   <!-- Hero -->
   <section data-theme="tangerine" data-hero class="ak-pr-hero">
-    <div class="container-page grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,500px)]">
+    <div class="container-page grid grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,500px)]">
       <div class="flex flex-col gap-6">
         <p class="text-eyebrow">{d.eyebrow}</p>
         <h1 class="text-display-xl" set:html={highlight(d.title)} />
@@ -106,7 +104,7 @@ const tg =
   <section class="section-y" aria-labelledby="facts-title">
     <div class="container-page flex flex-col gap-12">
       <SectionHeader id="facts-title" eyebrow={d.factsEyebrow} title={d.factsTitle} />
-      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,500px)]">
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,500px)]">
         <div class="ak-pr-card flex flex-col gap-6">
           <div class="flex flex-col gap-2">
             <p class="text-eyebrow text-fg-2">{d.shortLabel}</p>
@@ -145,7 +143,7 @@ const tg =
           {d.logosZip} · {mb(manifest.logosZip)}
         </Button>
       </SectionHeader>
-      <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+      <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
         {d.logoCards.map((card) => (
           <li class="ak-pr-logo">
             <div class="ak-pr-logo__preview" style={`background:${toneBg[card.tone]}`}>

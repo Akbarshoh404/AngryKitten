@@ -1,11 +1,14 @@
 /**
  * POST /api/contact: the only server route (runs as a Cloudflare Worker function).
- * Honeypot → validation → Turnstile (if configured) → Telegram (+ optional Resend email).
+ * Same-origin + JSON check → honeypot → validation → Turnstile (required when the site key is
+ * built in) → Telegram (+ optional Resend email).
  */
 import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
 import {
   formatMessage,
+  isJson,
+  isSameOrigin,
   parsePayload,
   sendEmail,
   sendTelegram,
@@ -19,7 +22,10 @@ const json = (status: number, body: Record<string, unknown>) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
 
 export const POST: APIRoute = async ({ request }) => {
-  if (!request.headers.get('content-type')?.includes('application/json')) {
+  if (!isSameOrigin(request.headers.get('origin'), request.url)) {
+    return json(403, { ok: false, error: 'origin' });
+  }
+  if (!isJson(request.headers.get('content-type'))) {
     return json(415, { ok: false, error: 'unsupported' });
   }
   const payload = parsePayload(await request.json().catch(() => null));
@@ -30,6 +36,12 @@ export const POST: APIRoute = async ({ request }) => {
   const errors = validate(payload);
   if (errors.length) return json(400, { ok: false, errors });
 
+  // The widget is built in whenever the public site key is set; without the secret every
+  // submission would be unverifiable, so refuse instead of silently skipping the check.
+  if (import.meta.env.PUBLIC_TURNSTILE_SITE_KEY && !env.TURNSTILE_SECRET_KEY) {
+    console.error('Contact form: PUBLIC_TURNSTILE_SITE_KEY is set but TURNSTILE_SECRET_KEY is missing.');
+    return json(503, { ok: false, error: 'not-configured' });
+  }
   if (env.TURNSTILE_SECRET_KEY) {
     const ok = await verifyTurnstile(
       env.TURNSTILE_SECRET_KEY,

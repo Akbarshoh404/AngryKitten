@@ -321,20 +321,20 @@ export default function ContactForm({
         {variant === 'full' && (
           <fieldset className="ak-form__group">
             <legend className="ak-field__label">{labels.budgetLabel}</legend>
-            <div className="ak-form__chips" role="radiogroup" aria-label={labels.budgetLabel}>
+            {/* Native radios styled as chips: one tab stop, arrow keys, announced as a group. */}
+            <div className="ak-form__chips">
               {Object.keys(labels.budgets).map((b) => (
-                <motion.button
-                  key={b}
-                  type="button"
-                  whileTap={{ scale: 0.92 }}
-                  whileHover={{ y: -2 }}
-                  role="radio"
-                  className="ak-chip"
-                  aria-checked={budget === b}
-                  onClick={() => setBudget(budget === b ? '' : b)}
-                >
+                <label key={b} className="ak-chip ak-chip--radio">
+                  <input
+                    type="radio"
+                    name={id('budget')}
+                    value={b}
+                    checked={budget === b}
+                    onChange={() => setBudget(b)}
+                    className="sr-only"
+                  />
                   <span className="ak-chip__label">{labels.budgets[b]}</span>
-                </motion.button>
+                </label>
               ))}
             </div>
           </fieldset>

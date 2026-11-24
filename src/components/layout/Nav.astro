@@ -66,33 +66,50 @@ const current = stripLocale(Astro.url.pathname);
 <MobileMenu locale={locale} counts={counts} />
 
 <script>
+  // Two IntersectionObservers instead of a scroll handler: no layout reads while scrolling.
+  //  - data-scrolled: once a 24px sentinel at the top of the page leaves the viewport.
+  //  - data-solid (sticker shadow): when no [data-hero] section sits under the bar's bottom edge.
   const nav = document.querySelector<HTMLElement>('[data-nav]');
-  if (nav) {
+  const bar = nav?.querySelector<HTMLElement>('.ak-nav__bar');
+  if (nav && bar) {
+    const sentinel = document.createElement('div');
+    sentinel.setAttribute('aria-hidden', 'true');
+    sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:24px;pointer-events:none';
+    document.body.prepend(sentinel);
+    new IntersectionObserver(([entry]) =>
+      nav.toggleAttribute('data-scrolled', !entry!.isIntersecting),
+    ).observe(sentinel);
+
     const heroes = Array.from(document.querySelectorAll<HTMLElement>('[data-hero]'));
-    const bar = nav.querySelector<HTMLElement>('.ak-nav__bar');
-    let ticking = false;
-
-    const update = () => {
-      ticking = false;
-      nav.toggleAttribute('data-scrolled', window.scrollY > 24);
-      // "Solid" (sticker shadow) once the bar no longer floats over a hero section.
-      const line = bar ? bar.getBoundingClientRect().bottom : 80;
-      const overHero = heroes.some((h) => {
-        const r = h.getBoundingClientRect();
-        return r.top <= line && r.bottom > line;
-      });
-      nav.toggleAttribute('data-solid', !overHero);
+    const under = new Set<Element>();
+    let heroObserver: IntersectionObserver | undefined;
+    const watchHeroes = () => {
+      heroObserver?.disconnect();
+      under.clear();
+      // A 1px band at the bar's bottom edge (read once per resize, not per frame).
+      // Layout offsets, not getBoundingClientRect: the first-visit drop-in animation translates the
+      // bar above the viewport, which would give a negative (invalid) rootMargin. The header is
+      // fixed at top:0, so offsets inside it are viewport coordinates.
+      const line = Math.max(1, Math.round(bar.offsetTop + bar.offsetHeight));
+      heroObserver = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) under.add(e.target);
+            else under.delete(e.target);
+          }
+          nav.toggleAttribute('data-solid', under.size === 0);
+        },
+        { rootMargin: `-${line}px 0px -${Math.max(0, innerHeight - line - 1)}px 0px` },
+      );
+      heroes.forEach((h) => heroObserver!.observe(h));
+      if (!heroes.length) nav.toggleAttribute('data-solid', true);
     };
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    };
-
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
+    watchHeroes();
+    let resizeTimer = 0;
+    addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(watchHeroes, 150);
+    });
   }
 </script>
 

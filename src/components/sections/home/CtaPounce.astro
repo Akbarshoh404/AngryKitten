@@ -13,7 +13,7 @@ const d = getDict(locale).home;
 ---
 
 <section data-theme="tangerine" class="ak-cta" aria-labelledby="cta-title">
-  <div class="container-page grid items-center gap-12 lg:grid-cols-[minmax(0,680px)_minmax(0,520px)] lg:justify-between lg:gap-20">
+  <div class="container-page grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,680px)_minmax(0,520px)] lg:justify-between lg:gap-20">
     <div class="flex flex-col gap-7">
       <h2 id="cta-title" class="ak-cta__title">
         <span>{d.cta.line1}</span>
@@ -40,6 +40,8 @@ const d = getDict(locale).home;
 <style>
   @layer components {
     .ak-cta {
+      /* The scroll-linked title lines slide sideways; never let them widen the page. */
+      overflow-x: clip;
       display: flex;
       align-items: center;
       min-height: min(100svh, 900px);

@@ -14,27 +14,50 @@ export type ContactPayload = {
   turnstileToken: string;
 };
 
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+/** One plain address: no spaces, commas, quotes or brackets (so it's safe as an email reply-to). */
+const EMAIL = /^[^\s@,;:"<>()]+@[^\s@,;:"<>()]+\.[^\s@,;:"<>()]{2,}$/;
 const TELEGRAM = /^(@|https?:\/\/t\.me\/|t\.me\/)?[a-zA-Z0-9_]{5,32}$/;
 const str = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
+/** Single-line fields: no control characters (keeps email subjects and Telegram rows on one line). */
+const line = (v: unknown, max: number) =>
+  // eslint-disable-next-line no-control-regex -- stripping control characters is the point
+  str(typeof v === 'string' ? v.replace(/[\u0000-\u001f\u007f]+/g, ' ') : v, max);
+
+/** Telegram rejects messages over 4096 characters (counted after entity parsing; stay well under). */
+export const TELEGRAM_LIMIT = 4000;
+
+/** True when the request comes from this site, or carries no Origin header (non-browser clients). */
+export function isSameOrigin(origin: string | null, requestUrl: string): boolean {
+  if (!origin) return true;
+  try {
+    return new URL(origin).host === new URL(requestUrl).host;
+  } catch {
+    return false;
+  }
+}
+
+/** Accepts "application/json" with optional parameters only (a "text/plain" POST skips CORS preflight). */
+export function isJson(contentType: string | null): boolean {
+  return /^application\/json\s*(;|$)/i.test(contentType ?? '');
+}
 
 export function parsePayload(body: unknown): ContactPayload {
   const b = (body && typeof body === 'object' ? body : {}) as Record<string, unknown>;
   return {
-    name: str(b.name, 200),
-    contact: str(b.contact, 200),
-    company: str(b.company, 200),
+    name: line(b.name, 200),
+    contact: line(b.contact, 200),
+    company: line(b.company, 200),
     message: str(b.message, 4000),
     types: Array.isArray(b.types)
       ? b.types
-          .map((t) => str(t, 60))
+          .map((t) => line(t, 60))
           .filter(Boolean)
           .slice(0, 8)
       : [],
-    budget: str(b.budget, 60),
-    variant: str(b.variant, 20),
-    locale: str(b.locale, 5),
-    page: str(b.page, 200),
+    budget: line(b.budget, 60),
+    variant: line(b.variant, 20),
+    locale: line(b.locale, 5),
+    page: line(b.page, 200),
     website: str(b.website, 200),
     turnstileToken: str(b.turnstileToken, 4096),
   };
@@ -54,12 +77,17 @@ export async function verifyTurnstile(secret: string, token: string, ip: string 
   form.append('secret', secret);
   form.append('response', token);
   if (ip) form.append('remoteip', ip);
-  const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-    method: 'POST',
-    body: form,
-  });
-  const data = (await res.json().catch(() => ({}))) as { success?: boolean };
-  return Boolean(data.success);
+  try {
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      body: form,
+    });
+    const data = (await res.json().catch(() => ({}))) as { success?: boolean };
+    return Boolean(data.success);
+  } catch {
+    // Network failure reaching Cloudflare: treat as not verified rather than crashing the request.
+    return false;
+  }
 }
 
 const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -74,10 +102,14 @@ export function formatMessage(p: ContactPayload): { html: string; text: string }
     ['Form', `${p.variant} · ${p.locale} · ${p.page}`],
   ];
   const filled = rows.filter(([, v]) => v);
-  const html =
+  const head =
     '🐱 <b>New message from angrykitten.uz</b>\n\n' +
     filled.map(([k, v]) => `<b>${k}:</b> ${escapeHtml(v)}`).join('\n') +
-    `\n\n${escapeHtml(p.message)}`;
+    '\n\n';
+  // Trim the raw message (not the escaped one) so an entity like &amp; is never cut in half.
+  let body = p.message;
+  while (body && head.length + escapeHtml(body).length > TELEGRAM_LIMIT) body = body.slice(0, -100);
+  const html = head + escapeHtml(body) + (body.length < p.message.length ? '… [truncated]' : '');
   const text = filled.map(([k, v]) => `${k}: ${v}`).join('\n') + `\n\n${p.message}`;
   return { html, text };
 }

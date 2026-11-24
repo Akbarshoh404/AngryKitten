@@ -77,12 +77,16 @@ const themeColor = theme === 'tangerine' ? '#ff5a1f' : theme === 'dark' ? '#2b16
       } catch {
         /* storage blocked */
       }
+      // Arriving through a view transition: the page already slides in, so skip the hero's own
+      // entrance instead of stacking two motions.
+      addEventListener('pagereveal', (e) => {
+        if (e.viewTransition) document.documentElement.classList.add('ak-vt');
+      });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
-    <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex" />}
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     {alternates &&
       locales.map((l) => (
         <link

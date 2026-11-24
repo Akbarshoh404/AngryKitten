@@ -11,7 +11,7 @@ const d = getDict(locale).home.why;
 ---
 
 <section class="bg-tint section-y" aria-labelledby="why-title">
-  <div class="container-page grid gap-12 lg:grid-cols-[440px_minmax(0,1fr)] lg:gap-20">
+  <div class="container-page grid grid-cols-1 gap-12 lg:grid-cols-[440px_minmax(0,1fr)] lg:gap-20">
     <div class="flex flex-col gap-6">
       <Image
         src={sticker}
@@ -24,7 +24,7 @@ const d = getDict(locale).home.why;
       />
       <SectionHeader id="why-title" eyebrow={d.eyebrow} title={d.title} body={d.body} />
     </div>
-    <ul class="grid gap-6 sm:grid-cols-2">
+    <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2">
       {d.items.map((item, i) => (
         <li class="ak-why__card" style={`--tilt:${i % 2 ? 1 : -1}deg`}>
           <h3 class="text-h3">{item.title}</h3>
@@ -51,7 +51,9 @@ const d = getDict(locale).home.why;
       border-radius: var(--radius-card);
       background: var(--bg-surface);
       box-shadow: var(--shadow-sticker);
-      transition: transform 250ms var(--ease-spring);
+      transition:
+        translate var(--dur-base) var(--ease-out),
+        transform var(--dur-base) var(--ease-out);
     }
     @media (hover: hover) {
       .ak-why__card:hover {

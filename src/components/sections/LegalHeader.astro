@@ -1,13 +1,19 @@
 ---
 /** Plain header for legal pages: no hero, no animation (brief §5 "Privacy policies"). */
-type Props = { eyebrow: string; titleHtml: string; body?: string };
-const { eyebrow, titleHtml, body } = Astro.props;
+type Props = {
+  eyebrow: string;
+  titleHtml: string;
+  body?: string;
+  /** Language of the title when it differs from the page (policies are English-only). */
+  titleLang?: string;
+};
+const { eyebrow, titleHtml, body, titleLang } = Astro.props;
 ---
 
 <header class="bg-sunken border-b border-subtle pt-[calc(var(--nav-h)+56px)] pb-14">
   <div class="container-page flex flex-col gap-4">
     <p class="text-eyebrow text-fg-accent">{eyebrow}</p>
-    <h1 class="text-h1" set:html={titleHtml} />
+    <h1 class="text-h1" lang={titleLang} set:html={titleHtml} />
     {body && <p class="text-body-l text-fg-2 max-w-2xl">{body}</p>}
     <slot />
   </div>

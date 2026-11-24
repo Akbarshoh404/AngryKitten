@@ -225,3 +225,24 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Printing (privacy policies, press facts): show everything, even sections that haven't been
+   scrolled into view yet, and drop the moving parts. */
+@media print {
+  *,
+  *::before,
+  *::after {
+    opacity: 1 !important;
+    transform: none !important;
+    translate: none !important;
+    clip-path: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  .ak-nav,
+  .ak-progress,
+  .ak-ticker,
+  .ak-toast {
+    display: none !important;
+  }
+}

@@ -25,7 +25,7 @@ const apps = (await getApps()).filter((a) => policies.has(a.id));
     body={fill(d.body, { email: site.email })}
   />
   <section class="section-y">
-    <ul class="container-page grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <ul class="container-page grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {apps.map((app) => {
         const icon = appAssets(app.id).icon;
         return (
