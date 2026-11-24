@@ -146,15 +146,50 @@ The site is static except `POST /api/contact`. The Cloudflare adapter builds a W
 assets (`dist/client`) and that one function (`dist/server`). This is Cloudflare's current setup
 for Astro; it replaces the older "Pages" flow and is also free.
 
-**One-off setup**
+Checked with `npx wrangler deploy --dry-run`: the Worker is about 150 KB gzipped (free plan limit
+3 MB), with about 730 static files. The largest is the 9 MB press kit (per-file limit 25 MB).
+`.node-version` pins Node 22.18 for Cloudflare's build servers (Astro 6 needs ≥ 22.12).
 
-1. `npx wrangler login`
-2. `npm run deploy` (creates the `angrykitten` Worker on first run)
-3. In the Cloudflare dashboard → Workers & Pages → `angrykitten` → Settings → Domains & Routes,
-   add the custom domain `angrykitten.uz` (and `www.angrykitten.uz` if wanted).
+**Option A — deploy on every push (recommended)**
 
-Or connect the GitHub repo in Workers & Pages → Create → Import a repository, with build command
-`npm run build` and deploy command `npx wrangler deploy`, so every push to `main` deploys.
+1. Cloudflare dashboard → Workers & Pages → Create → **Import a repository** → pick
+   `AngryKitten`.
+2. Project name **`angrykitten`**. It must match `name` in the generated Wrangler config, or the
+   deploy step fails.
+3. Build command `npm run build`, deploy command `npx wrangler deploy`, root directory `/`.
+4. Before the first build, add the variables (see the table below). The worker's **Settings →
+   Variables and secrets** takes the runtime ones (Telegram, Turnstile secret, Resend).
+   **Settings → Build → Variables and secrets** takes the build-time one
+   (`PUBLIC_TURNSTILE_SITE_KEY`): it's baked into the page HTML, so a runtime variable isn't enough.
+5. Save and deploy. Every push to `main` then rebuilds and deploys. Pull requests get preview URLs.
+
+**Option B — deploy from your computer**
+
+1. `npx wrangler login` (opens the browser; you sign in).
+2. `npm run deploy` (builds, then creates or updates the `angrykitten` Worker).
+3. Set secrets with `npx wrangler secret put TELEGRAM_BOT_TOKEN` (and so on).
+   `PUBLIC_TURNSTILE_SITE_KEY` goes in `.env` before building.
+
+**Domain**
+
+`angrykitten.uz` and `angry-kitten.uz` don't resolve in DNS yet (checked 24 Nov 2026), so:
+
+1. Register `angrykitten.uz` with a `.uz` registrar if you haven't already. Set its nameservers
+   to the two Cloudflare gives you when you add the site (dashboard → Add a domain).
+2. Once the zone is active: Workers & Pages → `angrykitten` → Settings → Domains & Routes → Add →
+   Custom domain → `angrykitten.uz`. Add `www.angrykitten.uz` too, then redirect `www` to the
+   apex with a Redirect Rule. Cloudflare issues the HTTPS certificate automatically.
+3. Optional: `angry-kitten.uz` → `angrykitten.uz` redirect (below).
+4. Until then the site works on its `*.workers.dev` URL. Canonical links, the sitemap and OG
+   images point at `https://angrykitten.uz` (`site` in `astro.config.mjs`), so search engines
+   should only see the site once the real domain is live.
+
+**After the first deploy**
+
+- Send a test message through the contact form and check it arrives in Telegram.
+- Add the rate-limiting rule for `/api/contact` (see "Spam protection" below).
+- Unknown URLs get the English 404 page, including under `/uz/…` and `/ru/…`. The localized 404
+  pages exist at `/uz/404` and `/ru/404`, but the Worker serves the root one for misses.
 
 **Environment variables / secrets**
 
@@ -168,9 +203,8 @@ Or connect the GitHub repo in Workers & Pages → Create → Import a repository
 | `CONTACT_EMAIL_FROM`        | variable            | Verified sender, e.g. `AngryKitten <hello@angrykitten.uz>` |
 | `PUBLIC_TURNSTILE_SITE_KEY` | build-time (`.env`) | Turnstile site key; shows the widget                       |
 
-Set secrets with `npx wrangler secret put TELEGRAM_BOT_TOKEN` (etc.) or in the dashboard under
-Settings → Variables and secrets. Locally, copy `.dev.vars.example` to `.dev.vars` and
-`.env.example` to `.env` (both git-ignored).
+Locally, copy `.dev.vars.example` to `.dev.vars` and `.env.example` to `.env` (both
+git-ignored).
 
 **Telegram bot in 2 minutes:** message [@BotFather](https://t.me/BotFather) → `/newbot` → copy the
 token. Send your new bot any message, then open

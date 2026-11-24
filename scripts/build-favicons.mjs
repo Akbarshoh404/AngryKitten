@@ -23,7 +23,20 @@ async function icon(size, { radius = 0.22, padding = 0.1 } = {}) {
 }
 
 const out = (name, buf) => writeFile(`public/${name}`, buf);
-await out('favicon-32.png', await icon(32, { padding: 0.04 }));
+const favicon32 = await icon(32, { padding: 0.04 });
+await out('favicon-32.png', favicon32);
+// /favicon.ico: browsers and crawlers request it even with <link rel="icon">. An ICO container
+// holding the 32px PNG (6-byte header + 16-byte directory entry + image).
+const icoHeader = Buffer.alloc(22);
+icoHeader.writeUInt16LE(1, 2); // type: icon
+icoHeader.writeUInt16LE(1, 4); // one image
+icoHeader[6] = 32; // width
+icoHeader[7] = 32; // height
+icoHeader.writeUInt16LE(1, 10); // colour planes
+icoHeader.writeUInt16LE(32, 12); // bits per pixel
+icoHeader.writeUInt32LE(favicon32.length, 14);
+icoHeader.writeUInt32LE(22, 18); // image offset
+await out('favicon.ico', Buffer.concat([icoHeader, favicon32]));
 await out('apple-touch-icon.png', await icon(180, { radius: 0, padding: 0.12 }));
 await out('icon-192.png', await icon(192));
 await out('icon-512.png', await icon(512));
