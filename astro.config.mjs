@@ -9,6 +9,8 @@ import tailwindcss from '@tailwindcss/vite';
 // `export const prerender = false` (the contact form endpoint) run on
 // Cloudflare as a function.
 export default defineConfig({
+  // The floating dev toolbar sat over the hero and looked like part of the page.
+  devToolbar: { enabled: false },
   site: 'https://angrykitten.uz',
   output: 'static',
   adapter: cloudflare({ imageService: 'compile' }),

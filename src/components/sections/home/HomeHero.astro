@@ -13,11 +13,9 @@ import Phone from '../../ui/Phone.astro';
 import Button from '../../ui/Button.astro';
 import MoodToggle from '../../ui/MoodToggle.astro';
 import { appAssets } from '../../../lib/appAssets';
-import { localized } from '../../../lib/content';
 import { ctaHref } from '../../../config/nav';
 import { getDict, fill, localizePath, type Locale } from '../../../i18n/utils';
 import sticker from '../../../assets/brand/sticker.png';
-import ScratchMarks from '../../../assets/illustrations/scratch-marks.svg';
 
 type Props = { locale: Locale };
 const { locale } = Astro.props;
@@ -25,33 +23,28 @@ const dict = getDict(locale);
 const d = dict.home.hero;
 
 type MoodKey = 'play' | 'work';
-const moods: Record<MoodKey, { slugs: [string, string, string]; badge: string; filter: string }> = {
-  play: { slugs: ['catris', 'cipher', 'catloop'], badge: 'catris', filter: 'games' },
-  work: { slugs: ['pulchi', 'uybek', 'nerva'], badge: 'nerva', filter: 'apps' },
+const moods: Record<MoodKey, { slugs: [string, string, string]; filter: string }> = {
+  play: { slugs: ['catris', 'cipher', 'catloop'], filter: 'games' },
+  work: { slugs: ['pulchi', 'uybek', 'nerva'], filter: 'apps' },
 };
-// Phone poses from the Figma "Hero art" frame (580 × 700 units): centre x/y, width, rotation, parallax depth.
+// Phone poses in the 580 × 700 hero-art frame: centre x/y, width, rotation, parallax depth.
+// Based on Figma, fanned less so the phones overlap less and the screens stay readable.
 const poses = [
-  { x: 93, y: 426, w: 250, r: 9, depth: 0.6 },
-  { x: 315, y: 331, w: 280, r: 0, depth: 1 },
-  { x: 530, y: 370, w: 250, r: -8, depth: 0.8 },
+  { x: 105, y: 410, w: 215, r: 6, depth: 0.6 },
+  { x: 300, y: 340, w: 260, r: 0, depth: 1 },
+  { x: 495, y: 390, w: 215, r: -6, depth: 0.8 },
 ];
 
 const data = await Promise.all(
   (Object.keys(moods) as MoodKey[]).map(async (key) => {
     const m = moods[key];
     const apps = await Promise.all(m.slugs.map((s) => getEntry('apps', s)));
-    const badgeApp = (await getEntry('apps', m.badge))!;
     return {
       key,
       copy: d[key],
       secondaryHref: localizePath(`/work?type=${m.filter}`, locale),
       phones: m.slugs.map((slug) => appAssets(slug).screenshots[0]!),
       label: fill(d.phonesAlt, { apps: apps.map((a) => a!.data.name).join(', ') }),
-      badge: {
-        icon: appAssets(m.badge).icon!,
-        name: badgeApp.data.name,
-        meta: `${localized(badgeApp.data.text, locale).meta.split(' · ')[0]} · ${d.badgeLive}`,
-      },
     };
   }),
 );
@@ -100,7 +93,6 @@ const data = await Promise.all(
     </div>
 
     <div class="ak-hero__art" data-hero-art>
-      <ScratchMarks class="ak-hero__scratch" aria-hidden="true" />
       {data.map((m) => (
         <div class="ak-hero__set" data-for={m.key} hidden={m.key !== 'play'} role="img" aria-label={m.label}>
           {m.phones.map((shot, i) => {
@@ -135,15 +127,6 @@ const data = await Promise.all(
         class="ak-hero__sticker"
         data-drag
       />
-      {data.map((m) => (
-        <div class="ak-hero__badge" data-for={m.key} hidden={m.key !== 'play'} aria-hidden="true">
-          <Image src={m.badge.icon} alt="" width={36} height={36} densities={[1, 2]} />
-          <span>
-            <span class="ak-hero__badge-name">{m.badge.name}</span>
-            <span class="ak-hero__badge-meta">{m.badge.meta}</span>
-          </span>
-        </div>
-      ))}
     </div>
   </div>
 </section>

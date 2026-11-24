@@ -75,7 +75,7 @@ const also = games.filter((g) => !g.data.showcase);
     .ak-games {
       display: grid;
       grid-auto-flow: column;
-      grid-auto-columns: minmax(220px, 62vw);
+      grid-auto-columns: minmax(200px, 52vw);
       gap: 24px;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
@@ -90,7 +90,7 @@ const also = games.filter((g) => !g.data.showcase);
     @media (min-width: 1024px) {
       .ak-games {
         grid-auto-flow: row;
-        grid-template-columns: repeat(4, minmax(0, 264px));
+        grid-template-columns: repeat(4, minmax(0, 220px));
         justify-content: space-between;
         overflow: visible;
         margin-inline: 0;

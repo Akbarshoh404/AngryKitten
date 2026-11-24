@@ -16,9 +16,7 @@
     "footerNav": "Footer",
     "opensInNewTab": "opens in a new tab",
     "breadcrumb": "Breadcrumb",
-    "linkSoon": "Link coming soon",
-    "pauseMotion": "Pause scrolling text",
-    "playMotion": "Play scrolling text"
+    "linkSoon": "Link coming soon"
   },
   "nav": {
     "work": "Work",
@@ -98,18 +96,6 @@
       "phonesAlt": "Screens from {apps}",
       "badgeLive": "Live"
     },
-    "ticker": {
-      "label": "Studio highlights",
-      "items": [
-        "New: Cipher is out",
-        "12 apps live",
-        "Offline-first",
-        "EN · UZ · RU",
-        "Private by default",
-        "Made in Tashkent",
-        "3 more coming"
-      ]
-    },
     "shelf": {
       "eyebrow": "Shipped by the kitten · {total} apps",
       "meta": "{live} live · {coming} coming soon",
@@ -186,12 +172,6 @@
           "body": "Store listing, release on Google Play, then updates and support when you need them."
         }
       ]
-    },
-    "team": {
-      "eyebrow": "The litter",
-      "title": "The people behind the **claws.**",
-      "body": "A small team on purpose. You talk to the people who design and build your app.",
-      "all": "Meet the studio"
     },
     "cta": {
       "line1": "Have an idea?",

@@ -17,9 +17,7 @@
     "footerNav": "Pastki menyu",
     "opensInNewTab": "yangi oynada ochiladi",
     "breadcrumb": "Navigatsiya yoʻli",
-    "linkSoon": "Havola tez kunda",
-    "pauseMotion": "Harakatlanuvchi matnni toʻxtatish",
-    "playMotion": "Harakatlanuvchi matnni davom ettirish"
+    "linkSoon": "Havola tez kunda"
   },
   "nav": {
     "work": "Ishlar",
@@ -99,18 +97,6 @@
       "phonesAlt": "{apps} ekranlari",
       "badgeLive": "Faol"
     },
-    "ticker": {
-      "label": "Studiya yangiliklari",
-      "items": [
-        "Yangi: Cipher chiqdi",
-        "12 ta ilova faol",
-        "Internetsiz ishlaydi",
-        "EN · UZ · RU",
-        "Maxfiylik birinchi oʻrinda",
-        "Toshkentda yaratilgan",
-        "Yana 3 tasi yoʻlda"
-      ]
-    },
     "shelf": {
       "eyebrow": "Mushukcha chiqargan · {total} ta ilova",
       "meta": "{live} ta faol · {coming} ta tez kunda",
@@ -187,12 +173,6 @@
           "body": "Doʻkon sahifasi, Google Playʼda chiqarish, soʻng kerak boʻlganda yangilanishlar va qoʻllab-quvvatlash."
         }
       ]
-    },
-    "team": {
-      "eyebrow": "Bizning toʻda",
-      "title": "**Tirnoqlar** ortidagi odamlar.",
-      "body": "Ataylab kichik jamoa. Siz ilovangizni loyihalab, yaratayotgan odamlar bilan gaplashasiz.",
-      "all": "Studiya bilan tanishing"
     },
     "cta": {
       "line1": "Gʻoyangiz bormi?",

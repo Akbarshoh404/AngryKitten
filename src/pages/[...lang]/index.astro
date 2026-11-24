@@ -2,14 +2,12 @@
 /** Home — Figma 7:3 (desktop) / 15:2 (mobile). */
 import PageLayout from '../../layouts/PageLayout.astro';
 import HomeHero from '../../components/sections/home/HomeHero.astro';
-import Ticker from '../../components/sections/home/Ticker.astro';
 import AppShelf from '../../components/sections/AppShelf.astro';
 import SelectedWork from '../../components/sections/home/SelectedWork.astro';
 import GamesLab from '../../components/sections/home/GamesLab.astro';
 import ServicesGrid from '../../components/sections/home/ServicesGrid.astro';
 import WhyUs from '../../components/sections/home/WhyUs.astro';
 import ProcessSection from '../../components/sections/home/ProcessSection.astro';
-import TeamSection from '../../components/sections/TeamSection.astro';
 import CtaPounce from '../../components/sections/home/CtaPounce.astro';
 import HomeContact from '../../components/sections/home/HomeContact.astro';
 import { getDict, localeStaticPaths, type Locale } from '../../i18n/utils';
@@ -18,24 +16,17 @@ export const getStaticPaths = localeStaticPaths;
 type Props = { locale: Locale };
 const { locale } = Astro.props;
 const d = getDict(locale).home;
+// The team lives on the Studio page; Home stays focused on work, services and getting in touch.
 ---
 
 <PageLayout locale={locale} title={d.meta.title} description={d.meta.description} theme="tangerine">
   <HomeHero locale={locale} />
-  <Ticker locale={locale} />
   <AppShelf locale={locale} />
   <SelectedWork locale={locale} />
   <GamesLab locale={locale} />
   <ServicesGrid locale={locale} />
   <WhyUs locale={locale} />
   <ProcessSection locale={locale} />
-  <TeamSection
-    locale={locale}
-    eyebrow={d.team.eyebrow}
-    title={d.team.title}
-    body={d.team.body}
-    linkLabel={d.team.all}
-  />
   <CtaPounce locale={locale} />
   <HomeContact locale={locale} />
 </PageLayout>
