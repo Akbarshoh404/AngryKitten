@@ -6,7 +6,7 @@ games live on Google Play, 3 more coming, plus client work (apps, games, website
 - **Stack:** Astro 6 · TypeScript (strict) · Tailwind CSS 4 · a few React islands · Motion · Cloudflare
 - **Design source:** Figma file `WH6iV3GR9tqWfBb7Xn15lr` (AngryKitten — Studio Website v2)
 - **Languages:** English at `/`, Uzbek at `/uz/`, Russian at `/ru/`
-- **Production URL:** https://angrykitten.uz
+- **Production URL:** https://angrykitten.uz        and https://angry-kitten.uz
 
 ---
 
